@@ -6,6 +6,7 @@
 
 export const calc = () => {
   //From DOM
+  //   debugger
   const currentDate = Date.now()
   //Race Form
   const raceDistance = 6
@@ -21,17 +22,33 @@ export const calc = () => {
 
   //   Determines Distance Increace
   const startDistance = raceDistance * startDistPercent
+  // .5
   const distanceIncrementer = (raceDistance - startDistance) / daysBetween
+  //   .214
 
   //   Determines Speed Increase
 
   const goalSpeedInMinPerMile = goalRaceTime / raceDistance
+  //   10
   const goalSpeedInMPH = goalRaceTime / goalSpeedInMinPerMile
+  // 6
+  const startPaceInMPH = goalSpeedInMPH * startPacePercent
+  // 4.8
+  const startPaceInMinPerMile = goalRaceTime / startPaceInMPH
+  // 12.5
+  //   const speedIncrementer = (startPaceInMinPerMile - goalSpeedInMinPerMile) / (daysBetween - 1)
+  // .19
 
-  const startPace = goalSpeedInMPH * startPacePercent
+  const speedIncrementer =
+    (goalRaceTime / (goalSpeedInMPH * startPacePercent) - goalSpeedInMinPerMile) / (daysBetween - 1)
+  // This would be manage with useEffect ad setState?
+  let speedOverTime = startPaceInMinPerMile
+  let day = 2
+  console.log("Day 1: ", speedOverTime)
+  for (let i = 0; i < daysBetween - 1; i++) {
+    speedOverTime -= speedIncrementer
+    console.log("Day", day, ":", speedOverTime)
 
-  console.log(startPace)
-  //   console.log(goalSpeedInMPH)
-
-  //   console.log(daysBetween)
+    day++
+  }
 }
