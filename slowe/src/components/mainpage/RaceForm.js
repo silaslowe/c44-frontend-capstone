@@ -32,7 +32,7 @@ export const RaceForm = (props) => {
         date: raceDateToMilli,
         distance: raceTotalDistanceInt,
         startDate: startDate,
-      })
+      }).then(() => props.history.push("/Tigers"))
     }
   }
   return (
@@ -111,6 +111,7 @@ export const RaceForm = (props) => {
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()
+          props.history.push("/")
         }}
         className="btn btn-primary"
       >
