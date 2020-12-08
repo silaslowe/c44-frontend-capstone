@@ -4,10 +4,11 @@ import { Route, Redirect } from "react-router-dom"
 // import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
+import { ApplicationViews } from "./ApplicationView"
 
 console.log(localStorage.app_user_id)
 // localStorage.setItem("app_user_id", "")
-export const Slowe = () => (
+export const Slowe = (props) => (
   <>
     <Route
       render={() => {
@@ -15,7 +16,7 @@ export const Slowe = () => (
         if (localStorage.getItem("app_user_id")) {
           return (
             <>
-              <h1>Hello Werld</h1>
+              <Route exact path="/" render={(props) => <ApplicationViews {...props} />} />
             </>
           )
         } else {
