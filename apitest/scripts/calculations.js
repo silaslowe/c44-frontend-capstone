@@ -4,28 +4,32 @@
 // desiredRaceTime = dist percent from parameters input
 // startDist = dist percent from parameters input
 
-export const calc = () => {
-  //From DOM
-  //   debugger
-  const currentDate = Date.now()
-  //Race Form
-  const raceDistance = 6
-  const raceDate = new Date(1608530400000)
+//From DOM
+//   debugger
+const currentDate = Date.now()
+//Race Form
+const raceDistance = 6
 
-  //   From Parameters
-  const startDistPercent = 0.5
-  //   This is in min for now but will be hr/min/sec
-  const goalRaceTime = 60
-  const startPacePercent = 0.8
+const raceDate = new Date(1608616800000)
 
-  const daysBetween = Math.ceil((raceDate - currentDate) / (24 * 60 * 60 * 1000))
+//   From Parameters
+const startDistPercent = 0.5
+//   This is in min for now but will be hr/min/sec
+const goalRaceTime = 60
+const startPacePercent = 0.8
 
+const daysBetween = Math.ceil((raceDate - currentDate) / (24 * 60 * 60 * 1000))
+
+export const calcDist = () => {
   //   Determines Distance Increace
   const startDistance = raceDistance * startDistPercent
   // .5
   const distanceIncrementer = (raceDistance - startDistance) / daysBetween
   //   .214
+  console.log("distance increase each day", distanceIncrementer)
+}
 
+export const calcSpeed = () => {
   //   Determines Speed Increase
 
   const goalSpeedInMinPerMile = goalRaceTime / raceDistance
@@ -47,7 +51,7 @@ export const calc = () => {
   console.log("Day 1: ", speedOverTime)
   for (let i = 0; i < daysBetween - 1; i++) {
     speedOverTime -= speedIncrementer
-    console.log("Day", day, ":", speedOverTime)
+    console.log("Day", day, ":", speedOverTime, "MPM")
 
     day++
   }
