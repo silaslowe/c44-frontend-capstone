@@ -7,21 +7,31 @@ export const RaceForm = (props) => {
   const name = useRef(null)
   const state = useRef(null)
   const city = useRef(null)
-  const date = useRef(null)
+  const raceDate = useRef(null)
   const raceTotalDistance = useRef(null)
+  const startDate = Date.now()
 
   const constructNewRace = () => {
     const raceTotalDistanceInt = parseFloat(raceTotalDistance.current.value)
+    // const dateToMilli = Date.parse(raceDate)
+    const raceDateToMilli = Date.parse(raceDate.current.value)
 
-    if (city === "" || state === "" || date === "" || raceTotalDistanceInt === "" || name === "") {
+    if (
+      city === "" ||
+      state === "" ||
+      raceDate === "" ||
+      raceTotalDistanceInt === "" ||
+      name === ""
+    ) {
       window.alert("Please fill out form")
     } else {
       addRace({
         name: name.current.value,
         state: state.current.value,
         city: city.current.value,
-        date: date.current.value,
+        date: raceDateToMilli,
         distance: raceTotalDistanceInt,
+        startDate: startDate,
       })
     }
   }
@@ -92,9 +102,10 @@ export const RaceForm = (props) => {
       <fieldset>
         <div className="form-group">
           <label htmlFor="raceDistance ">Distance</label>
-          <input type="date" id="raceDate" ref={date} required className="form-control" />
+          <input type="date" id="raceDate" ref={raceDate} required className="form-control" />
         </div>
       </fieldset>
+      {/* Submit */}
       <button
         type="submit"
         onClick={(ev) => {
@@ -103,7 +114,7 @@ export const RaceForm = (props) => {
         }}
         className="btn btn-primary"
       >
-        Save Employee
+        Save Race
       </button>
     </form>
   )
