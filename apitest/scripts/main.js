@@ -1,5 +1,5 @@
 // import { getRaces, useRaces } from "./DataProvider.js"
-import { calc } from "./calculations.js"
+import { calcDist, calcSpeed } from "./calculations.js"
 
 // const results = () => {
 //   getRaces().then(() => {
@@ -11,4 +11,5 @@ import { calc } from "./calculations.js"
 // console.log("test", results())
 // results()
 
-calc()
+calcDist()
+calcSpeed()
