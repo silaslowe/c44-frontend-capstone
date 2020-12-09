@@ -5,15 +5,17 @@ import { RaceForm } from "./races/RaceForm"
 import { RaceDisplay } from "./mainpage/RaceDisplay"
 import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
 import { WorkoutProvider } from "./workouts/WorkoutProvider"
+import { WorkoutGenerator } from "./workouts/WorkoutGenerator"
 
 export const ApplicationViews = (props) => {
-  const { getRaceSelected, selectedRace } = useContext(RacesContext)
+  const { getSelectedRace, selectedRace } = useContext(RacesContext)
 
   useEffect(() => {
-    getRaceSelected()
+    getSelectedRace()
   }, [])
 
-  localStorage.setItem("current_race", selectedRace.id)
+  // localStorage.setItem("current_race", selectedRace.id)
+  // localStorage.setItem("current_race", "")
   console.log(localStorage)
   // if (!localStorage.getItem("current_race")) {
   //   return (
@@ -26,17 +28,15 @@ export const ApplicationViews = (props) => {
   // } else
   return (
     <>
-      <RacesProvider>
+      {/* <RacesProvider>
         <WorkoutProvider>
           <Route exact path="/" render={(props) => <RaceDisplay {...props} />} />
           {console.log("Working?", localStorage)}
           <Route exact path="/" render={(props) => <WorkoutsDisplay {...props} />} />
         </WorkoutProvider>
-      </RacesProvider>
+      </RacesProvider> */}
+      {/* <Route exact path="/" render={(props) => <RaceForm {...props} />} /> */}
+      <Route exact path="/" render={(props) => <WorkoutGenerator {...props} />} />
     </>
   )
-}
-
-{
-  /* <Route exact path="/" render={(props) => <RaceForm {...props} />} /> */
 }

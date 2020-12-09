@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from "react"
+import { WorkoutGenerator } from "../workouts/WorkoutGenerator"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
@@ -34,9 +35,10 @@ export const RaceForm = (props) => {
         distance: raceTotalDistanceInt,
         startDate: startDate,
         userId: userId,
-      }).then(() => props.history.push("/race-form"))
+      })
     }
   }
+
   return (
     <form className="raceForm">
       <h2 className="raceForm__title">New Race</h2>

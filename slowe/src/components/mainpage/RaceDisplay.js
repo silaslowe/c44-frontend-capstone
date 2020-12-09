@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from "react"
 import { RacesContext } from "../races/RacesProvider"
 
 export const RaceDisplay = () => {
-  const { getRaceSelected, selectedRace } = useContext(RacesContext)
+  const { getSelectedRace, selectedRace } = useContext(RacesContext)
 
   useEffect(() => {
-    getRaceSelected()
+    getSelectedRace()
   }, [])
 
   const name = selectedRace.name
