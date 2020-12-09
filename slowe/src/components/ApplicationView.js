@@ -15,7 +15,15 @@ export const ApplicationViews = (props) => {
 
   localStorage.setItem("current_race", selectedRace.id)
   console.log(localStorage)
-
+  // if (!localStorage.getItem("current_race")) {
+  //   return (
+  //     <>
+  //       <RacesProvider>
+  //         <Route path="/form" render={(props) => <RaceForm {...props} />} />
+  //       </RacesProvider>
+  //     </>
+  //   )
+  // } else
   return (
     <>
       <RacesProvider>
