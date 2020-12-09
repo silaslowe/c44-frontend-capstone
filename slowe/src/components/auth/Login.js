@@ -4,9 +4,6 @@ import { RacesContext } from "../races/RacesProvider"
 import "./Login.css"
 
 export const Login = (props) => {
-  // const { getRaceSelected, selectedRace } = useContext(RacesContext)
-  // const [currentUser, setCurrentUser] = useState({})
-
   const email = useRef()
   const password = useRef()
   const existDialog = useRef()
@@ -18,10 +15,6 @@ export const Login = (props) => {
     return fetch(`http://localhost:8088/users?email=${email.current.value}`)
       .then((_) => _.json())
       .then((user) => (user.length ? user[0] : false))
-    // .then((curUser) => {
-    //   setCurrentUser(curUser)
-    //   return currentUser
-    // })
   }
 
   const handleLogin = (e) => {

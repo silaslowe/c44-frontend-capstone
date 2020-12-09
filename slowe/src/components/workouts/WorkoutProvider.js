@@ -14,8 +14,17 @@ export const WorkoutProvider = (props) => {
       })
       .then(setWorkouts)
   }
+  const addWorkout = (workout) => {
+    return fetch("http://localhost:8088/workouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(workout),
+    })
+  }
   return (
-    <WorkoutContext.Provider value={{ workouts, getWorkoutsByRace }}>
+    <WorkoutContext.Provider value={{ workouts, getWorkoutsByRace, addWorkout }}>
       {props.children}
     </WorkoutContext.Provider>
   )

@@ -13,7 +13,7 @@ export const RacesProvider = (props) => {
       .then(console.log(races))
   }
 
-  const getRaceSelected = () => {
+  const getSelectedRace = () => {
     return fetch("http://localhost:8088/races")
       .then((res) => res.json())
       .then((parsed) => {
@@ -47,7 +47,7 @@ export const RacesProvider = (props) => {
   }
   return (
     <RacesContext.Provider
-      value={{ races, selectedRace, getRaces, addRace, editRace, getRaceSelected }}
+      value={{ races, selectedRace, getRaces, addRace, editRace, getSelectedRace }}
     >
       {props.children}
     </RacesContext.Provider>

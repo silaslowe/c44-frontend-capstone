@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from "react"
 import { RacesContext } from "../races/RacesProvider"
+import { Link } from "react-router-dom"
 
-export const RaceDisplay = () => {
-  const { getRaceSelected, selectedRace } = useContext(RacesContext)
+export const RaceDisplay = (props) => {
+  const { getSelectedRace, selectedRace } = useContext(RacesContext)
 
   useEffect(() => {
-    getRaceSelected()
+    getSelectedRace()
   }, [])
 
   const name = selectedRace.name
@@ -23,6 +24,9 @@ export const RaceDisplay = () => {
         <p>City :{city}</p>
         <p>State:{state}</p>
         <p>Date: {raceDate}</p>
+        <button>
+          <Link to="/raceform"> Form </Link>
+        </button>
       </div>
     </>
   )
