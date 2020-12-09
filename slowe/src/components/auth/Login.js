@@ -1,18 +1,27 @@
-import React, { useRef } from "react"
+import React, { useRef, useEffect, useContext, useState } from "react"
 import { Link } from "react-router-dom"
+import { RacesContext } from "../races/RacesProvider"
 import "./Login.css"
 
 export const Login = (props) => {
+  // const { getRaceSelected, selectedRace } = useContext(RacesContext)
+  // const [currentUser, setCurrentUser] = useState({})
+
   const email = useRef()
   const password = useRef()
   const existDialog = useRef()
   const passwordDialog = useRef()
 
   const existingUserCheck = () => {
+    // debugger
     // If your json-server URL is different, please change it below!
     return fetch(`http://localhost:8088/users?email=${email.current.value}`)
       .then((_) => _.json())
       .then((user) => (user.length ? user[0] : false))
+    // .then((curUser) => {
+    //   setCurrentUser(curUser)
+    //   return currentUser
+    // })
   }
 
   const handleLogin = (e) => {
@@ -22,6 +31,7 @@ export const Login = (props) => {
       if (exists && exists.password === password.current.value) {
         // The user id is saved under the key app_user_id in local Storage. Change below if needed!
         localStorage.setItem("app_user_id", exists.id)
+        // localStorage.setItem("current_race", selectedRace.userId)
         props.history.push("/")
       } else if (exists && exists.password !== password.current.value) {
         passwordDialog.current.showModal()
