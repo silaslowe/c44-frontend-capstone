@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext, useRef } from "react"
-import { RacesContext } from "../races/RacesProvider"
+import React, { useContext, useRef } from "react"
+import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
   const { addRace } = useContext(RacesContext)
@@ -15,6 +15,7 @@ export const RaceForm = (props) => {
     const raceTotalDistanceInt = parseFloat(raceTotalDistance.current.value)
     // const dateToMilli = Date.parse(raceDate)
     const raceDateToMilli = Date.parse(raceDate.current.value)
+    const userId = parseInt(localStorage.app_user_id)
 
     if (
       city === "" ||
@@ -32,7 +33,8 @@ export const RaceForm = (props) => {
         date: raceDateToMilli,
         distance: raceTotalDistanceInt,
         startDate: startDate,
-      }).then(() => props.history.push("/Tigers"))
+        userId: userId,
+      }).then(() => props.history.push("/race-form"))
     }
   }
   return (
@@ -108,6 +110,7 @@ export const RaceForm = (props) => {
       {/* Submit */}
       <button
         type="submit"
+        to="/race-form"
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()

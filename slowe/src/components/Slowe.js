@@ -5,9 +5,12 @@ import { Route, Redirect } from "react-router-dom"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import { ApplicationViews } from "./ApplicationView"
+import { RaceForm } from "./races/RaceForm"
+import { RacesProvider, RacesContext } from "./races/RacesProvider"
 
-console.log(localStorage.app_user_id)
 // localStorage.setItem("app_user_id", "")
+console.log(localStorage)
+
 export const Slowe = (props) => (
   <>
     <Route
@@ -16,7 +19,9 @@ export const Slowe = (props) => (
         if (localStorage.getItem("app_user_id")) {
           return (
             <>
-              <Route exact path="/" render={(props) => <ApplicationViews {...props} />} />
+              <RacesProvider>
+                <ApplicationViews />
+              </RacesProvider>
             </>
           )
         } else {

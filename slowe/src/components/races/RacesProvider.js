@@ -1,14 +1,30 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 export const RacesContext = React.createContext()
 
 export const RacesProvider = (props) => {
   const [races, setRaces] = useState([])
+  const [selectedRace, setSelectedRace] = useState([])
 
   const getRaces = () => {
     return fetch("http://localhost:8088/races")
       .then((res) => res.json())
-      .then(setRaces)
+      .then(setSelectedRace)
+      .then(console.log(races))
+  }
+
+  const getRaceSelected = () => {
+    return fetch(`http://localhost:8088/races`)
+      .then((res) => res.json())
+      .then((parsed) => {
+        const currentUser = parseInt(localStorage.getItem("app_user_id"))
+        const selected = parsed
+          .filter((race) => race.userId === currentUser)
+          .sort((a, b) => b.startDate - a.startDate)
+        console.log(selected[0])
+        return selected[0]
+      })
+      .then(setSelectedRace)
   }
 
   const addRace = (race) => {
@@ -31,7 +47,9 @@ export const RacesProvider = (props) => {
     }).then(getRaces)
   }
   return (
-    <RacesContext.Provider value={{ races, getRaces, addRace, editRace }}>
+    <RacesContext.Provider
+      value={{ races, selectedRace, getRaces, addRace, editRace, getRaceSelected }}
+    >
       {props.children}
     </RacesContext.Provider>
   )
