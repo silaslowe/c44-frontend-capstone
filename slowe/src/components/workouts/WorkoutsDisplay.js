@@ -5,7 +5,7 @@ export const WorkoutsDisplay = () => {
   const { getWorkoutsByRace, workouts } = useContext(WorkoutContext)
 
   useEffect(() => {
-    getWorkoutsByRace().then(() => console.log(workouts))
+    getWorkoutsByRace()
   }, [])
   return <>Workouts Display</>
 }

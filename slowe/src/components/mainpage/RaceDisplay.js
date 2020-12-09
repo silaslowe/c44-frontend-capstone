@@ -8,8 +8,6 @@ export const RaceDisplay = () => {
     getRaceSelected()
   }, [])
 
-  console.log(selectedRace)
-
   const name = selectedRace.name
   const city = selectedRace.city
   const state = selectedRace.state

@@ -14,14 +14,13 @@ export const RacesProvider = (props) => {
   }
 
   const getRaceSelected = () => {
-    return fetch(`http://localhost:8088/races`)
+    return fetch("http://localhost:8088/races")
       .then((res) => res.json())
       .then((parsed) => {
         const currentUser = parseInt(localStorage.getItem("app_user_id"))
         const selected = parsed
           .filter((race) => race.userId === currentUser)
           .sort((a, b) => b.startDate - a.startDate)
-        console.log(selected[0])
         return selected[0]
       })
       .then(setSelectedRace)
