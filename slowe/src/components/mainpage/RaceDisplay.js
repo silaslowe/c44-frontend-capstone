@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from "react"
 import { RacesContext } from "../races/RacesProvider"
+import { Link } from "react-router-dom"
 
-export const RaceDisplay = () => {
+export const RaceDisplay = (props) => {
   const { getSelectedRace, selectedRace } = useContext(RacesContext)
 
   useEffect(() => {
@@ -23,6 +24,9 @@ export const RaceDisplay = () => {
         <p>City :{city}</p>
         <p>State:{state}</p>
         <p>Date: {raceDate}</p>
+        <button>
+          <Link to="/raceform"> Form </Link>
+        </button>
       </div>
     </>
   )

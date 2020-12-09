@@ -1,9 +1,10 @@
-import React, { useContext, useRef } from "react"
+import React, { useContext, useRef, useState } from "react"
 import { WorkoutGenerator } from "../workouts/WorkoutGenerator"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
   const { addRace } = useContext(RacesContext)
+  console.log(localStorage)
 
   const name = useRef(null)
   const state = useRef(null)
@@ -112,7 +113,6 @@ export const RaceForm = (props) => {
       {/* Submit */}
       <button
         type="submit"
-        to="/race-form"
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()
