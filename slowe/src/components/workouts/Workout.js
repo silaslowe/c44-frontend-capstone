@@ -1,3 +1,8 @@
 import React from "react"
 
-export const Workout = () => <h1>HI</h1>
+export const Workout = ({ workout }) => (
+  <div>
+    <p>{workout.distanceGoal}</p>
+    <p>workout.raceId</p>
+  </div>
+)
