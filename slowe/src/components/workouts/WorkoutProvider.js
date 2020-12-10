@@ -9,11 +9,22 @@ export const WorkoutProvider = (props) => {
     return fetch("http://localhost:8088/workouts")
       .then((res) => res.json())
       .then((parsed) => {
-        const parsedWorkouts = parsed.filter((workout) => workout.raceId === raceId)
+        const currentRace = parseInt(localStorage.getItem("current_race"))
+        const parsedWorkouts = parsed.filter((workout) => {
+          console.log(workout)
+          return workout.raceId === currentRace
+        })
         return parsedWorkouts
       })
       .then(setWorkouts)
   }
+
+  const getWorkouts = () => {
+    return fetch("http://localhost:8088/workouts")
+      .then((res) => res.json())
+      .then(setWorkouts)
+  }
+
   const addWorkout = (workout) => {
     return fetch("http://localhost:8088/workouts", {
       method: "POST",
@@ -24,7 +35,7 @@ export const WorkoutProvider = (props) => {
     })
   }
   return (
-    <WorkoutContext.Provider value={{ workouts, getWorkoutsByRace, addWorkout }}>
+    <WorkoutContext.Provider value={{ workouts, getWorkoutsByRace, addWorkout, getWorkouts }}>
       {props.children}
     </WorkoutContext.Provider>
   )

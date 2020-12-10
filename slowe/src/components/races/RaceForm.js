@@ -1,10 +1,11 @@
-import React, { useContext, useRef, useState } from "react"
-import { WorkoutGenerator } from "../workouts/WorkoutGenerator"
+import React, { useContext, useRef } from "react"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
   const { addRace } = useContext(RacesContext)
-  console.log(localStorage)
+  if (localStorage.getItem("current_race") !== "undefined") {
+    props.history.push("/")
+  }
 
   const name = useRef(null)
   const state = useRef(null)
@@ -21,7 +22,7 @@ export const RaceForm = (props) => {
 
     if (
       city === "" ||
-      state === "" ||
+      state === "0" ||
       raceDate === "" ||
       raceTotalDistanceInt === "" ||
       name === ""
@@ -106,7 +107,7 @@ export const RaceForm = (props) => {
       {/* Date */}
       <fieldset>
         <div className="form-group">
-          <label htmlFor="raceDistance ">Distance</label>
+          <label htmlFor="raceDate">Date</label>
           <input type="date" id="raceDate" ref={raceDate} required className="form-control" />
         </div>
       </fieldset>

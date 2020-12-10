@@ -1,13 +1,10 @@
 import React from "react"
-import { Route, Redirect, Switch } from "react-router-dom"
-// import { ApplicationViews } from "./ApplicationViews"
-// import { NavBar } from "./nav/NavBar"
+import { Route, Redirect } from "react-router-dom"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import { ApplicationViews } from "./ApplicationView"
 import { RacesProvider } from "./races/RacesProvider"
 
-console.log(localStorage)
 // localStorage.setItem("app_user_id", "")
 // localStorage.setItem("current_race", "")
 
