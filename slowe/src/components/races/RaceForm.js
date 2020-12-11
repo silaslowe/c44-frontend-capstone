@@ -1,11 +1,14 @@
-import React, { useContext, useRef } from "react"
+import React, { useContext, useRef, useEffect } from "react"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
-  const { addRace } = useContext(RacesContext)
-  if (localStorage.getItem("current_race") !== "undefined") {
-    props.history.push("/")
-  }
+  const { addRace, lastRace, getLastRace } = useContext(RacesContext)
+
+  useEffect(() => {
+    getLastRace()
+  })
+
+  console.log("last", lastRace)
 
   const name = useRef(null)
   const state = useRef(null)
@@ -37,6 +40,9 @@ export const RaceForm = (props) => {
         distance: raceTotalDistanceInt,
         startDate: startDate,
         userId: userId,
+        startDistPercent: "",
+        goalRaceTime: "",
+        startPacePercent: "",
       })
     }
   }
@@ -117,7 +123,7 @@ export const RaceForm = (props) => {
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()
-          props.history.push("/")
+          props.history.push("/set-params")
         }}
         className="btn btn-primary"
       >

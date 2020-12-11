@@ -5,21 +5,29 @@ export const RacesContext = React.createContext()
 export const RacesProvider = (props) => {
   const [races, setRaces] = useState([])
   const [selectedRace, setSelectedRace] = useState([])
+  const [lastRace, setLastRace] = useState([])
 
   const getRaces = () => {
     return fetch("http://localhost:8088/races")
       .then((res) => res.json())
-      .then(setSelectedRace)
-      .then(console.log(races))
+      .then(setRaces)
   }
 
-  const getSelectedRace = () => {
+  const getLastRace = () => {
     return fetch("http://localhost:8088/races")
       .then((res) => res.json())
       .then((parsed) => {
-        const currentUser = parseInt(localStorage.getItem("app_user_id"))
+        parsed.sort((a, b) => b.startDate - a.startDate)
+      })
+      .then(setLastRace)
+  }
+
+  const getSelectedRace = (id) => {
+    return fetch("http://localhost:8088/races")
+      .then((res) => res.json())
+      .then((parsed) => {
         const selected = parsed
-          .filter((race) => race.userId === currentUser)
+          .filter((race) => race.userId === id)
           .sort((a, b) => b.startDate - a.startDate)
         return selected[0]
       })
@@ -47,7 +55,17 @@ export const RacesProvider = (props) => {
   }
   return (
     <RacesContext.Provider
-      value={{ races, selectedRace, getRaces, addRace, editRace, getSelectedRace }}
+      value={{
+        races,
+        selectedRace,
+        getRaces,
+        addRace,
+        editRace,
+        getSelectedRace,
+        lastRace,
+        getLastRace,
+        editRace,
+      }}
     >
       {props.children}
     </RacesContext.Provider>
