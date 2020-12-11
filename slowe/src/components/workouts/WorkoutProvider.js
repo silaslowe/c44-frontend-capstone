@@ -5,13 +5,12 @@ export const WorkoutContext = React.createContext()
 export const WorkoutProvider = (props) => {
   const [workouts, setWorkouts] = useState([])
 
-  const getWorkoutsByRace = (raceId) => {
+  const getWorkoutsByRace = () => {
     return fetch("http://localhost:8088/workouts")
       .then((res) => res.json())
       .then((parsed) => {
         const currentRace = parseInt(localStorage.getItem("current_race"))
         const parsedWorkouts = parsed.filter((workout) => {
-          console.log(workout)
           return workout.raceId === currentRace
         })
         return parsedWorkouts
@@ -35,7 +34,9 @@ export const WorkoutProvider = (props) => {
     })
   }
   return (
-    <WorkoutContext.Provider value={{ workouts, getWorkoutsByRace, addWorkout, getWorkouts }}>
+    <WorkoutContext.Provider
+      value={{ workouts, getWorkoutsByRace, addWorkout, getWorkouts, setWorkouts }}
+    >
       {props.children}
     </WorkoutContext.Provider>
   )
