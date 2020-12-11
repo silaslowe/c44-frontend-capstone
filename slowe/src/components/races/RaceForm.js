@@ -1,15 +1,21 @@
-import React, { useContext, useRef, useEffect } from "react"
+import React, { useContext, useRef, useEffect, useState } from "react"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
-  const { addRace, lastRace, getLastRace } = useContext(RacesContext)
+  const { addRace, getRaces, races } = useContext(RacesContext)
+  const [lastRace, setLastRace] = useState("")
 
   useEffect(() => {
-    getLastRace()
+    getRaces()
+  }, [])
+
+  const sortRaces = () => {
+    const sortedRaces = races.sort((a, b) => b.startDate - a.startDate)
+    return sortedRaces[0]
+  }
+  useEffect(() => {
+    setLastRace(sortRaces())
   })
-
-  console.log("last", lastRace)
-
   const name = useRef(null)
   const state = useRef(null)
   const city = useRef(null)
@@ -123,7 +129,8 @@ export const RaceForm = (props) => {
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()
-          props.history.push("/set-params")
+          localStorage.setItem("current_race", lastRace.id + 1)
+          props.history.push("/workout")
         }}
         className="btn btn-primary"
       >

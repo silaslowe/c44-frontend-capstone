@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Route, Redirect } from "react-router-dom"
 import { RacesProvider, RacesContext } from "./races/RacesProvider"
 import { RaceForm } from "./races/RaceForm"
@@ -9,7 +9,22 @@ import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
 import { Home } from "./homepage/Home"
 
 export const ApplicationViews = (props) => {
-  const { getSelectedRace, selectedRace } = useContext(RacesContext)
+  const { getRaces, races } = useContext(RacesContext)
+  const currentUser = parseInt(localStorage.getItem("app_user_id"))
+  const [selectedRace, setSelectedRace] = useState({})
+
+  useEffect(() => {
+    getRaces()
+  }, [])
+
+  const currentRace = () => {
+    const racesForUser = races.filter((race) => race.userId === currentUser)
+    const currentRace = racesForUser.find((race) => !race.isComplete) || {}
+    return currentRace
+  }
+  useEffect(() => {
+    setSelectedRace(currentRace())
+  }, [races])
 
   // Pulls the most recent race for the current user
   // useEffect(() => {
@@ -23,11 +38,21 @@ export const ApplicationViews = (props) => {
   return (
     <>
       <RacesProvider>
-        <Route exact path="/" render={(props) => <Home {...props} />} />
+        <WorkoutProvider>
+          <Route
+            exact
+            path="/"
+            render={(props) => <Home {...props} selectedRace={selectedRace} />}
+          />
+        </WorkoutProvider>
       </RacesProvider>
 
-      {/* <RacesProvider>
-        <Route exact path="/set-params" render={(props) => <RaceDisplay {...props} />} />
+      <RacesProvider>
+        <Route
+          exact
+          path="/set-params"
+          render={(props) => <RaceDisplay {...props} selectedRace={selectedRace} />}
+        />
       </RacesProvider>
 
       <RacesProvider>
@@ -37,13 +62,27 @@ export const ApplicationViews = (props) => {
             path="/workout"
             render={(props) => (
               <>
-                <RaceDisplay {...props} />
-                <WorkoutGenerator {...props} />
+                <RaceDisplay {...props} selectedRace={selectedRace} />
               </>
             )}
           />
         </WorkoutProvider>
-      </RacesProvider> */}
+      </RacesProvider>
+
+      <RacesProvider>
+        <WorkoutProvider>
+          <Route
+            exact
+            path="/workout-display"
+            render={(props) => (
+              <>
+                <RaceDisplay {...props} selectedRace={selectedRace} />
+                <WorkoutsDisplay {...props} selectedRace={selectedRace} />
+              </>
+            )}
+          />
+        </WorkoutProvider>
+      </RacesProvider>
 
       <RacesProvider>
         <Route exact path="/raceform" render={(props) => <RaceForm {...props} />} />
