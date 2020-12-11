@@ -38,16 +38,14 @@ export const WorkoutGenerator = (props) => {
   // If there are no races for the user this will redirect the user to the race form page.
 
   const generator = () => {
-    console.log("in get", workouts.length)
-    startDate = selectedRace.startDate
-    raceDate = selectedRace.date
+    startDate = props.startDate
+    raceDate = props.date
     const daysBetween = Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000))
-    console.log(workouts)
     if (workouts.length === 0) {
       for (let i = 0; i < daysBetween; i++) {
         workoutArray.push({
           raceId: parseInt(localStorage.getItem("current_race")),
-          distanceGoal: selectedRace.distance,
+          distanceGoal: props.distance,
           timeGoal: "",
           speedGoal: "",
           workoutDist: "",
@@ -62,7 +60,8 @@ export const WorkoutGenerator = (props) => {
 
   return (
     <>
-      <WorkoutsDisplay {...props} />
+      {/* <WorkoutsDisplay {...props} /> */}
+      <h1>Hi</h1>
     </>
   )
 }

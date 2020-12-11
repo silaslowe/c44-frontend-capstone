@@ -5,6 +5,8 @@ export const RaceDisplay = (props) => {
   const { getSelectedRace, selectedRace, editRace } = useContext(RacesContext)
   const [race, setRace] = useState({})
 
+  console.log("raceDisp", props)
+
   useEffect(() => {
     getSelectedRace()
   }, [])
@@ -16,27 +18,25 @@ export const RaceDisplay = (props) => {
     const newRace = Object.assign({}, race)
     newRace[e.target.name] = e.target.value
     setRace(newRace)
-    console.log(race)
-    console.log(race)
   }
 
-  const id = selectedRace.id
-  const name = selectedRace.name
-  const city = selectedRace.city
-  const state = selectedRace.state
-  const distance = selectedRace.distance
-  const date = selectedRace.date
+  const id = props.selectedRace.id
+  const name = props.selectedRace.sname
+  const city = props.selectedRace.city
+  const state = props.selectedRace.state
+  const distance = props.selectedRace.distance
+  const date = props.selectedRace.date
   const raceDate = new Date(date).toDateString()
-  const userId = selectedRace.userId
-  const startDate = selectedRace.startDate
+  const userId = props.selectedRace.suserId
+  const startDate = props.selectedRace.startDate
 
   return (
     <>
       <div className="race-box">
-        <h3>Name: {name}</h3>
-        <p>Distance: {distance} miles</p>
-        <p>City :{city}</p>
-        <p>State: {state}</p>
+        <h3>Name: {props.selectedRace.name}</h3>
+        <p>Distance: {props.selectedRace.distance} miles</p>
+        <p>City :{props.selectedRace.city}</p>
+        <p>State: {props.selectedRace.state}</p>
         <p>Date: {raceDate}</p>
       </div>
       <form className="paramtersForm">
@@ -118,7 +118,7 @@ export const RaceDisplay = (props) => {
               goalRaceTime: parseInt(race.goalRaceTime),
               startPacePercent: parseFloat(race.startPacePercent),
             })
-            props.history.push("/workout")
+            props.history.push("/workout-display")
           }}
           className="btn btn-primary"
         >
