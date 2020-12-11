@@ -2,28 +2,28 @@ import React, { useContext, useEffect, useRef, useState } from "react"
 import { RacesContext } from "../races/RacesProvider"
 
 export const RaceDisplay = (props) => {
-  const { getSelectedRace, editRace } = useContext(RacesContext)
+  const { getRaces, editRace, races } = useContext(RacesContext)
   const [race, setRace] = useState({})
+  const [selectedRace, setSelectedRace] = useState({})
+  const currentUser = parseInt(localStorage.getItem("app_user_id"))
+  let currentRace = props.location.state.currentRace
+  console.log(("current race:", props))
 
   const handleControlledInputChange = (e) => {
-    /*
-            When changing a state object or array, always create a new one
-            and change state instead of modifying current one
-        */
     const newRace = Object.assign({}, race)
     newRace[e.target.name] = e.target.value
     setRace(newRace)
   }
 
-  const id = props.selectedRace.id
-  const name = props.selectedRace.sname
-  const city = props.selectedRace.city
-  const state = props.selectedRace.state
-  const distance = props.selectedRace.distance
-  const date = props.selectedRace.date
+  const id = currentRace.id
+  const name = currentRace.name
+  const city = currentRace.city
+  const state = currentRace.state
+  const distance = currentRace.distance
+  const date = currentRace.date
   const raceDate = new Date(date).toDateString()
-  const userId = props.selectedRace.suserId
-  const startDate = props.selectedRace.startDate
+  const userId = currentRace.suserId
+  const startDate = currentRace.startDate
 
   return (
     <>

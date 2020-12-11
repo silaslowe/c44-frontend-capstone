@@ -8,28 +8,41 @@ import { RaceForm } from "../races/RaceForm"
 
 export const AltHome = (props) => {
   const { getRaces, races } = useContext(RacesContext)
-  const currentUser = parseInt(localStorage.getItem("app_user_id"))
   const [selectedRace, setSelectedRace] = useState({})
+  const currentUser = parseInt(localStorage.getItem("app_user_id"))
 
-  console.log("althome", props)
+  console.log("races", races)
+  console.log("slectedRace", selectedRace)
 
   useEffect(() => {
     getRaces()
   }, [])
 
-  const currentRace = () => {
+  // sets selectedRace to the current race.
+
+  useEffect(() => {
+    setSelectedRace(currentRaceFinder())
+  }, [races])
+
+  //
+
+  const currentRaceFinder = () => {
     const racesForUser = races.filter((race) => race.userId === currentUser)
     const currentRace = racesForUser.sort((a, b) => a.date - b.date)[0]
     console.log(currentRace)
     return currentRace
   }
-  useEffect(() => {
-    setSelectedRace(currentRace())
-  }, [races])
   return (
     <>
       <button onClick={() => props.history.push("/raceform")}>Form</button>
-      <button onClick={() => props.history.push("/workout")}>Race</button>
+      <button
+        onClick={() => {
+          localStorage.setItem("current_race", selectedRace.id)
+          props.history.push({ pathname: "/workout", state: { currentRace: selectedRace } })
+        }}
+      >
+        Race
+      </button>
     </>
   )
 }

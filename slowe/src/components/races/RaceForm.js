@@ -135,7 +135,7 @@ export const RaceForm = (props) => {
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()
-          props.history.push("/workout")
+          props.history.push({ pathname: "/workout", state: { currentRace: currentRace } })
         }}
         className="btn btn-primary"
       >
