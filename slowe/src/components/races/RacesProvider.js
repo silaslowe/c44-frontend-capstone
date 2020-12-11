@@ -46,7 +46,7 @@ export const RacesProvider = (props) => {
 
   const editRace = (race) => {
     return fetch(`http://localhost:8088/races/${race.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },

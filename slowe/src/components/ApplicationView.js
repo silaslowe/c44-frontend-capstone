@@ -7,6 +7,7 @@ import { WorkoutGenerator } from "./workouts/WorkoutGenerator"
 import { RaceDisplay } from "./races/RaceDisplay"
 import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
 import { Home } from "./homepage/Home"
+import { AltHome } from "./homepage/Alt-Home"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -42,23 +43,14 @@ export const ApplicationViews = (props) => {
           <Route
             exact
             path="/"
-            render={(props) => <Home {...props} selectedRace={selectedRace} />}
+            render={(props) => <AltHome {...props} selectedRace={selectedRace} />}
           />
         </WorkoutProvider>
       </RacesProvider>
 
       <RacesProvider>
-        <Route
-          exact
-          path="/set-params"
-          render={(props) => <RaceDisplay {...props} selectedRace={selectedRace} />}
-        />
-      </RacesProvider>
-
-      <RacesProvider>
         <WorkoutProvider>
           <Route
-            exact
             path="/workout"
             render={(props) => (
               <>
@@ -77,7 +69,7 @@ export const ApplicationViews = (props) => {
             render={(props) => (
               <>
                 <RaceDisplay {...props} selectedRace={selectedRace} />
-                <WorkoutsDisplay {...props} selectedRace={selectedRace} />
+                <WorkoutGenerator {...props} selectedRace={selectedRace} />
               </>
             )}
           />

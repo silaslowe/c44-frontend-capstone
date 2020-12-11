@@ -2,14 +2,9 @@ import React, { useContext, useEffect, useRef, useState } from "react"
 import { RacesContext } from "../races/RacesProvider"
 
 export const RaceDisplay = (props) => {
-  const { getSelectedRace, selectedRace, editRace } = useContext(RacesContext)
+  const { getSelectedRace, editRace } = useContext(RacesContext)
   const [race, setRace] = useState({})
 
-  console.log("raceDisp", props)
-
-  useEffect(() => {
-    getSelectedRace()
-  }, [])
   const handleControlledInputChange = (e) => {
     /*
             When changing a state object or array, always create a new one
@@ -119,6 +114,7 @@ export const RaceDisplay = (props) => {
               startPacePercent: parseFloat(race.startPacePercent),
             })
             props.history.push("/workout-display")
+            localStorage.setItem("current_race", id)
           }}
           className="btn btn-primary"
         >
