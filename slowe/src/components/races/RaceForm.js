@@ -1,21 +1,13 @@
-import React, { useContext, useRef, useEffect, useState } from "react"
+import React, { useContext, useRef, useEffect } from "react"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
-  const { addRace, getRaces, races } = useContext(RacesContext)
-  const [lastRace, setLastRace] = useState("")
-
+  const { addRace, getLastRace } = useContext(RacesContext)
+  let currentRace = ""
   useEffect(() => {
-    getRaces()
-  }, [])
-
-  const sortRaces = () => {
-    const sortedRaces = races.sort((a, b) => b.startDate - a.startDate)
-    return sortedRaces[0]
-  }
-  useEffect(() => {
-    setLastRace(sortRaces())
+    getLastRace()
   })
+
   const name = useRef(null)
   const state = useRef(null)
   const city = useRef(null)
@@ -27,7 +19,7 @@ export const RaceForm = (props) => {
     const raceTotalDistanceInt = parseFloat(raceTotalDistance.current.value)
     // const dateToMilli = Date.parse(raceDate)
     const raceDateToMilli = Date.parse(raceDate.current.value)
-    const userId = parseInt(localStorage.app_user_id)
+    const userId = parseInt(localStorage.getItem("app_user_id"))
 
     if (
       city === "" ||
@@ -49,7 +41,21 @@ export const RaceForm = (props) => {
         startDistPercent: "",
         goalRaceTime: "",
         startPacePercent: "",
+        isComplete: false,
       })
+      currentRace = {
+        name: name.current.value,
+        state: state.current.value,
+        city: city.current.value,
+        date: raceDateToMilli,
+        distance: raceTotalDistanceInt,
+        startDate: startDate,
+        userId: userId,
+        startDistPercent: "",
+        goalRaceTime: "",
+        startPacePercent: "",
+        isComplete: false,
+      }
     }
   }
 
@@ -129,7 +135,6 @@ export const RaceForm = (props) => {
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()
-          localStorage.setItem("current_race", lastRace.id + 1)
           props.history.push("/workout")
         }}
         className="btn btn-primary"

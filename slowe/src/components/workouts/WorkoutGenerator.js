@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { RacesContext } from "../races/RacesProvider"
 import { WorkoutContext } from "./WorkoutProvider"
 import { WorkoutsDisplay } from "./WorkoutsDisplay"
 
 export const WorkoutGenerator = (props) => {
-  const { getSelectedRace, selectedRace } = useContext(RacesContext)
+  const { getSelectedRace, selectedRace, getRaces, races } = useContext(RacesContext)
   const { addWorkout, getWorkouts, workouts, setWorkouts } = useContext(WorkoutContext)
+  const [currentRace, setCurrentRace] = useState({})
+  const currentUser = parseInt(localStorage.getItem("app_user_id"))
 
-  // if (localStorage.getItem("current_race") === "undefined") {
-  //   props.history.push("/raceform")
-  // }
+  // console.log("GENPROPS", props)
 
   // Waits for selectedRace to be assessed to the dates can be subtraced and the days between can be generated.
   let startDate = ""
@@ -17,25 +17,29 @@ export const WorkoutGenerator = (props) => {
   let workoutArray = []
 
   useEffect(() => {
-    getWorkouts().then(filterWorkouts())
+    getWorkouts()
   }, [])
 
+  useEffect(() => {
+    getRaces().then(filterRaces)
+  }, [])
+
+  const filterRaces = () => {
+    const filteredRace = races
+      .filter((got) => got.userId === currentUser)
+      .sort((a, b) => b.startDate - a.startDate)
+    setCurrentRace(filteredRace[0])
+  }
+  console.log(currentRace)
+
   const filterWorkouts = () => {
-    const currentRace = localStorage.getItem("current_race")
+    const currentRace = localStorage.getItem("app_user_id")
     // console.log(currentRace)
     const selectedRaceWorkouts = workouts.filter(
       (workout) => workout.raceId === parseInt(currentRace)
     )
     setWorkouts(selectedRaceWorkouts)
   }
-  // Gets the most current race for a given user and then sets the local storage to use that race Id as the "current_race"
-  useEffect(() => {
-    getSelectedRace()
-      .then(() => filterWorkouts())
-      .then(() => generator())
-  }, [])
-
-  // If there are no races for the user this will redirect the user to the race form page.
 
   const generator = () => {
     startDate = props.startDate
@@ -60,8 +64,8 @@ export const WorkoutGenerator = (props) => {
 
   return (
     <>
-      {/* <WorkoutsDisplay {...props} /> */}
-      <h1>Hi</h1>
+      <WorkoutsDisplay {...props} />
+      {/* <h1>Generating</h1> */}
     </>
   )
 }

@@ -6,37 +6,33 @@ import { RaceDisplay } from "../races/RaceDisplay"
 import { WorkoutGenerator } from "../workouts/WorkoutGenerator"
 import { RaceForm } from "../races/RaceForm"
 
-export const Home = (props) => {
+export const AltHome = (props) => {
   const { getRaces, races } = useContext(RacesContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
   const [selectedRace, setSelectedRace] = useState({})
+
+  console.log("althome", props)
 
   useEffect(() => {
     getRaces()
   }, [])
 
-  console.log(races)
   const currentRace = () => {
     const racesForUser = races.filter((race) => race.userId === currentUser)
-    const currentRace = racesForUser.find((race) => !race.isComplete) || {}
+    const currentRace = racesForUser.sort((a, b) => a.date - b.date)[0]
+    console.log(currentRace)
     return currentRace
   }
   useEffect(() => {
     setSelectedRace(currentRace())
   }, [races])
-
-  // get all. filter by user, find race with completed as false. If no race>>>start new race, if yes>>>show race
-
   return (
     <>
-      {selectedRace.id ? (
-        <>
-          <RaceDisplay {...props} selectedRace={selectedRace} />
-          {/* <WorkoutGenerator {...props} selectedRace={selectedRace} /> */}
-        </>
-      ) : (
-        <RaceForm {...props} />
-      )}
+      <button onClick={() => props.history.push("/raceform")}>Form</button>
+      <button onClick={() => props.history.push("/workout")}>Race</button>
     </>
   )
 }
+
+// To add later
+// .find((race) => !race.isComplete) || {}
