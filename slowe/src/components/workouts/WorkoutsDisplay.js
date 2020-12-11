@@ -23,8 +23,6 @@ export const WorkoutsDisplay = () => {
     return selectedRace
   }
 
-  console.log("out of effect", populateRaces())
-
   // console.log("IN WOD", workouts)
   return (
     <>

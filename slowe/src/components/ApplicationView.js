@@ -12,21 +12,21 @@ export const ApplicationViews = (props) => {
   const { getSelectedRace, selectedRace } = useContext(RacesContext)
 
   // Pulls the most recent race for the current user
-  useEffect(() => {
-    getSelectedRace()
-  }, [])
+  // useEffect(() => {
+  //   getSelectedRace()
+  // }, [])
 
   // Checks to see if the selectedRace comes back truthy and if so saves the raceId in localStorage
-  if (selectedRace) {
-    localStorage.setItem("current_race", selectedRace.id)
-  }
+  // if (selectedRace) {
+  //   localStorage.setItem("current_race", selectedRace.id)
+  // }
   return (
     <>
       <RacesProvider>
         <Route exact path="/" render={(props) => <Home {...props} />} />
       </RacesProvider>
 
-      <RacesProvider>
+      {/* <RacesProvider>
         <Route exact path="/set-params" render={(props) => <RaceDisplay {...props} />} />
       </RacesProvider>
 
@@ -43,7 +43,7 @@ export const ApplicationViews = (props) => {
             )}
           />
         </WorkoutProvider>
-      </RacesProvider>
+      </RacesProvider> */}
 
       <RacesProvider>
         <Route exact path="/raceform" render={(props) => <RaceForm {...props} />} />
