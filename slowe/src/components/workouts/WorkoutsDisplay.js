@@ -5,16 +5,21 @@ import { Workout } from "./Workout"
 
 export const WorkoutsDisplay = (props) => {
   const { getWorkouts, workouts, setWorkouts } = useContext(WorkoutContext)
-  const { getRaces, races } = useContext(RacesContext)
+
+  // console.log("WD", props)
 
   useEffect(() => {
     getWorkouts().then(setWorkouts(findWorkouts()))
   }, [])
 
   const findWorkouts = () => {
-    const raceWorkouts = workouts.filter((workout) => workout.raceId === props.currentRace.id)
+    const raceWorkouts = workouts.filter(
+      (workout) => workout.raceId === props.location.currentRace.id
+    )
     return raceWorkouts
   }
+
+  console.log(workouts)
   return (
     <>
       <h1>PLACEHOLDERerers</h1>

@@ -3,28 +3,14 @@ import { RacesContext } from "../races/RacesProvider"
 import { WorkoutContext } from "../workouts/WorkoutProvider"
 
 export const RaceDisplay = (props) => {
-  const { getRaces, editRace, races } = useContext(RacesContext)
-  const { getWorkouts, workouts, setWorkouts } = useContext(WorkoutContext)
+  const { editRace, races } = useContext(RacesContext)
+  const { getWorkoutsByRace, workouts } = useContext(WorkoutContext)
   const [race, setRace] = useState({})
-  const [selectedRace] = useState("")
-  const currentUser = parseInt(localStorage.getItem("app_user_id"))
   let currentRace = props.location.state.currentRace
   let workoutLength = workouts.length
-
   useEffect(() => {
-    getWorkouts().then(filterWorkouts())
+    getWorkoutsByRace()
   }, [races])
-
-  console.log("WOL", workoutLength)
-
-  const filterWorkouts = () => {
-    console.log("CR", currentRace)
-    const selectedRaceWorkouts = workouts.filter((workout) => workout.raceId === currentRace.id)
-    console.log("RD", selectedRaceWorkouts)
-    console.log("b4", workouts)
-    setWorkouts(selectedRaceWorkouts)
-    console.log("after", workouts)
-  }
 
   const handleControlledInputChange = (e) => {
     const newRace = Object.assign({}, race)
@@ -144,9 +130,8 @@ export const RaceDisplay = (props) => {
             }
             props.history.push({
               pathname: "/workout-display",
-              state: { currentRace: updatedCurrentRace, workoutLength: workoutLength },
+              state: { currentRace: updatedCurrentRace, workoutLength: workoutLength || 0 },
             })
-            localStorage.setItem("current_race", selectedRace)
           }}
           className="btn btn-primary"
         >
