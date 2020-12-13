@@ -13,10 +13,6 @@ export const RaceForm = (props) => {
     getRaces().then(() => {
       const racesForUser = races.filter((race) => race.userId === currentUser)
       const currentRaceFromGet = racesForUser.sort((a, b) => b.date - a.date)[0]
-      console.log(currentUser)
-      console.log(races)
-      console.log("RACESFORUSER", racesForUser)
-      console.log("FromGet", currentRaceFromGet)
     })
   }
 
@@ -68,6 +64,7 @@ export const RaceForm = (props) => {
         startPacePercent: "",
         isComplete: false,
       }
+      console.log(currentRace)
     }
   }
 
