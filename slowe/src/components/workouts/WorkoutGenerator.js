@@ -4,67 +4,61 @@ import { WorkoutContext } from "./WorkoutProvider"
 import { WorkoutsDisplay } from "./WorkoutsDisplay"
 
 export const WorkoutGenerator = (props) => {
-  const { getSelectedRace, selectedRace, getRaces, races } = useContext(RacesContext)
-  const { addWorkout, getWorkouts, workouts, setWorkouts } = useContext(WorkoutContext)
-  const [currentRace, setCurrentRace] = useState({})
+  const { addWorkout, getWorkouts, workouts, setWorkouts, editWorkout } = useContext(WorkoutContext)
+  const { races } = useContext(RacesContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
-
-  // console.log("GENPROPS", props)
-
+  const currentRace = props.location.state.currentRace
+  const workoutLength = props.location.state.workoutLength
+  console.log(props)
   // Waits for selectedRace to be assessed to the dates can be subtraced and the days between can be generated.
   let startDate = ""
   let raceDate = ""
   let workoutArray = []
 
+  // gets workouts and filters them for this race and generates workout objects
   useEffect(() => {
-    getWorkouts()
-  }, [])
-
-  useEffect(() => {
-    getRaces().then(filterRaces)
-  }, [])
-
-  const filterRaces = () => {
-    const filteredRace = races
-      .filter((got) => got.userId === currentUser)
-      .sort((a, b) => b.startDate - a.startDate)
-    setCurrentRace(filteredRace[0])
-  }
-  console.log(currentRace)
+    getWorkouts().then(filterWorkouts()).then(generator())
+  }, [races])
 
   const filterWorkouts = () => {
-    const currentRace = localStorage.getItem("app_user_id")
-    // console.log(currentRace)
-    const selectedRaceWorkouts = workouts.filter(
-      (workout) => workout.raceId === parseInt(currentRace)
-    )
+    const selectedRaceWorkouts = workouts.filter((workout) => workout.raceId === currentRace.id)
     setWorkouts(selectedRaceWorkouts)
   }
 
   const generator = () => {
-    startDate = props.startDate
-    raceDate = props.date
+    startDate = currentRace.startDate
+    raceDate = currentRace.date
     const daysBetween = Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000))
-    if (workouts.length === 0) {
+    if (workoutLength > daysBetween) {
       for (let i = 0; i < daysBetween; i++) {
         workoutArray.push({
-          raceId: parseInt(localStorage.getItem("current_race")),
-          distanceGoal: props.distance,
-          timeGoal: "",
+          raceId: currentRace.id,
+          distanceGoal: currentRace.distance,
+          timeGoal: currentRace.goalRaceTime,
           speedGoal: "",
-          workoutDist: "",
+          workoutDist: currentRace.distance,
           workoutTime: "",
           workoutSpeed: "",
           notes: "",
+          userId: currentUser,
         })
       }
     }
-    workoutArray.map((workout) => addWorkout(workout))
+    if (workoutLength < daysBetween) {
+      console.log("WA", workoutArray)
+      workoutArray.map((workout) => addWorkout(workout))
+    } else {
+      workoutArray = [...workouts]
+      console.log("WA", workoutArray)
+      workoutArray.map((workout) =>
+        editWorkout({ userId: currentUser, timeGoal: currentRace.goalRaceTime, id: workout.id })
+      )
+    }
   }
 
   return (
     <>
-      <WorkoutsDisplay {...props} />
+      <WorkoutsDisplay {...props} currentRace={currentRace} />
       {/* <h1>Generating</h1> */}
     </>
   )

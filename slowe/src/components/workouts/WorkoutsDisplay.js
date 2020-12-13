@@ -4,35 +4,25 @@ import { RacesContext } from "../races/RacesProvider"
 import { Workout } from "./Workout"
 
 export const WorkoutsDisplay = (props) => {
-  // console.log(props)
-  const { getWorkouts, workouts } = useContext(WorkoutContext)
+  const { getWorkouts, workouts, setWorkouts } = useContext(WorkoutContext)
   const { getRaces, races } = useContext(RacesContext)
 
   useEffect(() => {
-    getRaces()
+    getWorkouts().then(setWorkouts(findWorkouts()))
   }, [])
 
-  useEffect(() => {
-    getWorkouts()
-  }, [])
-
-  const populateRaces = () => {
-    const user = parseInt(localStorage.getItem("app_user_id"))
-    const selectedRace = races
-      .filter((race) => race.userId === user)
-      .sort((a, b) => b.date - a.date)[0]
-    return selectedRace
+  const findWorkouts = () => {
+    const raceWorkouts = workouts.filter((workout) => workout.raceId === props.currentRace.id)
+    return raceWorkouts
   }
-
-  // console.log("IN WOD", props)
   return (
     <>
       <h1>PLACEHOLDERerers</h1>
+      {workouts.map((workout) => (
+        <Workout key={workout.id} workout={workout} />
+      ))}
     </>
   )
 }
 
-//   /* {workouts.map((workout) => (
-//         <Workout key={workout.id} workout={workout} />
-//       ))} */
-// }
+//   /

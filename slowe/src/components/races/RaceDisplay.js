@@ -1,37 +1,52 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { RacesContext } from "../races/RacesProvider"
+import { WorkoutContext } from "../workouts/WorkoutProvider"
 
 export const RaceDisplay = (props) => {
   const { getRaces, editRace, races } = useContext(RacesContext)
+  const { getWorkouts, workouts, setWorkouts } = useContext(WorkoutContext)
   const [race, setRace] = useState({})
-  const [selectedRace, setSelectedRace] = useState({})
+  const [selectedRace] = useState("")
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
   let currentRace = props.location.state.currentRace
-  console.log(("current race:", props))
+  let workoutLength = workouts.length
+
+  useEffect(() => {
+    getWorkouts().then(filterWorkouts())
+  }, [races])
+
+  console.log("WOL", workoutLength)
+
+  const filterWorkouts = () => {
+    console.log("CR", currentRace)
+    const selectedRaceWorkouts = workouts.filter((workout) => workout.raceId === currentRace.id)
+    console.log("RD", selectedRaceWorkouts)
+    console.log("b4", workouts)
+    setWorkouts(selectedRaceWorkouts)
+    console.log("after", workouts)
+  }
 
   const handleControlledInputChange = (e) => {
     const newRace = Object.assign({}, race)
     newRace[e.target.name] = e.target.value
     setRace(newRace)
   }
-
-  const id = currentRace.id
-  const name = currentRace.name
-  const city = currentRace.city
-  const state = currentRace.state
-  const distance = currentRace.distance
-  const date = currentRace.date
-  const raceDate = new Date(date).toDateString()
-  const userId = currentRace.suserId
-  const startDate = currentRace.startDate
-
+  let id = currentRace.id
+  let name = currentRace.name
+  let city = currentRace.city
+  let state = currentRace.state
+  let distance = currentRace.distance
+  let date = currentRace.date
+  let raceDate = new Date(date).toDateString()
+  let userId = currentRace.suserId
+  let startDate = currentRace.startDate
   return (
     <>
       <div className="race-box">
-        <h3>Name: {props.selectedRace.name}</h3>
-        <p>Distance: {props.selectedRace.distance} miles</p>
-        <p>City :{props.selectedRace.city}</p>
-        <p>State: {props.selectedRace.state}</p>
+        <h3>Name: {name}</h3>
+        <p>Distance: {distance} miles</p>
+        <p>City :{city}</p>
+        <p>State: {state}</p>
         <p>Date: {raceDate}</p>
       </div>
       <form className="paramtersForm">
@@ -107,14 +122,31 @@ export const RaceDisplay = (props) => {
               date,
               raceDate,
               userId,
+              id: currentRace.id,
+              startDate,
+              startDistPercent: parseFloat(race.startDistPercent),
+              goalRaceTime: parseInt(race.goalRaceTime),
+              startPacePercent: parseFloat(race.startPacePercent),
+            })
+            const updatedCurrentRace = {
+              name,
+              city,
+              state,
+              distance,
+              date,
+              raceDate,
+              userId,
               startDate,
               id,
               startDistPercent: parseFloat(race.startDistPercent),
               goalRaceTime: parseInt(race.goalRaceTime),
               startPacePercent: parseFloat(race.startPacePercent),
+            }
+            props.history.push({
+              pathname: "/workout-display",
+              state: { currentRace: updatedCurrentRace, workoutLength: workoutLength },
             })
-            props.history.push("/workout-display")
-            localStorage.setItem("current_race", id)
+            localStorage.setItem("current_race", selectedRace)
           }}
           className="btn btn-primary"
         >

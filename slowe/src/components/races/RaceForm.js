@@ -2,11 +2,23 @@ import React, { useContext, useRef, useEffect } from "react"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
-  const { addRace, getLastRace } = useContext(RacesContext)
+  const { addRace, getLastRace, getRaces, races } = useContext(RacesContext)
+  const currentUser = parseInt(localStorage.getItem("app_user_id"))
   let currentRace = ""
   useEffect(() => {
     getLastRace()
   })
+
+  const currentRaceFinder = () => {
+    getRaces().then(() => {
+      const racesForUser = races.filter((race) => race.userId === currentUser)
+      const currentRaceFromGet = racesForUser.sort((a, b) => b.date - a.date)[0]
+      console.log(currentUser)
+      console.log(races)
+      console.log("RACESFORUSER", racesForUser)
+      console.log("FromGet", currentRaceFromGet)
+    })
+  }
 
   const name = useRef(null)
   const state = useRef(null)
@@ -135,7 +147,8 @@ export const RaceForm = (props) => {
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()
-          props.history.push({ pathname: "/workout", state: { currentRace: currentRace } })
+
+          props.history.push("/")
         }}
         className="btn btn-primary"
       >

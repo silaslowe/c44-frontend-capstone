@@ -10,7 +10,7 @@ export const AltHome = (props) => {
   const { getRaces, races } = useContext(RacesContext)
   const [selectedRace, setSelectedRace] = useState({})
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
-
+  const currentRace = selectedRace
   console.log("races", races)
   console.log("slectedRace", selectedRace)
 
@@ -28,7 +28,7 @@ export const AltHome = (props) => {
 
   const currentRaceFinder = () => {
     const racesForUser = races.filter((race) => race.userId === currentUser)
-    const currentRace = racesForUser.sort((a, b) => a.date - b.date)[0]
+    const currentRace = racesForUser.sort((a, b) => b.date - a.date)[0]
     console.log(currentRace)
     return currentRace
   }
@@ -38,7 +38,7 @@ export const AltHome = (props) => {
       <button
         onClick={() => {
           localStorage.setItem("current_race", selectedRace.id)
-          props.history.push({ pathname: "/workout", state: { currentRace: selectedRace } })
+          props.history.push({ pathname: "/workout", state: { currentRace: currentRace } })
         }}
       >
         Race
