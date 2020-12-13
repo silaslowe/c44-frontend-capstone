@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Route, Redirect } from "react-router-dom"
+import { Route } from "react-router-dom"
 import { RacesProvider, RacesContext } from "./races/RacesProvider"
 import { RaceForm } from "./races/RaceForm"
 import { WorkoutProvider } from "./workouts/WorkoutProvider"
 import { WorkoutGenerator } from "./workouts/WorkoutGenerator"
-import { RaceDisplay } from "./races/RaceDisplay"
-import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
-import { Home } from "./homepage/Home"
+import { SetParameters } from "./races/SetParameters"
+import { Parameters } from "./races/Parameters"
 import { AltHome } from "./homepage/Alt-Home"
+import { RaceInfo } from "./races/RaceInfo"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -40,21 +40,18 @@ export const ApplicationViews = (props) => {
     <>
       <RacesProvider>
         <WorkoutProvider>
-          <Route
-            exact
-            path="/"
-            render={(props) => <AltHome {...props} selectedRace={selectedRace} />}
-          />
+          <Route exact path="/" render={(props) => <AltHome {...props} />} />
         </WorkoutProvider>
       </RacesProvider>
 
       <RacesProvider>
         <WorkoutProvider>
           <Route
-            path="/workout"
+            path="/parameters"
             render={(props) => (
               <>
-                <RaceDisplay {...props} selectedRace={selectedRace} />
+                <RaceInfo {...props} />
+                <SetParameters {...props} />
               </>
             )}
           />
@@ -68,8 +65,9 @@ export const ApplicationViews = (props) => {
             path="/workout-display"
             render={(props) => (
               <>
-                <RaceDisplay {...props} selectedRace={selectedRace} />
-                <WorkoutGenerator {...props} selectedRace={selectedRace} />
+                <RaceInfo {...props} />
+                <Parameters {...props} />
+                <WorkoutGenerator {...props} />
               </>
             )}
           />

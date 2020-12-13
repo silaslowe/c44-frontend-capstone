@@ -64,6 +64,7 @@ export const RaceForm = (props) => {
         startPacePercent: "",
         isComplete: false,
       }
+      console.log(currentRace)
     }
   }
 
@@ -144,7 +145,7 @@ export const RaceForm = (props) => {
           ev.preventDefault()
           constructNewRace()
 
-          props.history.push({ pathname: "/workout", state: { currentRace: currentRace } })
+          props.history.push("/")
         }}
         className="btn btn-primary"
       >

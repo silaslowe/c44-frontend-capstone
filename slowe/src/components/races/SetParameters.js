@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import { RacesContext } from "../races/RacesProvider"
+import { RacesContext } from "./RacesProvider"
 import { WorkoutContext } from "../workouts/WorkoutProvider"
 
-export const RaceDisplay = (props) => {
+export const SetParameters = (props) => {
   const { editRace, races } = useContext(RacesContext)
   const { getWorkoutsByRace, workouts } = useContext(WorkoutContext)
   const [race, setRace] = useState({})
@@ -12,12 +12,14 @@ export const RaceDisplay = (props) => {
     getWorkoutsByRace()
   }, [races])
 
+  console.log("PAR", props)
+  // Handles the inputs as the are updated
   const handleControlledInputChange = (e) => {
     const newRace = Object.assign({}, race)
     newRace[e.target.name] = e.target.value
     setRace(newRace)
   }
-  let id = currentRace.id
+  // Variable to define the race object
   let name = currentRace.name
   let city = currentRace.city
   let state = currentRace.state
@@ -28,13 +30,6 @@ export const RaceDisplay = (props) => {
   let startDate = currentRace.startDate
   return (
     <>
-      <div className="race-box">
-        <h3>Name: {name}</h3>
-        <p>Distance: {distance} miles</p>
-        <p>City :{city}</p>
-        <p>State: {state}</p>
-        <p>Date: {raceDate}</p>
-      </div>
       <form className="paramtersForm">
         <h2 className="parametersForm__title">Race Parameters</h2>
         {/* Starting Distance */}
@@ -96,6 +91,7 @@ export const RaceDisplay = (props) => {
             </select>
           </div>
         </fieldset>
+        {/* Adds the parameters to the race object */}
         <button
           type="submit"
           onClick={(ev) => {
@@ -114,6 +110,7 @@ export const RaceDisplay = (props) => {
               goalRaceTime: parseInt(race.goalRaceTime),
               startPacePercent: parseFloat(race.startPacePercent),
             })
+            // Creates an unpdated version of the object to pass with state to the next component
             const updatedCurrentRace = {
               name,
               city,
@@ -123,11 +120,12 @@ export const RaceDisplay = (props) => {
               raceDate,
               userId,
               startDate,
-              id,
+              id: currentRace.id,
               startDistPercent: parseFloat(race.startDistPercent),
               goalRaceTime: parseInt(race.goalRaceTime),
               startPacePercent: parseFloat(race.startPacePercent),
             }
+            // navigates to the main page with the generated workouts. Includes data in state
             props.history.push({
               pathname: "/workout-display",
               state: { currentRace: updatedCurrentRace, workoutLength: workoutLength || 0 },
