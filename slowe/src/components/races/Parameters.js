@@ -1,7 +1,8 @@
 import React from "react"
 
 export const Parameters = (props) => {
-  const currentRace = props.location.state.currentRace
+  console.log(props)
+  const currentRace = props.currentRace
   return (
     <>
       <div className="parameters-box">
