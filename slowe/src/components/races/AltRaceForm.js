@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect } from "react"
 import { RacesContext } from "./RacesProvider"
 
 export const AltRaceForm = (props) => {
-  const { addRace, getRaces, races } = useContext(RacesContext)
+  const { addRace } = useContext(RacesContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
   let currentRace = ""
 
@@ -39,9 +39,9 @@ export const AltRaceForm = (props) => {
         distance: raceTotalDistanceInt,
         startDate: startDate,
         userId: userId,
-        startDistPercent,
-        goalRaceTime,
-        startPacePercent,
+        startDistPercent: startDistPercent.current.value,
+        goalRaceTime: goalRaceTime.currentValue,
+        startPacePercent: startPacePercent.current.value,
         isComplete: false,
       })
     }

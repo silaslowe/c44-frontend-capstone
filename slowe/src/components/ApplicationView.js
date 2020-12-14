@@ -3,13 +3,13 @@ import { Route } from "react-router-dom"
 import { RacesProvider, RacesContext } from "./races/RacesProvider"
 import { RaceForm } from "./races/RaceForm"
 import { WorkoutProvider, WorkoutContext } from "./workouts/WorkoutProvider"
-import { WorkoutGenerator } from "./workouts/WorkoutGenerator"
+import { AltWorkoutGenerator } from "./workouts/AltWorkoutGenerator"
 import { SetParameters } from "./races/SetParameters"
 import { Parameters } from "./races/Parameters"
 import { AltHome } from "./homepage/Alt-Home"
 import { RaceInfo } from "./races/RaceInfo"
 import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
-// import { AltRaceForm } from "./races/AltRaceForm"
+import { AltRaceForm } from "./races/AltRaceForm"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -87,7 +87,7 @@ export const ApplicationViews = (props) => {
                   currentRace={selectedRace}
                   currentWorkouts={currentWorkouts}
                 />
-                <WorkoutGenerator
+                <AltWorkoutGenerator
                   {...props}
                   currentRace={selectedRace}
                   currentWorkouts={currentWorkouts}
