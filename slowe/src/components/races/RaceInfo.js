@@ -4,15 +4,13 @@ import { WorkoutContext } from "../workouts/WorkoutProvider"
 export const RaceInfo = (props) => {
   const { workouts, getWorkoutsByRace, getWorkouts } = useContext(WorkoutContext)
 
-  const currentRace = props.location.state.currentRace
+  const currentRace = props.currentRace
   let name = currentRace.name
   let city = currentRace.city
   let state = currentRace.state
   let distance = currentRace.distance
   let date = currentRace.date
   let raceDate = new Date(date).toDateString()
-
-  console.log("RI", props)
 
   // useEffect(() => {
   //   getWorkoutsByRace(currentRace.id).then(() => {

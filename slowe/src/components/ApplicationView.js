@@ -9,6 +9,7 @@ import { Parameters } from "./races/Parameters"
 import { AltHome } from "./homepage/Alt-Home"
 import { RaceInfo } from "./races/RaceInfo"
 import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
+// import { AltRaceForm } from "./races/AltRaceForm"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -59,8 +60,6 @@ export const ApplicationViews = (props) => {
       setCurrentWorkouts([])
     }
   }
-
-  console.log(selectedRace, currentWorkouts)
 
   return (
     <>

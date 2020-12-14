@@ -14,41 +14,36 @@ export const WorkoutGenerator = (props) => {
   let raceDate = ""
   let daysBetween = ""
   let workoutArray = []
-  let filteredWorkouts = workouts.filter((workout) => {
-    return workout.raceId === 13
-  })
-
-  console.log("WG", props)
-
+  // let filteredWorkouts = workouts.filter((workout) => {
+  //   return workout.raceId === 13
+  // })
+  const [filteredWorkouts, setFilteredWorkouts] = useState([])
   // useEffect(() => {
   //   getWorkouts()
   // }, [])
-  console.log(props)
 
   useEffect(() => {
     getWorkouts()
   }, [])
-  // useEffect(() => {
-  //   setWorkouts(workouts.filter((workout) => workout.raceId === 13))
-  // }, [])
 
   useEffect(() => {
-    generator()
-  }, [races])
+    setFilteredWorkouts(workouts.filter((workout) => workout.raceId === currentRace.id))
+  }, [workouts])
+
+  // useEffect(() => {
+  //   generator()
+  // }, [races])
 
   // useEffect(() => {
   //   getWorkoutsByRace(14)
   // }, [])
 
-  useEffect(() => {
-    setWorkouts(filteredWorkouts)
-  }, [])
+  console.log(workouts)
+  console.log(filteredWorkouts)
 
   const generator = () => {
     // filters the workouts by the current races
-    const filteredWorkouts = workouts.filter((workout) => {
-      return workout.raceId === 13
-    })
+
     startDate = currentRace.startDate
     raceDate = currentRace.date
     // determines the days between the the start of training and the race date

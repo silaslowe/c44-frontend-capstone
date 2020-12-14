@@ -1,10 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { RacesContext, RacesProvider } from "../races/RacesProvider"
-import { Route, Redirect } from "react-router-dom"
+
 import { WorkoutProvider, WorkoutContext } from "../workouts/WorkoutProvider"
-import { RaceDisplay } from "../races/SetParameters"
-import { WorkoutGenerator } from "../workouts/WorkoutGenerator"
-import { RaceForm } from "../races/RaceForm"
 
 export const AltHome = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -24,7 +21,7 @@ export const AltHome = (props) => {
   // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
   useEffect(() => {
     setSelectedRace(currentRaceFinder())
-  }, [races])
+  }, [])
 
   // This is supposed to get the workouts for the selected race to be passed in state during navigation. The logic works but the fetch rarely does.
   useEffect(() => {
@@ -47,10 +44,10 @@ export const AltHome = (props) => {
     const currentRace = racesForUser.find((race) => race.startDate === newestRace)
     return currentRace
   }
-
+  console.log(selectedRace)
   return (
     <>
-      <button onClick={() => props.history.push("/raceform")}>Form</button>
+      {/* <button onClick={() => props.history.push("/raceform")}>Form</button>
       <button
         onClick={() => {
           if (!props.currentRace && !props.currentWorkouts) {
@@ -70,7 +67,7 @@ export const AltHome = (props) => {
         }}
       >
         Race
-      </button>
+      </button> */}
     </>
   )
 }
