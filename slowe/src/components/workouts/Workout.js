@@ -17,6 +17,7 @@ export const Workout = ({ workout }) => {
           <p>Time: {workout.raceId}</p>
           <p>Speed: </p>
         </div>
+        <button>Edit</button>
       </div>
     )
   } else {

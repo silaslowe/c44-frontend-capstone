@@ -2,19 +2,9 @@ import React, { useContext, useRef, useEffect } from "react"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
-  const { addRace, getLastRace, getRaces, races } = useContext(RacesContext)
+  const { addRace, getRaces, races } = useContext(RacesContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
   let currentRace = ""
-  useEffect(() => {
-    getLastRace()
-  })
-
-  const currentRaceFinder = () => {
-    getRaces().then(() => {
-      const racesForUser = races.filter((race) => race.userId === currentUser)
-      const currentRaceFromGet = racesForUser.sort((a, b) => b.date - a.date)[0]
-    })
-  }
 
   const name = useRef(null)
   const state = useRef(null)
@@ -51,20 +41,6 @@ export const RaceForm = (props) => {
         startPacePercent: "",
         isComplete: false,
       })
-      currentRace = {
-        name: name.current.value,
-        state: state.current.value,
-        city: city.current.value,
-        date: raceDateToMilli,
-        distance: raceTotalDistanceInt,
-        startDate: startDate,
-        userId: userId,
-        startDistPercent: "",
-        goalRaceTime: "",
-        startPacePercent: "",
-        isComplete: false,
-      }
-      console.log(currentRace)
     }
   }
 
@@ -144,7 +120,6 @@ export const RaceForm = (props) => {
         onClick={(ev) => {
           ev.preventDefault()
           constructNewRace()
-
           props.history.push("/")
         }}
         className="btn btn-primary"

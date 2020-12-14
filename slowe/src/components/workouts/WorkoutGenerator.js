@@ -1,42 +1,62 @@
 import React, { useContext, useEffect, useState } from "react"
-import { RacesContext } from "../races/RacesProvider"
 import { WorkoutContext } from "./WorkoutProvider"
-import { WorkoutsDisplay } from "./WorkoutsDisplay"
-import { Workout } from "./Workout"
-
+import { RacesContext } from "../races/RacesProvider"
 export const WorkoutGenerator = (props) => {
-  const { addWorkout, workouts, editWorkout, getWorkoutsByRace, getWorkouts } = useContext(
+  const { getWorkouts, workouts, setWorkouts, addWorkout, getWorkoutsByRace } = useContext(
     WorkoutContext
   )
-
-  console.log("WOG", props)
-  const { races } = useContext(RacesContext)
-  const [workoutsGenerated, setWorkoutsGenerated] = useState("")
-  const currentUser = parseInt(localStorage.getItem("app_user_id"))
+  // const [workoutsGenerated, setWorkoutsGenerated] = useState("")
+  const { race, getRaceById, races } = useContext(RacesContext)
+  const [generated, setGenerated] = useState(false)
   const currentRace = props.location.state.currentRace
-  // Waits for selectedRace to be assessed to the dates can be subtraced and the days between can be generated.
+  const currentRaceId = props.location.state.currentRace.id
   let startDate = ""
   let raceDate = ""
   let daysBetween = ""
   let workoutArray = []
-  // gets workouts and filters them for this race and generates workout objects
-  useEffect(() => {
-    setWorkoutsGenerated(false)
-  }, [])
+  let filteredWorkouts = workouts.filter((workout) => {
+    return workout.raceId === 13
+  })
+
+  console.log("WG", props)
+
+  // useEffect(() => {
+  //   getWorkouts()
+  // }, [])
+  console.log(props)
 
   useEffect(() => {
     getWorkouts()
-      .then(() => console.log("USE", workouts))
-      .then(generator())
+  }, [])
+  // useEffect(() => {
+  //   setWorkouts(workouts.filter((workout) => workout.raceId === 13))
+  // }, [])
+
+  useEffect(() => {
+    generator()
   }, [races])
 
+  // useEffect(() => {
+  //   getWorkoutsByRace(14)
+  // }, [])
+
+  useEffect(() => {
+    setWorkouts(filteredWorkouts)
+  }, [])
+
   const generator = () => {
-    const currentWorkouts = workouts.filter((workout) => workout.raceId === currentRace.id)
+    // filters the workouts by the current races
+    const filteredWorkouts = workouts.filter((workout) => {
+      return workout.raceId === 13
+    })
     startDate = currentRace.startDate
     raceDate = currentRace.date
+    // determines the days between the the start of training and the race date
     daysBetween = Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000))
-    workoutArray = [...workouts]
-    if (currentWorkouts.length === 0) {
+    console.log(daysBetween, filteredWorkouts.length)
+
+    // if the amount of filtered workouts is less than days between, which is the needed amount, the for loop gernerates a workout card for each day of training and pushed it into the workoutARray.
+    if (filteredWorkouts < daysBetween) {
       for (let i = 0; i < daysBetween; i++) {
         workoutArray.push({
           raceId: currentRace.id,
@@ -47,39 +67,31 @@ export const WorkoutGenerator = (props) => {
           workoutTime: "",
           workoutSpeed: "",
           notes: "",
-          userId: currentUser,
+          userId: parseInt(localStorage.getItem("app_user_id")),
         })
       }
+      // if there are the required amount of training objects then the filtered workouts are spread into the workoutArray. It also sets the state of generated which deterimines whether the training objects have been created or need to be.
     } else {
-      workoutArray = [...workouts]
-      console.log("WOA", workoutArray)
+      workoutArray = [...filteredWorkouts]
+      setGenerated(true)
+    }
+
+    console.log(generated)
+
+    // if generated is false the workoutArray is mapped over and the addWorkout function from the provider is applied to all each, thus generating a workout in the DB
+    if (generated === false) {
+      console.log("add")
+      // return workoutArray.map((workout) => addWorkout(workout))
+      // If generated is true and the cards had previously been created then they are passed throught the editWorkouts function instead.
+    } else {
+      console.log("edit")
     }
   }
 
-  // const addOrEditRace = () => {
-  //   console.log(workoutsGenerated)
-  //   if (workoutsGenerated === false) {
-  //     workoutArray.map((workout) => addWorkout(workout))
-  //     setWorkoutsGenerated(true)
-  //     console.log(workoutsGenerated)
-  //   } else {
-  //     workoutArray = [...workouts]
-  //     workoutArray.map((workout) =>
-  //       editWorkout({
-  //         userId: currentUser,
-  //         timeGoal: currentRace.goalRaceTime,
-  //         id: workout.id,
-  //         raceId: currentRace.id,
-  //       })
-  //     )
-  //   }
-  // }
-
   return (
     <>
-      {workoutArray.map((workout) => (
-        <Workout key={workout.id} workout={workout} />
-      ))}
+      <h1>Generating for You</h1>
+      {}
     </>
   )
 }

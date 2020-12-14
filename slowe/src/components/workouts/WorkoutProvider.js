@@ -6,7 +6,7 @@ export const WorkoutProvider = (props) => {
   const [workouts, setWorkouts] = useState([])
 
   const getWorkoutsByRace = (id) => {
-    return fetch("http://localhost:8088/workouts")
+    return fetch("http://localhost:8088/workouts/")
       .then((res) => res.json())
       .then((parsed) => {
         const parsedWorkouts = parsed.filter((workout) => {
