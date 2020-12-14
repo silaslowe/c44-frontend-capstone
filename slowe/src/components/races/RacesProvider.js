@@ -5,21 +5,12 @@ export const RacesContext = React.createContext()
 export const RacesProvider = (props) => {
   const [races, setRaces] = useState([])
   const [selectedRace, setSelectedRace] = useState([])
-  const [lastRace, setLastRace] = useState([])
+  const [race, setRace] = useState([])
 
   const getRaces = () => {
     return fetch("http://localhost:8088/races")
       .then((res) => res.json())
       .then(setRaces)
-  }
-
-  const getLastRace = () => {
-    return fetch("http://localhost:8088/races")
-      .then((res) => res.json())
-      .then((parsed) => {
-        parsed.sort((a, b) => b.startDate - a.startDate)
-      })
-      .then(setLastRace)
   }
 
   const getSelectedRace = (id) => {
@@ -32,6 +23,12 @@ export const RacesProvider = (props) => {
         return selected[0]
       })
       .then(setSelectedRace)
+  }
+
+  const getRaceById = (id) => {
+    return fetch(`http://localhost:8088/races/${id}`)
+      .then((res) => res.json())
+      .then(setRace)
   }
 
   const addRace = (race) => {
@@ -62,8 +59,7 @@ export const RacesProvider = (props) => {
         addRace,
         editRace,
         getSelectedRace,
-        lastRace,
-        getLastRace,
+        getRaceById,
         editRace,
       }}
     >

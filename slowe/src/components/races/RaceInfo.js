@@ -1,6 +1,9 @@
-import React from "react"
+import React, { useEffect, useContext } from "react"
+import { WorkoutContext } from "../workouts/WorkoutProvider"
 
 export const RaceInfo = (props) => {
+  const { workouts, getWorkoutsByRace, getWorkouts } = useContext(WorkoutContext)
+
   const currentRace = props.location.state.currentRace
   let name = currentRace.name
   let city = currentRace.city
@@ -8,7 +11,20 @@ export const RaceInfo = (props) => {
   let distance = currentRace.distance
   let date = currentRace.date
   let raceDate = new Date(date).toDateString()
+
   console.log("RI", props)
+
+  // useEffect(() => {
+  //   getWorkoutsByRace(currentRace.id).then(() => {
+  //     console.log(workouts)
+  //   })
+  // }, [])
+  useEffect(() => {
+    getWorkouts().then(() => {
+      console.log(workouts)
+    })
+  }, [])
+
   return (
     <>
       <div className="race-box">

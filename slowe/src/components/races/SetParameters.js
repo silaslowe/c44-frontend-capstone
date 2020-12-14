@@ -8,11 +8,13 @@ export const SetParameters = (props) => {
   const [race, setRace] = useState({})
   let currentRace = props.location.state.currentRace
   let workoutLength = workouts.length
+
+  console.log("SP", props)
+
   useEffect(() => {
     getWorkoutsByRace()
   }, [races])
 
-  console.log("PAR", props)
   // Handles the inputs as the are updated
   const handleControlledInputChange = (e) => {
     const newRace = Object.assign({}, race)
@@ -96,40 +98,44 @@ export const SetParameters = (props) => {
           type="submit"
           onClick={(ev) => {
             ev.preventDefault()
-            editRace({
-              name,
-              city,
-              state,
-              distance,
-              date,
-              raceDate,
-              userId,
-              id: currentRace.id,
-              startDate,
-              startDistPercent: parseFloat(race.startDistPercent),
-              goalRaceTime: parseInt(race.goalRaceTime),
-              startPacePercent: parseFloat(race.startPacePercent),
-            })
-            // Creates an unpdated version of the object to pass with state to the next component
-            const updatedCurrentRace = {
-              name,
-              city,
-              state,
-              distance,
-              date,
-              raceDate,
-              userId,
-              startDate,
-              id: currentRace.id,
-              startDistPercent: parseFloat(race.startDistPercent),
-              goalRaceTime: parseInt(race.goalRaceTime),
-              startPacePercent: parseFloat(race.startPacePercent),
+            if (race.startDistPercent && race.goalRaceTime && race.startPacePercent) {
+              editRace({
+                name,
+                city,
+                state,
+                distance,
+                date,
+                raceDate,
+                userId,
+                id: currentRace.id,
+                startDate,
+                startDistPercent: parseFloat(race.startDistPercent),
+                goalRaceTime: parseInt(race.goalRaceTime),
+                startPacePercent: parseFloat(race.startPacePercent),
+              })
+              // Creates an unpdated version of the object to pass with state to the next component
+              const updatedCurrentRace = {
+                name,
+                city,
+                state,
+                distance,
+                date,
+                raceDate,
+                userId,
+                startDate,
+                id: currentRace.id,
+                startDistPercent: parseFloat(race.startDistPercent),
+                goalRaceTime: parseInt(race.goalRaceTime),
+                startPacePercent: parseFloat(race.startPacePercent),
+              }
+              // navigates to the main page with the generated workouts. Includes data in state
+              props.history.push({
+                pathname: "/workout-display",
+                state: { currentRace: updatedCurrentRace },
+              })
+            } else {
+              window.alert("Please set parameters")
             }
-            // navigates to the main page with the generated workouts. Includes data in state
-            props.history.push({
-              pathname: "/workout-display",
-              state: { currentRace: updatedCurrentRace, workoutLength: workoutLength || 0 },
-            })
           }}
           className="btn btn-primary"
         >

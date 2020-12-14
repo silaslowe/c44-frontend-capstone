@@ -5,6 +5,7 @@ import { Register } from "./auth/Register"
 import { ApplicationViews } from "./ApplicationView"
 import { RacesProvider } from "./races/RacesProvider"
 import { NavBar } from "./nav/Nav"
+import { WorkoutProvider } from "./workouts/WorkoutProvider"
 
 export const Slowe = (props) => (
   <>
@@ -16,7 +17,9 @@ export const Slowe = (props) => (
             <>
               <NavBar {...props} />
               <RacesProvider>
-                <Route path="/" render={(props) => <ApplicationViews {...props} />} />
+                <WorkoutProvider>
+                  <Route path="/" render={(props) => <ApplicationViews {...props} />} />
+                </WorkoutProvider>
               </RacesProvider>
             </>
           )

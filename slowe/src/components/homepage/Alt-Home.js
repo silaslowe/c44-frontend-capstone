@@ -8,7 +8,7 @@ import { RaceForm } from "../races/RaceForm"
 
 export const AltHome = (props) => {
   const { getRaces, races } = useContext(RacesContext)
-  const { getWorkoutsByRace, workouts } = useContext(WorkoutContext)
+  const { getWorkoutsByRace, workouts, getWorkouts } = useContext(WorkoutContext)
   const [selectedRace, setSelectedRace] = useState({})
   const [currentWorkouts, setCurrentWorkouts] = useState([])
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
@@ -17,37 +17,46 @@ export const AltHome = (props) => {
     getRaces()
   }, [])
 
-  const currentRace = () => {
-    const racesForUser = races.filter((race) => race.userId === currentUser)
-    const currentRace = racesForUser.find((race) => !race.isComplete) || {}
-    return currentRace
-  }
   useEffect(() => {
-    setSelectedRace(currentRace())
+    getWorkouts()
+  }, [])
+
+  // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
+  useEffect(() => {
+    setSelectedRace(currentRaceFinder())
   }, [races])
 
-  console.log(selectedRace)
-  console.log(races)
-
+  // This is supposed to get the workouts for the selected race to be passed in state during navigation. The logic works but the fetch rarely does.
   useEffect(() => {
     getWorkoutsByRace(selectedRace.id).then(() => {
       setCurrentWorkouts(workouts)
     })
   }, [])
-  // const currentRaceFinder = () => {
+
+  // const currentRace = () => {
   //   const racesForUser = races.filter((race) => race.userId === currentUser)
-  //   const raceStartDate = racesForUser.map((race) => race.startDate)
-  //   const newestRace = Math.max(...raceStartDate)
-  //   const currentRace = racesForUser.find((race) => race.startDate === newestRace)
+  //   const currentRace = racesForUser.find((race) => !race.isComplete) || {}
   //   return currentRace
   // }
+
+  // Probably overly complex logic to filter the users races to find the most recent
+  const currentRaceFinder = () => {
+    const racesForUser = races.filter((race) => race.userId === currentUser)
+    const raceStartDate = racesForUser.map((race) => race.startDate)
+    const newestRace = Math.max(...raceStartDate)
+    const currentRace = racesForUser.find((race) => race.startDate === newestRace)
+    return currentRace
+  }
+
   return (
     <>
       <button onClick={() => props.history.push("/raceform")}>Form</button>
       <button
         onClick={() => {
-          localStorage.setItem("current_race", selectedRace.id)
-          if (workouts.length === 0) {
+          if (!props.currentRace && !props.currentWorkouts) {
+            window.alert("Please create a race")
+          } else if (props.currentRace && !props.currentWorkouts) {
+            localStorage.setItem("current_race", selectedRace.id)
             props.history.push({
               pathname: "/parameters",
               state: { currentRace: selectedRace },

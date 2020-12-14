@@ -2,45 +2,77 @@ import React, { useContext, useEffect, useState } from "react"
 import { Route } from "react-router-dom"
 import { RacesProvider, RacesContext } from "./races/RacesProvider"
 import { RaceForm } from "./races/RaceForm"
-import { WorkoutProvider } from "./workouts/WorkoutProvider"
+import { WorkoutProvider, WorkoutContext } from "./workouts/WorkoutProvider"
 import { WorkoutGenerator } from "./workouts/WorkoutGenerator"
 import { SetParameters } from "./races/SetParameters"
 import { Parameters } from "./races/Parameters"
 import { AltHome } from "./homepage/Alt-Home"
 import { RaceInfo } from "./races/RaceInfo"
+import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
+  const { getWorkouts, workouts, getWorkoutsByRace } = useContext(WorkoutContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
+  const [currentWorkouts, setCurrentWorkouts] = useState([])
   const [selectedRace, setSelectedRace] = useState({})
 
   useEffect(() => {
     getRaces()
   }, [])
 
-  const currentRace = () => {
-    const racesForUser = races.filter((race) => race.userId === currentUser)
-    const currentRace = racesForUser.find((race) => !race.isComplete) || {}
-    return currentRace
-  }
+  // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
   useEffect(() => {
-    setSelectedRace(currentRace())
+    setSelectedRace(currentRaceFinder())
   }, [races])
 
-  // Pulls the most recent race for the current user
-  // useEffect(() => {
-  //   getSelectedRace()
-  // }, [])
+  // This is supposed to get the workouts for the selected race to be passed in state during navigation. The logic works but the fetch rarely does.
 
-  // Checks to see if the selectedRace comes back truthy and if so saves the raceId in localStorage
-  // if (selectedRace) {
-  //   localStorage.setItem("current_race", selectedRace.id)
-  // }
+  // Probably overly complex logic to filter the users races to find the most recent
+  const currentRaceFinder = () => {
+    const racesForUser = races.filter((race) => race.userId === currentUser)
+    if (racesForUser) {
+      const raceStartDate = racesForUser.map((race) => race.startDate)
+      const newestRace = Math.max(...raceStartDate)
+      const currentRace = racesForUser.find((race) => race.startDate === newestRace)
+      return currentRace
+    } else {
+      setSelectedRace({})
+    }
+  }
+
+  useEffect(() => {
+    getWorkouts()
+  }, [])
+
+  useEffect(() => {
+    setCurrentWorkouts(currentWorkoutsFinder())
+  }, [workouts, selectedRace])
+
+  const currentWorkoutsFinder = () => {
+    if (selectedRace) {
+      const currentWorkouts = workouts.filter((workout) => {
+        return workout.raceId === selectedRace.id
+      })
+      return currentWorkouts
+    } else {
+      setCurrentWorkouts([])
+    }
+  }
+
+  console.log(selectedRace, currentWorkouts)
+
   return (
     <>
       <RacesProvider>
         <WorkoutProvider>
-          <Route exact path="/" render={(props) => <AltHome {...props} />} />
+          <Route
+            exact
+            path="/"
+            render={(props) => (
+              <AltHome {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
+            )}
+          />
         </WorkoutProvider>
       </RacesProvider>
 
@@ -50,14 +82,28 @@ export const ApplicationViews = (props) => {
             path="/parameters"
             render={(props) => (
               <>
-                <RaceInfo {...props} />
-                <SetParameters {...props} />
+                <RaceInfo {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
+                <SetParameters
+                  {...props}
+                  currentRace={selectedRace}
+                  currentWorkouts={currentWorkouts}
+                />
+                <WorkoutGenerator
+                  {...props}
+                  currentRace={selectedRace}
+                  currentWorkouts={currentWorkouts}
+                />
+                <WorkoutsDisplay
+                  {...props}
+                  currentRace={selectedRace}
+                  currentWorkouts={currentWorkouts}
+                />
               </>
             )}
           />
         </WorkoutProvider>
       </RacesProvider>
-
+      {/*  */}
       <RacesProvider>
         <WorkoutProvider>
           <Route
@@ -65,9 +111,18 @@ export const ApplicationViews = (props) => {
             path="/workout-display"
             render={(props) => (
               <>
-                <RaceInfo {...props} />
-                <Parameters {...props} />
-                <WorkoutGenerator {...props} />
+                <RaceInfo {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
+                <Parameters
+                  {...props}
+                  currentRace={selectedRace}
+                  currentWorkouts={currentWorkouts}
+                />
+
+                <WorkoutsDisplay
+                  {...props}
+                  currentRace={selectedRace}
+                  currentWorkouts={currentWorkouts}
+                />
               </>
             )}
           />
@@ -80,47 +135,3 @@ export const ApplicationViews = (props) => {
     </>
   )
 }
-
-// If there is no race saved in localStorage then the user is directed to the race for page and if there is they are directed to their training page
-//   return (
-//     <>
-//       <Route
-//         render={() => {
-//           if (localStorage.getItem("current_race") === "undefined") {
-//             return (
-//               <>
-//                 <RacesProvider>
-//                   <Route
-//                     exact
-//                     path="/raceform"
-//                     render={(props) => {
-//                       console.log("IN RP", localStorage)
-//                       return <RaceForm {...props} />
-//                     }}
-//                   />
-//                 </RacesProvider>
-//               </>
-//             )
-//           } else {
-//             return <Redirect to="/" />
-//           }
-//         }}
-//       />
-//       {/* <RacesProvider>
-//         <Route
-//           exact
-//           path="/raceform"
-//           render={(props) => {
-//             return <RaceForm {...props} />
-//           }}
-//         />
-//       </RacesProvider> */}
-// <RacesProvider>
-//   <WorkoutProvider>
-//     <Route exact path="/" render={(props) => <WorkoutGenerator {...props} />} />
-//   </WorkoutProvider>
-// </RacesProvider>
-//       )
-//     </>
-//   )
-// }
