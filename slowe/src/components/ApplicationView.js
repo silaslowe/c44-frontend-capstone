@@ -11,6 +11,7 @@ import { AltHome } from "./homepage/Alt-Home"
 import { RaceInfo } from "./races/RaceInfo"
 import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
 import { AltRaceForm } from "./races/RaceForm"
+import { EditWorkout } from "./workouts/EditWorkout"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -75,7 +76,6 @@ export const ApplicationViews = (props) => {
           />
         </WorkoutProvider>
       </RacesProvider>
-
       <RacesProvider>
         <WorkoutProvider>
           <Route
@@ -123,10 +123,17 @@ export const ApplicationViews = (props) => {
           />
         </WorkoutProvider>
       </RacesProvider>
-
       <RacesProvider>
         <Route exact path="/raceform" render={(props) => <RaceForm {...props} />} />
       </RacesProvider>
+
+      <WorkoutProvider>
+        <Route
+          exact
+          path="/edit-workout/:workout(\d+)"
+          render={(props) => <EditWorkout {...props} />}
+        />
+      </WorkoutProvider>
     </>
   )
 }

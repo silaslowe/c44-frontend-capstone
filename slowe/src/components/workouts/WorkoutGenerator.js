@@ -57,7 +57,6 @@ export const WorkoutGenerator = (props) => {
           raceId: currentRace.id,
           distanceGoal: currentRace.distance,
           timeGoal: currentRace.goalRaceTime,
-          speedGoal: "",
           workoutDist: currentRace.distance,
           workoutTime: "",
           workoutSpeed: "",

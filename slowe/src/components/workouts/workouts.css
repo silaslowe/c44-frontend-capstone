@@ -1,0 +1,6 @@
+.workout-container {
+  max-height: 50vh;
+  overflow: scroll;
+  border: 2px solid black;
+  width: 45%;
+}
