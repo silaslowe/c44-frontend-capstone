@@ -19,10 +19,14 @@ export const WorkoutList = (props) => {
   const [startTime, setStartTime] = useState("")
 
   let startingDist = startDist - distInc
-  let startingSpeed = parseFloat(startSpeed)
+  let startingSpeed = (parseFloat(startSpeed) - speedInc) * startingDist
+  console.log(startSpeed)
   let startingTime = startTime
+  // const workoutDate = new Date(currentRace.date).toDateString()
+  // const workoutDateStart = workoutDate.setDate(workoutDate.getDate() + 1)
+  // console.log(workoutDate)
+  // console.log(workoutDateStart)
 
-  console.log(speedInc)
   // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
   useEffect(() => {
     setCurrentRace(currentRaceFinder())
@@ -83,7 +87,9 @@ export const WorkoutList = (props) => {
     setStartTime(startPaceInMPM * startDist)
     const speedInc = () => {
       return (
-        (goalSpeedInMPH * currentRace.startPacePercent - goalSpeedInMinPerMile) / daysBetween - 1
+        (currentRace.goalRaceTime / (goalSpeedInMPH * currentRace.startPacePercent) -
+          goalSpeedInMinPerMile) /
+        (daysBetween - 1)
       )
     }
     setSpeedInc(speedInc())
@@ -97,25 +103,27 @@ export const WorkoutList = (props) => {
     setRaceDate(currentRace.date)
     setDaysBetween(Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000)))
   }
-
+  console.log(currentWorkouts)
   return (
     <>
       <h2>WORKOUTS</h2>
-      {currentWorkouts.map((workout) => {
-        startingDist += distInc
-        startingSpeed += speedInc
-        console.log(startingSpeed)
-        startingTime = (startingDist + distInc) * startingSpeed
-        return (
-          <Workout
-            key={workout.id}
-            workout={workout}
-            distance={startingDist}
-            speed={startingSpeed}
-            time={startingTime}
-          />
-        )
-      })}
+      <div className="workout-container">
+        {currentWorkouts.map((workout) => {
+          startingDist += distInc
+          startingSpeed += speedInc
+          startingTime = startingDist * startingSpeed
+          return (
+            <Workout
+              key={workout.id}
+              {...props}
+              workout={workout}
+              distance={startingDist}
+              speed={startingSpeed}
+              time={startingTime}
+            />
+          )
+        })}
+      </div>
     </>
   )
 }

@@ -1,4 +1,5 @@
 @import "../src/components/workouts/workoutCard.css";
+@import "../src/components/workouts/workouts.css";
 
 body {
   margin: 0;

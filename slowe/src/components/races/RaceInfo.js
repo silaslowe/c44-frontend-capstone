@@ -38,6 +38,7 @@ export const RaceInfo = (props) => {
       <div className="race-box">
         <h3>Name: {currentRace.name}</h3>
         <p>Distance: {currentRace.distance} miles</p>
+        <p>Time Goal: {currentRace.goalRaceTime} min</p>
         <p>City :{currentRace.city}</p>
         <p>State: {currentRace.state}</p>
         <p>Date: {new Date(currentRace.date).toDateString()}</p>

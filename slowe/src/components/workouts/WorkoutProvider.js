@@ -23,7 +23,7 @@ export const WorkoutProvider = (props) => {
       .then(setWorkouts)
   }
 
-  const editWorkout = (workout) => {
+  const updateWorkout = (workout) => {
     return fetch(`http://localhost:8088/workouts/${workout.id}`, {
       method: "PATCH",
       headers: {
@@ -44,7 +44,7 @@ export const WorkoutProvider = (props) => {
   }
   return (
     <WorkoutContext.Provider
-      value={{ workouts, getWorkoutsByRace, addWorkout, getWorkouts, setWorkouts, editWorkout }}
+      value={{ workouts, getWorkoutsByRace, addWorkout, getWorkouts, setWorkouts, updateWorkout }}
     >
       {props.children}
     </WorkoutContext.Provider>

@@ -1,40 +1,34 @@
 import React from "react"
 
-export const Workout = ({ workout, distance, speed, time }, props) => {
-  // console.log(distance, speed)
-  if (workout.distanceGoal && workout.timeGoal) {
-    return (
-      <div className="workout-card">
-        <div className="workout-card-goals">
-          <p>Distance:{distance} miles</p>
-          <p>Time: {speed.toFixed(2)} minutes</p>
-          <p>
-            Speed:
-            {(distance.toFixed(1) / (speed.toFixed(1) / 60)).toFixed(2)} mph
-          </p>
-        </div>
-        <div className="workout-card-achievement">
-          <p>Distance: 0 miles</p>
-          <p>Time: 0</p>
-          <p>Speed: 0</p>
-        </div>
-        <button>Edit</button>
+export const Workout = (props) => {
+  const { speed, distance, time, workout } = props
+  return (
+    <div className="workout-card">
+      <p className="workout-date">{workout.date}</p>
+      <div className="workout-card-goals">
+        <p>Distance:{distance.toFixed(1)} miles</p>
+        <p>Time: {speed.toFixed(1)} minutes</p>
+        <p>
+          Speed:
+          {(distance.toFixed(1) / (speed.toFixed(1) / 60)).toFixed(1)} mph
+        </p>
       </div>
-    )
-  } else {
-    return (
-      <div className="workout-card">
-        <div className="workout-card-goals">
-          <p>Distance:{distance} miles</p>
-          <p>Time: {time} minutes</p>
-          <p>Speed: mph</p>
-        </div>
-        <div className="workout-card-achievement">
-          <p>Distance: {parseInt(0)}</p>
-          <p>Time: {parseInt(0)}</p>
-          <p>Speed: </p>
-        </div>
+      <div className="workout-card-achievement">
+        <p>Distance: {workout.workoutDist} miles</p>
+        <p>Time: {workout.workoutTime}</p>
+        <p>Speed: 0</p>
+        <p>Notes: {workout.notes}</p>
       </div>
-    )
-  }
+      <button
+        onClick={() => {
+          props.history.push({
+            pathname: `/edit-workout/${workout.id}`,
+            state: { workoutId: workout.id },
+          })
+        }}
+      >
+        Edit
+      </button>
+    </div>
+  )
 }
