@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect } from "react"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
-  const { addRace, getRaces, races } = useContext(RacesContext)
+  const { addRace } = useContext(RacesContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
   let currentRace = ""
 
@@ -12,6 +12,9 @@ export const RaceForm = (props) => {
   const raceDate = useRef(null)
   const raceTotalDistance = useRef(null)
   const startDate = Date.now()
+  const startDistPercent = useRef(null)
+  const startPacePercent = useRef(null)
+  const goalRaceTime = useRef(null)
 
   const constructNewRace = () => {
     const raceTotalDistanceInt = parseFloat(raceTotalDistance.current.value)
@@ -36,9 +39,9 @@ export const RaceForm = (props) => {
         distance: raceTotalDistanceInt,
         startDate: startDate,
         userId: userId,
-        startDistPercent: "",
-        goalRaceTime: "",
-        startPacePercent: "",
+        startDistPercent: parseFloat(startDistPercent.current.value),
+        goalRaceTime: parseInt(goalRaceTime.current.value),
+        startPacePercent: parseFloat(startPacePercent.current.value),
         isComplete: false,
       })
     }
@@ -112,6 +115,64 @@ export const RaceForm = (props) => {
         <div className="form-group">
           <label htmlFor="raceDate">Date</label>
           <input type="date" id="raceDate" ref={raceDate} required className="form-control" />
+        </div>
+      </fieldset>
+      <h2 className="parametersForm__title">Race Parameters</h2>
+      {/* Starting Distance */}
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="raceDistPercent">Starting Dist Percent</label>
+          <select
+            defaultValue=""
+            name="startDistPercent"
+            ref={startDistPercent}
+            id="startDistPercent"
+            className="form-control"
+          >
+            <option value="0">Select Dist Percent</option>
+            <option value=".5">50%</option>
+            <option value=".55">55%</option>
+            <option value=".6">60%</option>
+            <option value=".65">65%</option>
+            <option value=".7">70%</option>
+            <option value=".75">75%</option>
+            <option value=".8">80%</option>
+          </select>
+        </div>
+      </fieldset>
+      {/* Goal Race Time */}
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="goalRaceTime ">Time Goal</label>
+          <input
+            type="text"
+            id="goalRaceTime"
+            ref={goalRaceTime}
+            className="form-control"
+            placeholder="Goal Time in Minutes"
+          />
+        </div>
+      </fieldset>
+      {/* Starting Speed */}
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="startPacePercent">Select Speed Percent</label>
+          <select
+            defaultValue=""
+            name="startPacePercent"
+            ref={startPacePercent}
+            id="startPacePercent"
+            className="form-control"
+          >
+            <option value="0">Select Starting Speed</option>
+            <option value=".5">50%</option>
+            <option value=".55">55%</option>
+            <option value=".6">60%</option>
+            <option value=".65">65%</option>
+            <option value=".7">70%</option>
+            <option value=".75">75%</option>
+            <option value=".8">80%</option>
+          </select>
         </div>
       </fieldset>
       {/* Submit */}

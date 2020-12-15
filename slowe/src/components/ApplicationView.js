@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Route } from "react-router-dom"
 import { RacesProvider, RacesContext } from "./races/RacesProvider"
-import { RaceForm } from "./races/RaceForm"
+import { RaceForm } from "./races/DEPRaceForm"
 import { WorkoutProvider, WorkoutContext } from "./workouts/WorkoutProvider"
 import { AltWorkoutGenerator } from "./workouts/AltWorkoutGenerator"
 import { SetParameters } from "./races/SetParameters"
+import { WorkoutList } from "./workouts/WorkoutList"
 import { Parameters } from "./races/Parameters"
 import { AltHome } from "./homepage/Alt-Home"
 import { RaceInfo } from "./races/RaceInfo"
 import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
-import { AltRaceForm } from "./races/AltRaceForm"
+import { AltRaceForm } from "./races/RaceForm"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -111,13 +112,8 @@ export const ApplicationViews = (props) => {
             render={(props) => (
               <>
                 <RaceInfo {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
-                <Parameters
-                  {...props}
-                  currentRace={selectedRace}
-                  currentWorkouts={currentWorkouts}
-                />
 
-                <WorkoutsDisplay
+                <WorkoutList
                   {...props}
                   currentRace={selectedRace}
                   currentWorkouts={currentWorkouts}

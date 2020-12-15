@@ -1,6 +1,7 @@
 import React from "react"
 
-export const Workout = ({ workout, distance, speed }, props) => {
+export const Workout = ({ workout, distance, speed, time }, props) => {
+  // console.log(distance, speed)
   if (workout.distanceGoal && workout.timeGoal) {
     return (
       <div className="workout-card">
@@ -24,13 +25,13 @@ export const Workout = ({ workout, distance, speed }, props) => {
     return (
       <div className="workout-card">
         <div className="workout-card-goals">
-          <p>Distance:{workout.workoutDist} miles</p>
-          <p>Time: {workout.timeGoal} minutes</p>
-          <p>Speed: "" mph</p>
+          <p>Distance:{distance} miles</p>
+          <p>Time: {time} minutes</p>
+          <p>Speed: mph</p>
         </div>
         <div className="workout-card-achievement">
-          <p>Distance: {workout.raceId}</p>
-          <p>Time: {workout.raceId}</p>
+          <p>Distance: {parseInt(0)}</p>
+          <p>Time: {parseInt(0)}</p>
           <p>Speed: </p>
         </div>
       </div>

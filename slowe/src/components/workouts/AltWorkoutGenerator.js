@@ -2,15 +2,16 @@ import React, { useContext, useEffect, useState } from "react"
 import { WorkoutContext } from "./WorkoutProvider"
 
 export const AltWorkoutGenerator = (props) => {
-  const { addWorkout, workouts, getWorkouts } = useContext(WorkoutContext)
+  const { addWorkout } = useContext(WorkoutContext)
+  console.log(props)
 
-  useEffect(() => {
-    getWorkouts()
-  }, [])
+  // useEffect(() => {
+  //   getWorkouts()
+  // }, [])
 
-  useEffect(() => {
-    generator()
-  }, [])
+  // useEffect(() => {
+  //   generator()
+  // }, [])
 
   const generator = () => {
     // filters the workouts by the current races
@@ -18,28 +19,35 @@ export const AltWorkoutGenerator = (props) => {
     const raceDate = props.currentRace.date
     // determines the days between the the start of training and the race date
     const daysBetween = Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000))
-
+    console.log(daysBetween)
+    let workoutArray = []
     // if the amount of filtered workouts is less than days between, which is the needed amount, the for loop gernerates a workout card for each day of training and pushed it into the workoutARray.
     for (let i = 0; i < daysBetween; i++) {
-      console.log(i)
-      addWorkout({
+      workoutArray.push({
         raceId: props.currentRace.id,
-        distanceGoal: props.currentRace.distance,
-        timeGoal: props.currentRace.goalRaceTime,
+        distanceGoal: "",
+        timeGoal: "",
         speedGoal: "",
-        workoutDist: props.currentRace.distance,
+        workoutDist: "",
         workoutTime: "",
         workoutSpeed: "",
         notes: "",
         userId: parseInt(localStorage.getItem("app_user_id")),
       })
     }
+    workoutArray.map((workout) => addWorkout(workout))
+    props.history.push("/")
   }
 
   return (
     <>
-      <h1>Generating for You</h1>
-      {}
+      <button
+        onClick={() => {
+          generator()
+        }}
+      >
+        GenerateWorkouts
+      </button>
     </>
   )
 }

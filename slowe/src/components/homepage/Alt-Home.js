@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react"
 import { RacesContext, RacesProvider } from "../races/RacesProvider"
 import { RaceInfo } from "../races/RaceInfo"
-import { RaceForm } from "../races/RaceForm"
 import { AltWorkoutGenerator } from "../workouts/AltWorkoutGenerator"
-import { AltRaceForm } from "../races/AltRaceForm"
+import { RaceForm } from "../races/RaceForm"
 import { WorkoutProvider, WorkoutContext } from "../workouts/WorkoutProvider"
+import { WorkoutList } from "../workouts/WorkoutList"
 
 export const AltHome = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -30,10 +30,10 @@ export const AltHome = (props) => {
     setCurrentWorkouts(workouts.filter((workout) => workout.raceId === currentRace.id))
   }, [races, workouts])
 
-  console.log("races", races)
-  console.log("workouts", workouts)
-  console.log("selectedRace", currentRace)
-  console.log("currentWorkouts", currentWorkouts)
+  // console.log("races", races)
+  // console.log("workouts", workouts)
+  // console.log("selectedRace", currentRace)
+  // console.log("currentWorkouts", currentWorkouts)
 
   // Probably overly complex logic to filter the users races to find the most recent
   const currentRaceFinder = () => {
@@ -43,10 +43,9 @@ export const AltHome = (props) => {
     const currentRace = racesForUser.find((race) => race.startDate === newestRace)
     return currentRace
   }
-
   return (
     <>
-      {currentRace.id ? (
+      {/* {currentRace.id ? (
         <>
           <RaceInfo {...props} currentRace={currentRace} currentWorkouts={currentWorkouts} />
           <AltWorkoutGenerator
@@ -60,10 +59,30 @@ export const AltHome = (props) => {
       )}
     </>
   )
+} */}
+
+      {currentRace.id && currentWorkouts.length !== 0 ? (
+        <>
+          <RaceInfo {...props} currentRace={currentRace} currentWorkouts={currentWorkouts} />
+          <WorkoutList {...props} currentRace={currentRace} currentWorkouts={currentWorkouts} />
+        </>
+      ) : currentRace.id ? (
+        <>
+          <RaceInfo {...props} currentRace={currentRace} currentWorkouts={currentWorkouts} />
+          <AltWorkoutGenerator
+            {...props}
+            currentRace={currentRace}
+            currentWorkouts={currentWorkouts}
+          />
+        </>
+      ) : (
+        <RaceForm {...props} />
+      )}
+    </>
+  )
 }
 
-{
-  /* <button onClick={() => props.history.push("/raceform")}>Form</button>
+/* <button onClick={() => props.history.push("/raceform")}>Form</button>
       <button
         onClick={() => {
           if (!props.currentRace && !props.currentWorkouts) {
@@ -87,4 +106,3 @@ export const AltHome = (props) => {
     </>
   )
 } */
-}
