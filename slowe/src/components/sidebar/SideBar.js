@@ -8,7 +8,7 @@ export const SideBar = (props) => {
   const [distance, setDistance] = useState("")
   const [avDistance, setAvDistance] = useState("")
   const [completedWorkouts, setCompletedWorkouts] = useState([])
-
+  console.log(props)
   useEffect(() => {
     getWorkouts()
   }, [])
@@ -24,6 +24,8 @@ export const SideBar = (props) => {
   useEffect(() => {
     setCompletedWorkouts(currentWorkouts.filter((workout) => workout.metGoal === true))
   }, [currentWorkouts])
+
+  console.log(currentWorkouts)
 
   useEffect(() => {
     const speedTotal = completedWorkouts

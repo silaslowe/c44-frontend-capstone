@@ -1,10 +1,16 @@
 import React, { useContext, useRef, useEffect } from "react"
+import { StateContext } from "./StateProvider"
 import { RacesContext } from "./RacesProvider"
 
 export const RaceForm = (props) => {
   const { addRace } = useContext(RacesContext)
+  const { getStates, states } = useContext(StateContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
   let currentRace = ""
+
+  useEffect(() => {
+    getStates()
+  }, [])
 
   const name = useRef(null)
   const state = useRef(null)
@@ -26,8 +32,6 @@ export const RaceForm = (props) => {
     if (unit.current.value === "kilos") {
       distUnit = parseFloat(raceTotalDistance.current.value) * 0.62
     }
-    console.log(unit)
-    console.log(distUnit)
 
     if (
       city === "" ||
@@ -85,8 +89,11 @@ export const RaceForm = (props) => {
             className="form-control"
           >
             <option value="0">Select a State</option>
-            <option value="AK">Alaska</option>
-            <option value="AL">Albama</option>
+            {states.map((state) => (
+              <option key={state.id} value={state.abbreviation}>
+                {state.name}
+              </option>
+            ))}
           </select>
         </div>
       </fieldset>
