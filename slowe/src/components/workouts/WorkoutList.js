@@ -25,7 +25,6 @@ export const WorkoutList = (props) => {
   let startingTime = startTime
   let dateForCard = ""
 
-  console.log(today)
   // const workoutDate = new Date(currentRace.date).toDateString()
   // const workoutDateStart = workoutDate.setDate(workoutDate.getDate() + 1)
   // console.log(workoutDate)
@@ -68,11 +67,11 @@ export const WorkoutList = (props) => {
 
   useEffect(() => {
     setStartDist(currentRace.distance * currentRace.startDistPercent)
-  }, [currentRace])
+  }, [currentRace, workouts])
 
   useEffect(() => {
     createDistInc()
-  }, [currentRace])
+  }, [currentRace, workouts])
 
   useEffect(() => {
     currentWorkouts.map((wo) => {
@@ -145,7 +144,6 @@ export const WorkoutList = (props) => {
             day: "numeric",
             year: "numeric",
           })
-          console.log(dateForCard)
           return (
             <Workout
               key={workout.id}

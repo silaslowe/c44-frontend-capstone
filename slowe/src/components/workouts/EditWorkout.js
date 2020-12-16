@@ -20,21 +20,44 @@ export const EditWorkout = (props) => {
   }
 
   const constructNewWorkout = () => {
-    updateWorkout({
-      id: props.location.state.workoutId,
-      raceId: workout.raceId,
-      distanceGoal: workout.distanceGoal,
-      timeGoal: workout.timeGoal,
-      workoutTime: workout.workoutTime,
-      workoutDist: workout.workoutDist,
-      userId: workout.userId,
-      notes: workout.notes,
-    })
+    const woDist = parseFloat(workout.workoutDist)
+    const woTime = parseInt(workout.workoutTime)
+    if (
+      workout.workoutDist > props.location.state.distance &&
+      workout.workoutTime < props.location.state.speed
+    ) {
+      updateWorkout({
+        id: props.location.state.workoutId,
+        raceId: workout.raceId,
+        distanceGoal: workout.distanceGoal,
+        timeGoal: workout.timeGoal,
+        workoutDist: woDist,
+        workoutTime: woTime,
+        userId: workout.userId,
+        notes: workout.notes,
+        isComplete: true,
+        metGoal: true,
+      })
+    } else {
+      updateWorkout({
+        id: props.location.state.workoutId,
+        raceId: workout.raceId,
+        distanceGoal: workout.distanceGoal,
+        timeGoal: workout.timeGoal,
+        workoutDist: woDist,
+        workoutTime: woTime,
+        userId: workout.userId,
+        notes: workout.notes,
+        isComplete: true,
+        metGoal: false,
+      })
+    }
   }
   console.log(workout)
   return (
     <form className="workoutForm">
       <h1>Enter Workout Data</h1>
+
       <fieldset>
         <div className="form-group">
           <label htmlFor="workoutDist">Distance:</label>

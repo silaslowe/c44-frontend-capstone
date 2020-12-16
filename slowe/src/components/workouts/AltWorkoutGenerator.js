@@ -35,7 +35,7 @@ export const AltWorkoutGenerator = (props) => {
         notes: "",
         userId: parseInt(localStorage.getItem("app_user_id")),
         date: startingDate,
-        isCompete: false,
+        isComplete: false,
       })
     }
     return Promise.all(workoutArray.map((workout) => addWorkout(workout))).then(() =>
