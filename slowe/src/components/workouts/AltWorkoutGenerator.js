@@ -36,6 +36,7 @@ export const AltWorkoutGenerator = (props) => {
         userId: parseInt(localStorage.getItem("app_user_id")),
         date: startingDate,
         isComplete: false,
+        metGoal: false,
       })
     }
     return Promise.all(
