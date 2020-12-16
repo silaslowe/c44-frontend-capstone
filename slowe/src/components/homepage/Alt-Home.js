@@ -47,7 +47,6 @@ export const AltHome = (props) => {
     const currentRace = racesForUser.find((race) => race.startDate === newestRace)
     return currentRace
   }
-  console.log(currentRace.id, currentWorkouts.length)
   return (
     <>
       {currentRace.id && currentWorkouts.length !== 0 ? (
