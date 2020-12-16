@@ -18,12 +18,14 @@ export const WorkoutList = (props) => {
   const [startDist, setStartDist] = useState("")
   const [startTime, setStartTime] = useState("")
 
+  const today = new Date().getTime()
   const day = 86400000
   let startingDist = startDist - distInc
   let startingSpeed = (parseFloat(startSpeed) - speedInc) * startingDist
   let startingTime = startTime
   let dateForCard = ""
 
+  console.log(today)
   // const workoutDate = new Date(currentRace.date).toDateString()
   // const workoutDateStart = workoutDate.setDate(workoutDate.getDate() + 1)
   // console.log(workoutDate)
@@ -153,6 +155,7 @@ export const WorkoutList = (props) => {
               speed={startingSpeed}
               time={startingTime}
               date={dateForCard}
+              today={today}
             />
           )
         })}

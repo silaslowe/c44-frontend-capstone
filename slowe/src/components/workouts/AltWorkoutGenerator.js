@@ -30,11 +30,12 @@ export const AltWorkoutGenerator = (props) => {
         raceId: props.currentRace.id,
         distanceGoal: props.currentRace.distance,
         timeGoal: props.currentRace.goalRaceTime,
-        workoutDist: "",
-        workoutTime: "",
+        workoutDist: 0,
+        workoutTime: 0,
         notes: "",
         userId: parseInt(localStorage.getItem("app_user_id")),
         date: startingDate,
+        isCompete: false,
       })
     }
     return Promise.all(workoutArray.map((workout) => addWorkout(workout))).then(() =>

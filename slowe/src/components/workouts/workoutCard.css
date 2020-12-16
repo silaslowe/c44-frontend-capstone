@@ -1,9 +1,23 @@
 .workout-card {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 1rem;
+  justify-content: space-around; */
+  /* padding: 1rem; */
   margin: 0.5rem;
   border: 2px solid black;
   width: 87%;
+}
+.workout-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.workout-date {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  width: 25%;
 }
