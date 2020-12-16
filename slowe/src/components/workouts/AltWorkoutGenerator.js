@@ -3,7 +3,6 @@ import { WorkoutContext } from "./WorkoutProvider"
 
 export const AltWorkoutGenerator = (props) => {
   const { addWorkout } = useContext(WorkoutContext)
-  console.log(props)
 
   // useEffect(() => {
   //   getWorkouts()

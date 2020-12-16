@@ -15,19 +15,27 @@ export const RaceForm = (props) => {
   const startDistPercent = useRef(null)
   const startPacePercent = useRef(null)
   const goalRaceTime = useRef(null)
+  const unit = useRef(null)
 
   const constructNewRace = () => {
     const raceTotalDistanceInt = parseFloat(raceTotalDistance.current.value)
     // const dateToMilli = Date.parse(raceDate)
     const raceDateToMilli = Date.parse(raceDate.current.value)
     const userId = parseInt(localStorage.getItem("app_user_id"))
+    let distUnit = parseFloat(raceTotalDistance.current.value)
+    if (unit.current.value === "kilos") {
+      distUnit = parseFloat(raceTotalDistance.current.value) * 0.62
+    }
+    console.log(unit)
+    console.log(distUnit)
 
     if (
       city === "" ||
       state === "0" ||
       raceDate === "" ||
       raceTotalDistanceInt === "" ||
-      name === ""
+      name === "" ||
+      unit === ""
     ) {
       window.alert("Please fill out form")
     } else {
@@ -36,7 +44,7 @@ export const RaceForm = (props) => {
         state: state.current.value,
         city: city.current.value,
         date: raceDateToMilli,
-        distance: raceTotalDistanceInt,
+        distance: parseFloat(distUnit),
         startDate: startDate,
         userId: userId,
         startDistPercent: parseFloat(startDistPercent.current.value),
@@ -96,6 +104,17 @@ export const RaceForm = (props) => {
           />
         </div>
       </fieldset>
+      {/* Unit  */}
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="unit">Unit</label>
+          <select defaultValue="0" name="unit" ref={unit} id="unit" className="form-control">
+            <option value="0">Select a Unit</option>
+            <option value="miles">Miles</option>
+            <option value="kilos">Kilometers</option>
+          </select>
+        </div>
+      </fieldset>
       {/* Distance */}
       <fieldset>
         <div className="form-group">
@@ -110,6 +129,7 @@ export const RaceForm = (props) => {
           />
         </div>
       </fieldset>
+
       {/* Date */}
       <fieldset>
         <div className="form-group">
