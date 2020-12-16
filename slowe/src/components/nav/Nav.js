@@ -10,7 +10,9 @@ export const NavBar = (props) => {
   return (
     <>
       <h1>SLOWE</h1>
-      <button onClick={logout}>Log Out</button>{" "}
+      <button onClick={logout}>Log Out</button>
+      <Link to="/sidebar">Metrics</Link>
+      <Link to="/">Home</Link>
     </>
   )
 }

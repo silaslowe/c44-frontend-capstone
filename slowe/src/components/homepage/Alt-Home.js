@@ -30,6 +30,10 @@ export const AltHome = (props) => {
     setCurrentWorkouts(workouts.filter((workout) => workout.raceId === currentRace.id))
   }, [currentRace])
 
+  useEffect(() => {
+    localStorage.setItem("current_race", currentRace.id)
+  }, [currentRace])
+
   // console.log("races", races)
   // console.log("workouts", workouts)
   // console.log("selectedRace", currentRace)
@@ -46,22 +50,6 @@ export const AltHome = (props) => {
   console.log(currentRace.id, currentWorkouts.length)
   return (
     <>
-      {/* {currentRace.id ? (
-        <>
-          <RaceInfo {...props} currentRace={currentRace} currentWorkouts={currentWorkouts} />
-          <AltWorkoutGenerator
-            {...props}
-            currentRace={currentRace}
-            currentWorkouts={currentWorkouts}
-          />
-        </>
-      ) : (
-        <AltRaceForm {...props} />
-      )}
-    </>
-  )
-} */}
-
       {currentRace.id && currentWorkouts.length !== 0 ? (
         <>
           <RaceInfo {...props} currentRace={currentRace} currentWorkouts={currentWorkouts} />
