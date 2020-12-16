@@ -1,10 +1,11 @@
 import React from "react"
 
 export const Workout = (props) => {
-  const { speed, distance, time, workout } = props
+  const { speed, distance, time, workout, date } = props
+  console.log(workout)
   return (
     <div className="workout-card">
-      <p className="workout-date">{workout.date}</p>
+      <p className="workout-date">{date}</p>
       <div className="workout-card-goals">
         <p>Distance:{distance.toFixed(1)} miles</p>
         <p>Time: {speed.toFixed(1)} minutes</p>

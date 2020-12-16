@@ -18,10 +18,12 @@ export const WorkoutList = (props) => {
   const [startDist, setStartDist] = useState("")
   const [startTime, setStartTime] = useState("")
 
+  const day = 86400000
   let startingDist = startDist - distInc
   let startingSpeed = (parseFloat(startSpeed) - speedInc) * startingDist
-  console.log(startSpeed)
   let startingTime = startTime
+  let dateForCard = ""
+
   // const workoutDate = new Date(currentRace.date).toDateString()
   // const workoutDateStart = workoutDate.setDate(workoutDate.getDate() + 1)
   // console.log(workoutDate)
@@ -70,6 +72,18 @@ export const WorkoutList = (props) => {
     createDistInc()
   }, [currentRace])
 
+  useEffect(() => {
+    currentWorkouts.map((wo) => {
+      let woDate = new Date(wo.date - day)
+      // let readabelWODate = woDate.toLocaleString("en-US", {
+      //   month: "numeric",
+      //   day: "numeric",
+      //   year: "numeric",
+      // })
+      // console.log((readabelWODate += day))
+    })
+  }, [currentWorkouts, currentRace])
+
   //  Creates the distance increace for each workout
   const createDistInc = () => {
     const unfixed = (currentRace.distance - startDist) / daysBetween
@@ -95,6 +109,16 @@ export const WorkoutList = (props) => {
     setSpeedInc(speedInc())
   }
 
+  // ****************************
+  // let startingDate = new Date(startDate)
+  // let readableDate = startingDate.toLocaleString("en-US", {
+  //   month: "numeric",
+  //   day: "numeric",
+  //   year: "numeric",
+  // })
+
+  // ****************************
+
   // let startSpeed =
   //   parseFloat(currentRace.distance.toFixed(1)) * parseFloat(startPaceInMinPerMile.toFixed(1)) +
   //   speedInc()
@@ -103,7 +127,6 @@ export const WorkoutList = (props) => {
     setRaceDate(currentRace.date)
     setDaysBetween(Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000)))
   }
-  console.log(currentWorkouts)
   return (
     <>
       <h2>WORKOUTS</h2>
@@ -112,6 +135,15 @@ export const WorkoutList = (props) => {
           startingDist += distInc
           startingSpeed += speedInc
           startingTime = startingDist * startingSpeed
+          const woDate = workout.date
+          const readableDate = new Date(woDate)
+
+          dateForCard = readableDate.toLocaleString("en-US", {
+            month: "numeric",
+            day: "numeric",
+            year: "numeric",
+          })
+          console.log(dateForCard)
           return (
             <Workout
               key={workout.id}
@@ -120,6 +152,7 @@ export const WorkoutList = (props) => {
               distance={startingDist}
               speed={startingSpeed}
               time={startingTime}
+              date={dateForCard}
             />
           )
         })}
