@@ -12,6 +12,7 @@ import { RaceInfo } from "./races/RaceInfo"
 import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
 import { AltRaceForm } from "./races/RaceForm"
 import { EditWorkout } from "./workouts/EditWorkout"
+import { SideBar } from "../components/sidebar/SideBar"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -126,6 +127,10 @@ export const ApplicationViews = (props) => {
       <RacesProvider>
         <Route exact path="/raceform" render={(props) => <RaceForm {...props} />} />
       </RacesProvider>
+
+      <WorkoutProvider>
+        <Route exact path="/sidebar" render={(props) => <SideBar {...props} />} />
+      </WorkoutProvider>
 
       <WorkoutProvider>
         <Route
