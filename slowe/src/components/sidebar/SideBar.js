@@ -58,9 +58,9 @@ export const SideBar = (props) => {
         Total Compeleted Workouts:
         {completedWorkouts.length}
       </p>
-      <p> Average Speed: {speed} MPH</p>
+      <p> Average Speed: {speed || 0} MPH</p>
       <p>Total Distance:{distance} Miles</p>
-      <p>Average Distance: {avDistance} Miles</p>
+      <p>Average Distance: {avDistance || 0} Miles</p>
     </>
   )
 }
