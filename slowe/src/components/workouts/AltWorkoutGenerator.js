@@ -38,9 +38,9 @@ export const AltWorkoutGenerator = (props) => {
         isComplete: false,
       })
     }
-    return Promise.all(workoutArray.map((workout) => addWorkout(workout))).then(() =>
-      props.history.push("/")
-    )
+    return Promise.all(
+      workoutArray.map((workout, i) => setTimeout(() => addWorkout(workout), i * 250))
+    ).then(() => props.history.push("/"))
   }
 
   return (
