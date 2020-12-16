@@ -6,13 +6,14 @@ import { WorkoutProvider, WorkoutContext } from "./workouts/WorkoutProvider"
 import { AltWorkoutGenerator } from "./workouts/AltWorkoutGenerator"
 import { SetParameters } from "./races/SetParameters"
 import { WorkoutList } from "./workouts/WorkoutList"
-import { Parameters } from "./races/Parameters"
 import { AltHome } from "./homepage/Alt-Home"
 import { RaceInfo } from "./races/RaceInfo"
 import { WorkoutsDisplay } from "./workouts/WorkoutsDisplay"
 import { AltRaceForm } from "./races/RaceForm"
 import { EditWorkout } from "./workouts/EditWorkout"
 import { SideBar } from "../components/sidebar/SideBar"
+import { PlaceholderPage } from "./homepage/PlaceHolder"
+import { StateProvider } from "./races/StateProvider"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -68,44 +69,20 @@ export const ApplicationViews = (props) => {
     <>
       <RacesProvider>
         <WorkoutProvider>
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <AltHome {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
-            )}
-          />
+          <StateProvider>
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <AltHome {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
+              )}
+            />
+          </StateProvider>
         </WorkoutProvider>
       </RacesProvider>
-      <RacesProvider>
-        <WorkoutProvider>
-          <Route
-            path="/parameters"
-            render={(props) => (
-              <>
-                <RaceInfo {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
-                <SetParameters
-                  {...props}
-                  currentRace={selectedRace}
-                  currentWorkouts={currentWorkouts}
-                />
-                <AltWorkoutGenerator
-                  {...props}
-                  currentRace={selectedRace}
-                  currentWorkouts={currentWorkouts}
-                />
-                <WorkoutsDisplay
-                  {...props}
-                  currentRace={selectedRace}
-                  currentWorkouts={currentWorkouts}
-                />
-              </>
-            )}
-          />
-        </WorkoutProvider>
-      </RacesProvider>
+
       {/*  */}
-      <RacesProvider>
+      {/* <RacesProvider>
         <WorkoutProvider>
           <Route
             exact
@@ -123,14 +100,19 @@ export const ApplicationViews = (props) => {
             )}
           />
         </WorkoutProvider>
-      </RacesProvider>
+      </RacesProvider> */}
+
       <RacesProvider>
-        <Route exact path="/raceform" render={(props) => <RaceForm {...props} />} />
+        <StateProvider>
+          <Route exact path="/raceform" render={(props) => <RaceForm {...props} />} />
+        </StateProvider>
       </RacesProvider>
 
       <WorkoutProvider>
         <Route exact path="/sidebar" render={(props) => <SideBar {...props} />} />
       </WorkoutProvider>
+
+      <Route exact path="/placehold" render={(props) => <PlaceholderPage {...props} />} />
 
       <WorkoutProvider>
         <Route

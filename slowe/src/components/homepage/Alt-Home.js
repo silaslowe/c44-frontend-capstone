@@ -31,6 +31,10 @@ export const AltHome = (props) => {
   }, [currentRace])
 
   useEffect(() => {
+    setCurrentWorkouts(workouts.filter((workout) => workout.raceId === currentRace.id))
+  }, [])
+
+  useEffect(() => {
     localStorage.setItem("current_race", currentRace.id)
   }, [currentRace])
 
@@ -45,8 +49,11 @@ export const AltHome = (props) => {
     const raceStartDate = racesForUser.map((race) => race.startDate)
     const newestRace = Math.max(...raceStartDate)
     const currentRace = racesForUser.find((race) => race.startDate === newestRace)
+
     return currentRace
   }
+  console.log(currentRace.id, currentWorkouts.length)
+
   return (
     <>
       {currentRace.id && currentWorkouts.length !== 0 ? (

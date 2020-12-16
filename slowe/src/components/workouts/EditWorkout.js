@@ -23,8 +23,8 @@ export const EditWorkout = (props) => {
     const woDist = parseFloat(workout.workoutDist)
     const woTime = parseInt(workout.workoutTime)
     if (
-      workout.workoutDist > props.location.state.distance &&
-      workout.workoutTime < props.location.state.speed
+      workout.workoutDist >= props.location.state.distance &&
+      workout.workoutTime <= props.location.state.speed
     ) {
       updateWorkout({
         id: props.location.state.workoutId,

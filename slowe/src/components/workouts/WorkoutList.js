@@ -25,12 +25,11 @@ export const WorkoutList = (props) => {
   let startingTime = startTime
   let dateForCard = ""
 
-  // const workoutDate = new Date(currentRace.date).toDateString()
-  // const workoutDateStart = workoutDate.setDate(workoutDate.getDate() + 1)
-  // console.log(workoutDate)
-  // console.log(workoutDateStart)
-
   // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
+  useEffect(() => {
+    getRaces()
+  }, [])
+
   useEffect(() => {
     setCurrentRace(currentRaceFinder())
   }, [races])
@@ -52,14 +51,9 @@ export const WorkoutList = (props) => {
     return currentRace
   }
 
-  // console.log("races", races)
-  // console.log("workouts", workouts)
-  // console.log("currentRace", currentRace)
-  // console.log("currentWorkouts", currentWorkouts)
-
   useEffect(() => {
     generateDays()
-  }, [currentRace, currentWorkouts])
+  }, [currentRace])
 
   useEffect(() => {
     createSpeedInc()
@@ -76,12 +70,6 @@ export const WorkoutList = (props) => {
   useEffect(() => {
     currentWorkouts.map((wo) => {
       let woDate = new Date(wo.date - day)
-      // let readabelWODate = woDate.toLocaleString("en-US", {
-      //   month: "numeric",
-      //   day: "numeric",
-      //   year: "numeric",
-      // })
-      // console.log((readabelWODate += day))
     })
   }, [currentWorkouts, currentRace])
 
@@ -110,19 +98,6 @@ export const WorkoutList = (props) => {
     setSpeedInc(speedInc())
   }
 
-  // ****************************
-  // let startingDate = new Date(startDate)
-  // let readableDate = startingDate.toLocaleString("en-US", {
-  //   month: "numeric",
-  //   day: "numeric",
-  //   year: "numeric",
-  // })
-
-  // ****************************
-
-  // let startSpeed =
-  //   parseFloat(currentRace.distance.toFixed(1)) * parseFloat(startPaceInMinPerMile.toFixed(1)) +
-  //   speedInc()
   const generateDays = () => {
     setStartDate(currentRace.startDate)
     setRaceDate(currentRace.date)
