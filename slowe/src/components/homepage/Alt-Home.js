@@ -24,11 +24,11 @@ export const AltHome = (props) => {
 
   useEffect(() => {
     getWorkouts()
-  }, [races])
+  }, [currentRace])
   // This is supposed to get the workouts for the selected race to be passed in state during navigation. The logic works but the fetch rarely does.
   useEffect(() => {
     setCurrentWorkouts(workouts.filter((workout) => workout.raceId === currentRace.id))
-  }, [races, workouts])
+  }, [currentRace])
 
   // console.log("races", races)
   // console.log("workouts", workouts)
@@ -43,6 +43,7 @@ export const AltHome = (props) => {
     const currentRace = racesForUser.find((race) => race.startDate === newestRace)
     return currentRace
   }
+  console.log(currentRace.id, currentWorkouts.length)
   return (
     <>
       {/* {currentRace.id ? (
