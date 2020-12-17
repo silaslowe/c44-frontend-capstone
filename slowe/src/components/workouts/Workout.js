@@ -1,16 +1,13 @@
-import React, { useContext, useState, useEffect } from "react"
-import { WorkoutContext } from "./WorkoutProvider"
+import React from "react"
 
 export const Workout = (props) => {
-  const { updateWorkout } = useContext(WorkoutContext)
-  const { speed, distance, time, workout, date } = props
+  const { speed, distance, workout, date } = props
   // const [workoutSpeed, setWorkoutSpeed] = useState("")
   const workoutSpeed = parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
 
   // useEffect(() => {
   //   setWorkoutSpeed((workout.workoutTime / workout.workoutDist).toFixed(2))
   // }, [])
-  console.log(workoutSpeed)
   if (workout.isComplete && workout.workoutDist > distance && workout.workoutTime < speed) {
     return (
       <div className="workout-card metGoal">

@@ -6,19 +6,21 @@ export const EditWorkout = (props) => {
   const { workouts, getWorkouts, updateWorkout } = useContext(WorkoutContext)
   const [workout, setWorkout] = useState({})
 
-  useEffect(() => {
-    getWorkouts()
-  }, [])
-
-  useEffect(() => {
-    setWorkout(workouts.find((wo) => wo.id === props.location.state.workoutId))
-  }, [])
-
   const handleControlledInputChange = (e) => {
     const newWorkout = Object.assign({}, workout)
     newWorkout[e.target.name] = e.target.value
     setWorkout(newWorkout)
   }
+
+  useEffect(() => {
+    getWorkouts()
+  }, [])
+
+  console.log(workout)
+
+  useEffect(() => {
+    setWorkout(workouts.find((wo) => wo.id === props.location.state.workoutId) || {})
+  }, [workouts])
 
   const constructNewWorkout = () => {
     const woDist = parseFloat(workout.workoutDist)
@@ -54,7 +56,6 @@ export const EditWorkout = (props) => {
       })
     }
   }
-  console.log(workout)
   return (
     <form className="workoutForm">
       <h1>Enter Workout Data</h1>
