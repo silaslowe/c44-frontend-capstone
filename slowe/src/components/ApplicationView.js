@@ -14,6 +14,8 @@ import { EditWorkout } from "./workouts/EditWorkout"
 import { SideBar } from "../components/sidebar/SideBar"
 import { PlaceholderPage } from "./homepage/PlaceHolder"
 import { StateProvider } from "./races/StateProvider"
+import { UserProvider } from "./user/UserProvider"
+import { User } from "./user/User"
 
 export const ApplicationViews = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -81,27 +83,6 @@ export const ApplicationViews = (props) => {
         </WorkoutProvider>
       </RacesProvider>
 
-      {/*  */}
-      {/* <RacesProvider>
-        <WorkoutProvider>
-          <Route
-            exact
-            path="/workout-display"
-            render={(props) => (
-              <>
-                <RaceInfo {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
-
-                <WorkoutList
-                  {...props}
-                  currentRace={selectedRace}
-                  currentWorkouts={currentWorkouts}
-                />
-              </>
-            )}
-          />
-        </WorkoutProvider>
-      </RacesProvider> */}
-
       <RacesProvider>
         <StateProvider>
           <Route exact path="/raceform" render={(props) => <RaceForm {...props} />} />
@@ -121,6 +102,10 @@ export const ApplicationViews = (props) => {
           render={(props) => <EditWorkout {...props} />}
         />
       </WorkoutProvider>
+
+      <UserProvider>
+        <Route exact path="/user" render={(props) => <User {...props} />} />
+      </UserProvider>
     </>
   )
 }

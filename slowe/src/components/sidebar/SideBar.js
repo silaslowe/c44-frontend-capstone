@@ -22,10 +22,8 @@ export const SideBar = (props) => {
   }, [workouts])
 
   useEffect(() => {
-    setCompletedWorkouts(currentWorkouts.filter((workout) => workout.metGoal === true))
+    setCompletedWorkouts(currentWorkouts.filter((workout) => workout.isComplete === true))
   }, [currentWorkouts])
-
-  console.log(currentWorkouts)
 
   useEffect(() => {
     const speedTotal = completedWorkouts
@@ -33,7 +31,7 @@ export const SideBar = (props) => {
         return parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
       })
       .reduce((a, b) => a + b, 0)
-    setSpeed(speedTotal / completedWorkouts.length)
+    setSpeed((speedTotal / completedWorkouts.length).toFixed(2))
   }, [completedWorkouts])
 
   useEffect(() => {
@@ -52,7 +50,6 @@ export const SideBar = (props) => {
     setAvDistance(distanceTotal / completedWorkouts.length)
   }, [completedWorkouts])
 
-  console.log(workouts, speed, completedWorkouts)
   return (
     <>
       <h1>SideBar</h1>
