@@ -18,8 +18,11 @@ export const WorkoutList = (props) => {
   const [startDist, setStartDist] = useState("")
   const [startTime, setStartTime] = useState("")
 
+  // gets current date for later use
   const today = new Date().getTime()
+  // a day in ms
   const day = 86400000
+  // starting distance - the incrementer that will get added in iteration
   let startingDist = startDist - distInc
   let startingSpeed = (parseFloat(startSpeed) - speedInc) * startingDist
   let startingTime = startTime
@@ -108,12 +111,17 @@ export const WorkoutList = (props) => {
       <h2>WORKOUTS</h2>
       <div className="workout-container">
         {currentWorkouts.map((workout) => {
+          // increments the distance for each wo
           startingDist += distInc
+          // increments the speed for each wo
           startingSpeed += speedInc
-          startingTime = startingDist * startingSpeed
-          const woDate = workout.date
-          const readableDate = new Date(woDate)
 
+          startingTime = startingDist * startingSpeed
+          // date in ms
+          const woDate = workout.date
+          // to readable date
+          const readableDate = new Date(woDate)
+          //  to formatted date
           dateForCard = readableDate.toLocaleString("en-US", {
             month: "numeric",
             day: "numeric",

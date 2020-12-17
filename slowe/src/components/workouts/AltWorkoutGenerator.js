@@ -7,15 +7,16 @@ export const AltWorkoutGenerator = (props) => {
   const [currentWorkouts, setCurrentWorkouts] = useState([])
   const [daysNeeded, setDaysNeeded] = useState()
   const [arrayLength, setArrayLength] = useState("")
+  // # of days between start of workouts and race
   let daysBetween = ""
+  // holds generated workout objects
   let workoutArray = []
-
-  console.log(props)
 
   useEffect(() => {
     getWorkouts()
   }, [])
 
+  // finds workouts for current race
   useEffect(() => {
     setCurrentWorkouts(workouts.filter((workout) => workout.raceId === props.currentRace.id))
   }, [workouts])
@@ -45,9 +46,11 @@ export const AltWorkoutGenerator = (props) => {
         metGoal: false,
       })
     }
+    // Total timeout time set by map
     const delay = workoutArray.length * 250 + 50
     console.log(delay)
 
+    // posts each workout to the db with a timeout to avoid logjam in json server
     return Promise.all(
       workoutArray.map((workout, i) => setTimeout(() => addWorkout(workout), i * 250))
     ).then(() => {
