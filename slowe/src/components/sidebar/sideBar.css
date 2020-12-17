@@ -1,0 +1,13 @@
+.sidebar {
+  background-color: lightgrey;
+  width: 50%;
+  -webkit-box-shadow: 5px 8px 15px 5px #000000;
+  box-shadow: 5px 8px 15px 5px #000000;
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.sidebar-container {
+  display: flex;
+  justify-content: center;
+}

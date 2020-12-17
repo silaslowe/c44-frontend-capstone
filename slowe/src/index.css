@@ -1,5 +1,9 @@
 @import "../src/components/workouts/workoutCard.css";
-@import "../src/components/workouts/workouts.css";
+@import "../src/components/races/raceFrom.css";
+@import "../src/components/nav/nav.css";
+@import "../src/components/races/raceInfo.css";
+@import "../src//components/workouts/workoutList.css";
+@import "../src/components/sidebar/sideBar.css";
 
 body {
   margin: 0;

@@ -57,12 +57,18 @@ export const SideBar = (props) => {
 
   return (
     <>
-      <h1>SideBar</h1>
-      <p>Total Compeleted Workouts: {completedWorkouts.length}</p>
-      {/* <p>Total Workout Goals Met: {metGoals.length}</p> */}
-      <p> Average Speed: {speed || 0} MPH</p>
-      <p>Total Distance:{distance} Miles</p>
-      <p>Average Distance: {avDistance || 0} Miles</p>
+      <div className="sidebar-container">
+        <div className="sidebar">
+          <h1>SideBar</h1>
+          <p>
+            Total Compeleted Workouts: {completedWorkouts.length}/{currentWorkouts.length}
+          </p>
+          {/* <p>Total Workout Goals Met: {metGoals.length}</p> */}
+          <p> Average Speed: {speed || 0} MPH</p>
+          <p>Total Distance:{distance} Miles</p>
+          <p>Average Distance: {avDistance || 0} Miles</p>
+        </div>
+      </div>
     </>
   )
 }
