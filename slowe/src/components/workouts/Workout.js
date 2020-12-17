@@ -1,15 +1,17 @@
-import React, { useContext } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { WorkoutContext } from "./WorkoutProvider"
 
 export const Workout = (props) => {
   const { updateWorkout } = useContext(WorkoutContext)
   const { speed, distance, time, workout, date } = props
+  // const [workoutSpeed, setWorkoutSpeed] = useState("")
+  const workoutSpeed = parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
 
+  // useEffect(() => {
+  //   setWorkoutSpeed((workout.workoutTime / workout.workoutDist).toFixed(2))
+  // }, [])
+  console.log(workoutSpeed)
   if (workout.isComplete && workout.workoutDist > distance && workout.workoutTime < speed) {
-    // updateWorkout({
-    //   metGoal: true,
-    //   id: workout.id,
-    // })
     return (
       <div className="workout-card metGoal">
         <p className="workout-date">{date}</p>
@@ -25,7 +27,7 @@ export const Workout = (props) => {
           <div className="workout-card-achievement">
             <p>Distance: {workout.workoutDist} miles</p>
             <p>Time: {workout.workoutTime} minutes</p>
-            <p>Speed: {(workout.workoutTime / workout.workoutDist).toFixed(2) || 0}</p>
+            <p>Speed: {workoutSpeed || 0} mph</p>
             <p>Notes: {workout.notes}</p>
           </div>
         </div>
@@ -55,9 +57,9 @@ export const Workout = (props) => {
             </p>
           </div>
           <div className="workout-card-achievement">
-            <p>Distance: {workout.workoutDist} Test miles</p>
-            <p>Time: {workout.workoutTime}</p>
-            <p>Speed: {(workout.workoutTime / workout.workoutDist).toFixed(2) || 0}</p>
+            <p>Distance: {workout.workoutDist} miles</p>
+            <p>Time: {workout.workoutTime} minutes</p>
+            <p>Speed: {workoutSpeed || 0} mph</p>
             <p>Notes: {workout.notes}</p>
           </div>
         </div>

@@ -12,6 +12,7 @@ export const NavBar = (props) => {
       <h1>SLOWE</h1>
       <button onClick={logout}>Log Out</button>
       <Link to="/sidebar">Metrics</Link>
+      <Link to="/user">Users</Link>
       <Link to="/">Home</Link>
     </>
   )
