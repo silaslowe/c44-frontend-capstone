@@ -3,7 +3,7 @@ import { RacesContext, RacesProvider } from "../races/RacesProvider"
 import { RaceInfo } from "../races/RaceInfo"
 import { AltWorkoutGenerator } from "../workouts/AltWorkoutGenerator"
 import { RaceForm } from "../races/RaceForm"
-import { WorkoutProvider, WorkoutContext } from "../workouts/WorkoutProvider"
+import { WorkoutContext } from "../workouts/WorkoutProvider"
 import { WorkoutList } from "../workouts/WorkoutList"
 
 export const AltHome = (props) => {

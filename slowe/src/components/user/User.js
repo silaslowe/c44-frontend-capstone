@@ -25,6 +25,14 @@ export const User = (props) => {
       >
         Delete Account
       </button>
+      <button
+        onClick={() => {
+          localStorage.setItem("current_race", "")
+          props.history.push("/raceform")
+        }}
+      >
+        New Race
+      </button>
     </>
   )
 }
