@@ -5,12 +5,13 @@ export const EditWorkout = (props) => {
   console.log(props)
   const { workouts, getWorkouts, updateWorkout } = useContext(WorkoutContext)
   const [workout, setWorkout] = useState({})
+
   useEffect(() => {
     getWorkouts()
   }, [])
 
   useEffect(() => {
-    setWorkout(workouts.filter((wo) => wo.id === props.location.state.workoutId))
+    setWorkout(workouts.find((wo) => wo.id === props.location.state.workoutId))
   }, [])
 
   const handleControlledInputChange = (e) => {
@@ -98,6 +99,7 @@ export const EditWorkout = (props) => {
             name="notes"
             className="form-control"
             proptype="varchar"
+            placeholder="Please enter notes or gentle musings here"
             value={workout.notes}
             onChange={handleControlledInputChange}
           ></textarea>
