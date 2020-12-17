@@ -8,6 +8,7 @@ export const SideBar = (props) => {
   const [distance, setDistance] = useState("")
   const [avDistance, setAvDistance] = useState("")
   const [completedWorkouts, setCompletedWorkouts] = useState([])
+  const [metGoals, setMetGoals] = useState("")
   console.log(props)
   useEffect(() => {
     getWorkouts()
@@ -26,19 +27,23 @@ export const SideBar = (props) => {
   }, [currentWorkouts])
 
   useEffect(() => {
+    setMetGoals(currentWorkouts.filter((workout) => workout.metGoal === true))
+  }, [])
+  console.log(metGoals)
+  useEffect(() => {
     const speedTotal = completedWorkouts
       .map((workout) => {
         return parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
       })
       .reduce((a, b) => a + b, 0)
-    setSpeed((speedTotal / completedWorkouts.length).toFixed(2))
+    setSpeed(speedTotal / completedWorkouts.length || 0)
+    console.log(speedTotal, completedWorkouts.length)
   }, [completedWorkouts])
 
   useEffect(() => {
     const distanceTotal = completedWorkouts
       .map((workout) => workout.workoutDist)
       .reduce((a, b) => a + b, 0)
-    console.log(distanceTotal)
     setDistance(distanceTotal)
   }, [completedWorkouts])
 
@@ -53,10 +58,8 @@ export const SideBar = (props) => {
   return (
     <>
       <h1>SideBar</h1>
-      <p>
-        Total Compeleted Workouts:
-        {completedWorkouts.length}
-      </p>
+      <p>Total Compeleted Workouts: {completedWorkouts.length}</p>
+      {/* <p>Total Workout Goals Met: {metGoals.length}</p> */}
       <p> Average Speed: {speed || 0} MPH</p>
       <p>Total Distance:{distance} Miles</p>
       <p>Average Distance: {avDistance || 0} Miles</p>
