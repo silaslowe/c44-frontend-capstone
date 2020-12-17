@@ -60,160 +60,162 @@ export const RaceForm = (props) => {
   }
 
   return (
-    <form className="raceForm">
-      <h2 className="raceForm__title">New Race</h2>
-      {/* Name */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="RaceName">Race Name: </label>
-          <input
-            type="text"
-            id="raceName"
-            ref={name}
-            required
-            autoFocus
-            className="form-control"
-            placeholder="Race Name"
-          />
-        </div>
-      </fieldset>
-      {/* State */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="raceState">State</label>
-          <select
-            defaultValue=""
-            name="raceState"
-            ref={state}
-            id="raceState"
-            className="form-control"
-          >
-            <option value="0">Select a State</option>
-            {states.map((state) => (
-              <option key={state.id} value={state.abbreviation}>
-                {state.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </fieldset>
-      {/* City */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="raceCity ">City</label>
-          <input
-            type="text"
-            id="raceCity"
-            ref={city}
-            required
-            className="form-control"
-            placeholder="Race City"
-          />
-        </div>
-      </fieldset>
-      {/* Unit  */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="unit">Unit</label>
-          <select defaultValue="0" name="unit" ref={unit} id="unit" className="form-control">
-            <option value="0">Select a Unit</option>
-            <option value="miles">Miles</option>
-            <option value="kilos">Kilometers</option>
-          </select>
-        </div>
-      </fieldset>
-      {/* Distance */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="raceDistance ">Distance</label>
-          <input
-            type="text"
-            id="raceDistance"
-            ref={raceTotalDistance}
-            required
-            className="form-control"
-            placeholder="0"
-          />
-        </div>
-      </fieldset>
+    <div className="form-container">
+      <form className="raceForm">
+        <h2 className="raceForm__title">New Race</h2>
+        {/* Name */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="RaceName">Race Name: </label>
+            <input
+              type="text"
+              id="raceName"
+              ref={name}
+              required
+              autoFocus
+              className="form-control"
+              placeholder="Race Name"
+            />
+          </div>
+        </fieldset>
+        {/* State */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="raceState">State</label>
+            <select
+              defaultValue=""
+              name="raceState"
+              ref={state}
+              id="raceState"
+              className="form-control"
+            >
+              <option value="0">Select a State</option>
+              {states.map((state) => (
+                <option key={state.id} value={state.abbreviation}>
+                  {state.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </fieldset>
+        {/* City */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="raceCity ">City</label>
+            <input
+              type="text"
+              id="raceCity"
+              ref={city}
+              required
+              className="form-control"
+              placeholder="Race City"
+            />
+          </div>
+        </fieldset>
+        {/* Unit  */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="unit">Unit</label>
+            <select defaultValue="0" name="unit" ref={unit} id="unit" className="form-control">
+              <option value="0">Select a Unit</option>
+              <option value="miles">Miles</option>
+              <option value="kilos">Kilometers</option>
+            </select>
+          </div>
+        </fieldset>
+        {/* Distance */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="raceDistance ">Distance</label>
+            <input
+              type="text"
+              id="raceDistance"
+              ref={raceTotalDistance}
+              required
+              className="form-control"
+              placeholder="0"
+            />
+          </div>
+        </fieldset>
 
-      {/* Date */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="raceDate">Date</label>
-          <input type="date" id="raceDate" ref={raceDate} required className="form-control" />
-        </div>
-      </fieldset>
-      <h2 className="parametersForm__title">Race Parameters</h2>
-      {/* Starting Distance */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="raceDistPercent">Starting Dist Percent</label>
-          <select
-            defaultValue=""
-            name="startDistPercent"
-            ref={startDistPercent}
-            id="startDistPercent"
-            className="form-control"
-          >
-            <option value="0">Select Dist Percent</option>
-            <option value=".5">50%</option>
-            <option value=".55">55%</option>
-            <option value=".6">60%</option>
-            <option value=".65">65%</option>
-            <option value=".7">70%</option>
-            <option value=".75">75%</option>
-            <option value=".8">80%</option>
-          </select>
-        </div>
-      </fieldset>
-      {/* Goal Race Time */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="goalRaceTime ">Time Goal</label>
-          <input
-            type="text"
-            id="goalRaceTime"
-            ref={goalRaceTime}
-            className="form-control"
-            placeholder="Goal Time in Minutes"
-          />
-        </div>
-      </fieldset>
-      {/* Starting Speed */}
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="startPacePercent">Select Speed Percent</label>
-          <select
-            defaultValue=""
-            name="startPacePercent"
-            ref={startPacePercent}
-            id="startPacePercent"
-            className="form-control"
-          >
-            <option value="0">Select Starting Speed</option>
-            <option value=".5">50%</option>
-            <option value=".55">55%</option>
-            <option value=".6">60%</option>
-            <option value=".65">65%</option>
-            <option value=".7">70%</option>
-            <option value=".75">75%</option>
-            <option value=".8">80%</option>
-          </select>
-        </div>
-      </fieldset>
-      {/* Submit */}
-      <button
-        type="submit"
-        onClick={(ev) => {
-          ev.preventDefault()
-          constructNewRace()
-          props.history.push("/")
-        }}
-        className="btn btn-primary"
-      >
-        Save Race
-      </button>
-    </form>
+        {/* Date */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="raceDate">Date</label>
+            <input type="date" id="raceDate" ref={raceDate} required className="form-control" />
+          </div>
+        </fieldset>
+        <h2 className="parametersForm__title">Race Parameters</h2>
+        {/* Starting Distance */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="raceDistPercent">Starting Dist Percent </label>
+            <select
+              defaultValue=""
+              name="startDistPercent"
+              ref={startDistPercent}
+              id="startDistPercent"
+              className="form-control"
+            >
+              <option value="0">Select Dist Percent</option>
+              <option value=".5">50%</option>
+              <option value=".55">55%</option>
+              <option value=".6">60%</option>
+              <option value=".65">65%</option>
+              <option value=".7">70%</option>
+              <option value=".75">75%</option>
+              <option value=".8">80%</option>
+            </select>
+          </div>
+        </fieldset>
+        {/* Goal Race Time */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="goalRaceTime ">Time Goal In Minutes </label>
+            <input
+              type="text"
+              id="goalRaceTime"
+              ref={goalRaceTime}
+              className="form-control"
+              placeholder="Goal Time in Minutes"
+            />
+          </div>
+        </fieldset>
+        {/* Starting Speed */}
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="startPacePercent">Select Speed Percent </label>
+            <select
+              defaultValue=""
+              name="startPacePercent"
+              ref={startPacePercent}
+              id="startPacePercent"
+              className="form-control"
+            >
+              <option value="0">Select Starting Speed</option>
+              <option value=".5">50%</option>
+              <option value=".55">55%</option>
+              <option value=".6">60%</option>
+              <option value=".65">65%</option>
+              <option value=".7">70%</option>
+              <option value=".75">75%</option>
+              <option value=".8">80%</option>
+            </select>
+          </div>
+        </fieldset>
+        {/* Submit */}
+        <button
+          type="submit"
+          onClick={(ev) => {
+            ev.preventDefault()
+            constructNewRace()
+            props.history.push("/")
+          }}
+          className="btn btn-form"
+        >
+          Save Race
+        </button>
+      </form>
+    </div>
   )
 }
