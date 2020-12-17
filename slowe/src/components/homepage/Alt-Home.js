@@ -11,11 +11,18 @@ export const AltHome = (props) => {
   const { workouts, getWorkouts } = useContext(WorkoutContext)
   const [currentRace, setCurrentRace] = useState({})
   const [currentWorkouts, setCurrentWorkouts] = useState([])
+  const [stateChange, setStateChange] = useState("")
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
+
+  console.log(props)
 
   useEffect(() => {
     getRaces()
   }, [])
+
+  // useEffect(() => {
+  //   getRaces()
+  // }, [props.location.state.stateChange])
 
   // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
   useEffect(() => {

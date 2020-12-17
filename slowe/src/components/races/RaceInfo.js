@@ -23,25 +23,23 @@ export const RaceInfo = (props) => {
     return currentRace
   }
 
-  // console.log("races", races)
-  // console.log("selectedRace", currentRace)
-
-  // let name = currentRace.name
-  // let city = currentRace.city
-  // let state = currentRace.state
-  // let distance = currentRace.distance
-  // let date = currentRace.date
-  // let raceDate = new Date(date).toDateString()
-
   return (
     <>
-      <div className="race-box">
-        <h3>Name: {currentRace.name}</h3>
-        <p>Distance: {currentRace.distance} miles</p>
-        <p>Time Goal: {currentRace.goalRaceTime} min</p>
-        <p>City :{currentRace.city}</p>
-        <p>State: {currentRace.state}</p>
-        <p>Date: {new Date(currentRace.date).toDateString()}</p>
+      <div className="race-info">
+        <div className="race-info-box">
+          <h3>Race Name: {currentRace.name}</h3>
+          <p className="race-date">{new Date(currentRace.date).toDateString()}</p>
+          <div className="race-particulars">
+            <div className="race-left">
+              <p>Distance: {currentRace.distance} miles</p>
+              <p>City :{currentRace.city}</p>
+            </div>
+            <div className="race-right">
+              <p>Time Goal: {currentRace.goalRaceTime} min</p>
+              <p>State: {currentRace.state}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   )

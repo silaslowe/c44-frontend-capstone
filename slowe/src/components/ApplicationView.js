@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { Route } from "react-router-dom"
 import { RacesProvider, RacesContext } from "./races/RacesProvider"
 import { RaceForm } from "./races/RaceForm"
+import { RaceInfo } from "./races/RaceInfo"
 import { WorkoutProvider, WorkoutContext } from "./workouts/WorkoutProvider"
 import { AltWorkoutGenerator } from "./workouts/AltWorkoutGenerator"
 import { WorkoutList } from "./workouts/WorkoutList"
@@ -86,7 +87,10 @@ export const ApplicationViews = (props) => {
       </RacesProvider>
 
       <WorkoutProvider>
-        <Route exact path="/sidebar" render={(props) => <SideBar {...props} />} />
+        <RacesProvider>
+          <Route exact path="/sidebar" render={(props) => <RaceInfo {...props} />} />
+          <Route exact path="/sidebar" render={(props) => <SideBar {...props} />} />
+        </RacesProvider>
       </WorkoutProvider>
 
       <Route exact path="/placehold" render={(props) => <PlaceholderPage {...props} />} />
