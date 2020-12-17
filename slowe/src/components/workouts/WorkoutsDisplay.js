@@ -52,7 +52,6 @@ export const WorkoutsDisplay = (props) => {
       {workoutArray.map((workout) => {
         startDistance += distInc()
         startSpeed = startSpeed - parseFloat(speedInc().toFixed())
-        console.log(startDistance)
         return (
           <Workout key={workout.id} workout={workout} distance={startDistance} speed={startSpeed} />
         )
