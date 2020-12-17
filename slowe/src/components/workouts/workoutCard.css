@@ -25,3 +25,13 @@
 .metGoal {
   background-color: cornsilk;
 }
+
+.workoutCard-notes {
+  margin: 0;
+  padding-left: 0rem;
+  border-left: 2px solid black;
+  min-height: 100%;
+  width: 25%;
+  text-align: center;
+  overflow: scroll;
+}

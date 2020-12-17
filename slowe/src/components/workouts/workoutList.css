@@ -1,0 +1,17 @@
+.workouts {
+  display: flex;
+  justify-content: center;
+}
+
+.workout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  -webkit-box-shadow: 5px 8px 15px 5px #000000;
+  box-shadow: 5px 8px 15px 5px #000000;
+  background-color: lightgrey;
+  max-height: 50vh;
+  overflow: scroll;
+  width: 65%;
+}

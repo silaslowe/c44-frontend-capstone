@@ -25,8 +25,8 @@ export const Workout = (props) => {
             <p>Distance: {workout.workoutDist} miles</p>
             <p>Time: {workout.workoutTime} minutes</p>
             <p>Speed: {workoutSpeed || 0} mph</p>
-            <p>Notes: {workout.notes}</p>
           </div>
+          <p className="workoutCard-notes">Notes: {workout.notes}</p>
         </div>
         <button
           onClick={() => {
@@ -57,8 +57,8 @@ export const Workout = (props) => {
             <p>Distance: {workout.workoutDist} miles</p>
             <p>Time: {workout.workoutTime} minutes</p>
             <p>Speed: {workoutSpeed || 0} mph</p>
-            <p>Notes: {workout.notes}</p>
           </div>
+          <p className="workoutCard-notes">Notes: {workout.notes}</p>
         </div>
         <button
           onClick={() => {

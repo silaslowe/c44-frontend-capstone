@@ -105,33 +105,35 @@ export const WorkoutList = (props) => {
   }
   return (
     <>
-      <h2>WORKOUTS</h2>
-      <div className="workout-container">
-        {currentWorkouts.map((workout) => {
-          startingDist += distInc
-          startingSpeed += speedInc
-          startingTime = startingDist * startingSpeed
-          const woDate = workout.date
-          const readableDate = new Date(woDate)
+      <div className="workouts">
+        <div className="workout-container">
+          <h2>WORKOUTS</h2>
+          {currentWorkouts.map((workout) => {
+            startingDist += distInc
+            startingSpeed += speedInc
+            startingTime = startingDist * startingSpeed
+            const woDate = workout.date
+            const readableDate = new Date(woDate)
 
-          dateForCard = readableDate.toLocaleString("en-US", {
-            month: "numeric",
-            day: "numeric",
-            year: "numeric",
-          })
-          return (
-            <Workout
-              key={workout.id}
-              {...props}
-              workout={workout}
-              distance={startingDist}
-              speed={startingSpeed}
-              time={startingTime}
-              date={dateForCard}
-              today={today}
-            />
-          )
-        })}
+            dateForCard = readableDate.toLocaleString("en-US", {
+              month: "numeric",
+              day: "numeric",
+              year: "numeric",
+            })
+            return (
+              <Workout
+                key={workout.id}
+                {...props}
+                workout={workout}
+                distance={startingDist}
+                speed={startingSpeed}
+                time={startingTime}
+                date={dateForCard}
+                today={today}
+              />
+            )
+          })}
+        </div>
       </div>
     </>
   )

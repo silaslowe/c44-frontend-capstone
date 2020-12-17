@@ -1,0 +1,47 @@
+.race-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.race-info-box {
+  background-color: lightgrey;
+  width: 50%;
+  -webkit-box-shadow: 5px 8px 15px 5px #000000;
+  box-shadow: 5px 8px 15px 5px #000000;
+}
+
+.race-info,
+.race-info-box {
+  margin: 0;
+}
+
+.race-info-box > p {
+  font-size: 1.25rem;
+}
+
+.race-particulars {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.race-left,
+.race-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 1.25rem;
+  text-decoration: underline;
+}
+
+.race-info-box > h3 {
+  font-size: 1.75rem;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.race-date {
+  text-align: center;
+  margin: 0.5rem;
+}

@@ -52,7 +52,10 @@ export const AltWorkoutGenerator = (props) => {
       workoutArray.map((workout, i) => setTimeout(() => addWorkout(workout), i * 250))
     ).then(() => {
       setTimeout(() => setGenerated(true), delay - 50)
-      setTimeout(() => props.history.push("/placehold"), delay)
+      setTimeout(
+        () => props.history.push({ pathname: "/placehold", state: { stateChange: 1 } }),
+        delay
+      )
     })
   }
 
