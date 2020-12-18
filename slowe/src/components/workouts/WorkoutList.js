@@ -115,7 +115,7 @@ export const WorkoutList = (props) => {
             startingDist += distInc
             startingSpeed += speedInc
             startingTime = startingDist * startingSpeed
-            const woDate = workout.date
+            const woDate = workout.date - day
             const readableDate = new Date(woDate)
 
             dateForCard = readableDate.toLocaleString("en-US", {
