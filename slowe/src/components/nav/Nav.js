@@ -19,7 +19,7 @@ export const NavBar = (props) => {
             Users
           </Link>
           <Link className="link" to="/">
-            Home
+            Race
           </Link>
           <button className="logout-btn" onClick={logout}>
             Log Out

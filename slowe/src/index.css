@@ -4,6 +4,7 @@
 @import "../src/components/races/raceInfo.css";
 @import "../src//components/workouts/workoutList.css";
 @import "../src/components/sidebar/sideBar.css";
+@import "../src/components/user/user.css";
 
 body {
   margin: 0;
