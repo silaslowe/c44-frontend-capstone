@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react"
+import React from "react"
 import { Route } from "react-router-dom"
-import { RacesProvider, RacesContext } from "./races/RacesProvider"
+import { RacesProvider } from "./races/RacesProvider"
 import { RaceForm } from "./races/RaceForm"
 import { RaceInfo } from "./races/RaceInfo"
-import { WorkoutProvider, WorkoutContext } from "./workouts/WorkoutProvider"
-import { AltWorkoutGenerator } from "./workouts/AltWorkoutGenerator"
-import { WorkoutList } from "./workouts/WorkoutList"
+import { WorkoutProvider } from "./workouts/WorkoutProvider"
 import { AltHome } from "./homepage/Alt-Home"
 import { EditWorkout } from "./workouts/EditWorkout"
 import { SideBar } from "../components/sidebar/SideBar"
@@ -15,86 +13,32 @@ import { UserProvider } from "./user/UserProvider"
 import { User } from "./user/User"
 
 export const ApplicationViews = (props) => {
-  const { getRaces, races } = useContext(RacesContext)
-  const { getWorkouts, workouts, getWorkoutsByRace } = useContext(WorkoutContext)
-  const currentUser = parseInt(localStorage.getItem("app_user_id"))
-  const [currentWorkouts, setCurrentWorkouts] = useState([])
-  const [selectedRace, setSelectedRace] = useState({})
-
-  useEffect(() => {
-    getRaces()
-  }, [])
-
-  // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
-  useEffect(() => {
-    setSelectedRace(currentRaceFinder())
-  }, [races])
-
-  // This is supposed to get the workouts for the selected race to be passed in state during navigation. The logic works but the fetch rarely does.
-
-  // Probably overly complex logic to filter the users races to find the most recent
-  const currentRaceFinder = () => {
-    const racesForUser = races.filter((race) => race.userId === currentUser)
-    if (racesForUser) {
-      const raceStartDate = racesForUser.map((race) => race.startDate)
-      const newestRace = Math.max(...raceStartDate)
-      const currentRace = racesForUser.find((race) => race.startDate === newestRace)
-      return currentRace
-    } else {
-      setSelectedRace({})
-    }
-  }
-
-  useEffect(() => {
-    getWorkouts()
-  }, [])
-
-  useEffect(() => {
-    setCurrentWorkouts(currentWorkoutsFinder())
-  }, [workouts, selectedRace])
-
-  const currentWorkoutsFinder = () => {
-    if (selectedRace) {
-      const currentWorkouts = workouts.filter((workout) => {
-        return workout.raceId === selectedRace.id
-      })
-      return currentWorkouts
-    } else {
-      setCurrentWorkouts([])
-    }
-  }
-
   return (
     <>
+      {/* To home page */}
       <RacesProvider>
         <WorkoutProvider>
           <StateProvider>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <AltHome {...props} currentRace={selectedRace} currentWorkouts={currentWorkouts} />
-              )}
-            />
+            <Route exact path="/" render={(props) => <AltHome {...props} />} />
           </StateProvider>
         </WorkoutProvider>
       </RacesProvider>
-
+      {/* To raceForm */}
       <RacesProvider>
         <StateProvider>
           <Route exact path="/raceform" render={(props) => <RaceForm {...props} />} />
         </StateProvider>
       </RacesProvider>
-
+      {/* To metrics */}
       <WorkoutProvider>
         <RacesProvider>
           <Route exact path="/sidebar" render={(props) => <RaceInfo {...props} />} />
           <Route exact path="/sidebar" render={(props) => <SideBar {...props} />} />
         </RacesProvider>
       </WorkoutProvider>
-
+      {/* To transition page */}
       <Route exact path="/placehold" render={(props) => <PlaceholderPage {...props} />} />
-
+      {/* To edit workout page */}
       <WorkoutProvider>
         <Route
           exact
@@ -102,7 +46,7 @@ export const ApplicationViews = (props) => {
           render={(props) => <EditWorkout {...props} />}
         />
       </WorkoutProvider>
-
+      {/* To user info */}
       <UserProvider>
         <Route exact path="/user" render={(props) => <User {...props} />} />
       </UserProvider>
