@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { WorkoutContext } from "./WorkoutProvider"
 
-export const AltWorkoutGenerator = (props) => {
+export const WorkoutGenerator = (props) => {
   const { addWorkout } = useContext(WorkoutContext)
 
   // # of days between start of workouts and race

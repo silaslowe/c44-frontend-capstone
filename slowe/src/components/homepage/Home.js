@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react"
 import { RacesContext } from "../races/RacesProvider"
 import { RaceInfo } from "../races/RaceInfo"
-import { AltWorkoutGenerator } from "../workouts/AltWorkoutGenerator"
+import { WorkoutGenerator } from "../workouts/WorkoutGenerator"
 import { RaceForm } from "../races/RaceForm"
 import { WorkoutContext } from "../workouts/WorkoutProvider"
 import { WorkoutList } from "../workouts/WorkoutList"
 import { currentRaceFinder } from "../helper"
 
-export const AltHome = (props) => {
+export const Home = (props) => {
   const { getRaces, races } = useContext(RacesContext)
   const { workouts, getWorkouts } = useContext(WorkoutContext)
   const [currentRace, setCurrentRace] = useState({})
@@ -55,7 +55,7 @@ export const AltHome = (props) => {
       ) : currentRace.id ? (
         <>
           <RaceInfo {...props} currentRace={currentRace} currentWorkouts={currentWorkouts} />
-          <AltWorkoutGenerator
+          <WorkoutGenerator
             {...props}
             currentRace={currentRace}
             currentWorkouts={currentWorkouts}
