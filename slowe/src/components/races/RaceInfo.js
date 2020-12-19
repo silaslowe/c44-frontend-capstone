@@ -1,7 +1,8 @@
 import React, { useEffect, useContext, useState } from "react"
-import { RaceContext, RacesContext } from "../races/RacesProvider"
+import { RacesContext } from "../races/RacesProvider"
+import { currentRaceFinder } from "../helper"
 
-export const RaceInfo = (props) => {
+export const RaceInfo = () => {
   const { races, getRaces } = useContext(RacesContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
   const [currentRace, setCurrentRace] = useState({})
@@ -12,16 +13,16 @@ export const RaceInfo = (props) => {
 
   // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
   useEffect(() => {
-    setCurrentRace(currentRaceFinder() || {})
+    setCurrentRace(currentRaceFinder(races, currentUser) || {})
   }, [races])
 
-  const currentRaceFinder = () => {
-    const racesForUser = races.filter((race) => race.userId === currentUser)
-    const raceStartDate = racesForUser.map((race) => race.startDate)
-    const newestRace = Math.max(...raceStartDate)
-    const currentRace = racesForUser.find((race) => race.startDate === newestRace)
-    return currentRace
-  }
+  // const currentRaceFinder = () => {
+  //   const racesForUser = races.filter((race) => race.userId === currentUser)
+  //   const raceStartDate = racesForUser.map((race) => race.startDate)
+  //   const newestRace = Math.max(...raceStartDate)
+  //   const currentRace = racesForUser.find((race) => race.startDate === newestRace)
+  //   return currentRace
+  // }
 
   return (
     <>
