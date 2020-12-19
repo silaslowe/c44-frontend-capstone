@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { WorkoutContext } from "./WorkoutProvider"
 import { RacesContext } from "../races/RacesProvider"
 import { Workout } from "./Workout"
+import { currentRaceFinder } from "../helper"
 
 export const WorkoutList = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -34,7 +35,7 @@ export const WorkoutList = (props) => {
   }, [])
 
   useEffect(() => {
-    setCurrentRace(currentRaceFinder())
+    setCurrentRace(currentRaceFinder(races, currentUser))
   }, [races])
 
   useEffect(() => {
@@ -44,15 +45,6 @@ export const WorkoutList = (props) => {
   useEffect(() => {
     setCurrentWorkouts(workouts.filter((workout) => workout.raceId === currentRace.id))
   }, [races, workouts])
-
-  // Probably overly complex logic to filter the users races to find the most recent
-  const currentRaceFinder = () => {
-    const racesForUser = races.filter((race) => race.userId === currentUser)
-    const raceStartDate = racesForUser.map((race) => race.startDate)
-    const newestRace = Math.max(...raceStartDate)
-    const currentRace = racesForUser.find((race) => race.startDate === newestRace)
-    return currentRace
-  }
 
   useEffect(() => {
     generateDays()
@@ -69,12 +61,6 @@ export const WorkoutList = (props) => {
   useEffect(() => {
     createDistInc()
   }, [currentRace, workouts])
-
-  useEffect(() => {
-    currentWorkouts.map((wo) => {
-      let woDate = new Date(wo.date - day)
-    })
-  }, [currentWorkouts, currentRace])
 
   //  Creates the distance increace for each workout
   const createDistInc = () => {
