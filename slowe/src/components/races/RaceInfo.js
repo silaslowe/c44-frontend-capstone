@@ -16,14 +16,6 @@ export const RaceInfo = () => {
     setCurrentRace(currentRaceFinder(races, currentUser) || {})
   }, [races])
 
-  // const currentRaceFinder = () => {
-  //   const racesForUser = races.filter((race) => race.userId === currentUser)
-  //   const raceStartDate = racesForUser.map((race) => race.startDate)
-  //   const newestRace = Math.max(...raceStartDate)
-  //   const currentRace = racesForUser.find((race) => race.startDate === newestRace)
-  //   return currentRace
-  // }
-
   return (
     <>
       <div className="race-info">
