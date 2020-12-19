@@ -28,6 +28,7 @@ export const Workout = (props) => {
           <p className="workoutCard-notes">Notes: {workout.notes}</p>
         </div>
         <button
+          className="workoutCard-btn"
           onClick={() => {
             props.history.push({
               pathname: `/edit-workout/${workout.id}`,
@@ -62,6 +63,7 @@ export const Workout = (props) => {
           <p className="workoutCard-notes">Notes: {workout.notes}</p>
         </div>
         <button
+          className="workoutCard-btn"
           onClick={() => {
             props.history.push({
               pathname: `/edit-workout/${workout.id}`,

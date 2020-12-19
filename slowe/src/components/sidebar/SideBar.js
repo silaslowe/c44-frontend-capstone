@@ -59,7 +59,7 @@ export const SideBar = (props) => {
     <>
       <div className="sidebar-container">
         <div className="sidebar">
-          <h1>SideBar</h1>
+          <h1>Metrics</h1>
           <p>
             Total Compeleted Workouts: {completedWorkouts.length}/{currentWorkouts.length}
           </p>
