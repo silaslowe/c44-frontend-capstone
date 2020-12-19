@@ -46,7 +46,7 @@
 
 //   return (
 //     <form className="raceForm">
-//       <h2 className="raceForm__title">New Race</h2>
+//       <h2 className="raceForm__title">New </h2>
 //       {/* Name */}
 //       <fieldset>
 //         <div className="form-group">
