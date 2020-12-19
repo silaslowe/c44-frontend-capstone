@@ -48,7 +48,8 @@ export const AltWorkoutGenerator = (props) => {
     }
     // Total timeout time set by map
     const delay = workoutArray.length * 250 + 50
-    console.log(delay)
+    console.log("workoutArray", workoutArray)
+    console.log("delay", delay)
 
     // posts each workout to the db with a timeout to avoid logjam in json server
     return Promise.all(
