@@ -30,7 +30,7 @@ export const RaceForm = (props) => {
     const userId = parseInt(localStorage.getItem("app_user_id"))
     let distUnit = parseFloat(raceTotalDistance.current.value)
     if (unit.current.value === "kilos") {
-      distUnit = parseFloat(raceTotalDistance.current.value) * 0.62
+      distUnit = (parseFloat(raceTotalDistance.current.value) * 0.62).toFixed(2)
     }
 
     if (
