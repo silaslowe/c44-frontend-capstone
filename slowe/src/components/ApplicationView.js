@@ -4,7 +4,7 @@ import { RacesProvider } from "./races/RacesProvider"
 import { RaceForm } from "./races/RaceForm"
 import { RaceInfo } from "./races/RaceInfo"
 import { WorkoutProvider } from "./workouts/WorkoutProvider"
-import { AltHome } from "./homepage/Alt-Home"
+import { Home } from "./homepage/Home"
 import { EditWorkout } from "./workouts/EditWorkout"
 import { SideBar } from "../components/sidebar/SideBar"
 import { PlaceholderPage } from "./homepage/PlaceHolder"
@@ -19,7 +19,7 @@ export const ApplicationViews = (props) => {
       <RacesProvider>
         <WorkoutProvider>
           <StateProvider>
-            <Route exact path="/" render={(props) => <AltHome {...props} />} />
+            <Route exact path="/" render={(props) => <Home {...props} />} />
           </StateProvider>
         </WorkoutProvider>
       </RacesProvider>
