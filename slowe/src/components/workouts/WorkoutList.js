@@ -29,23 +29,27 @@ export const WorkoutList = (props) => {
   let startingTime = startTime
   let dateForCard = ""
 
-  // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
+  // Finds all races
   useEffect(() => {
     getRaces()
   }, [])
 
+  // Finds the most current race for the current user and sets the SV currentRace
   useEffect(() => {
     setCurrentRace(currentRaceFinder(races, currentUser))
   }, [races])
 
+  // Finds all the WOs
   useEffect(() => {
     getWorkouts()
   }, [races])
 
+  // Finds the workouts for the current race and sets the SV currentWorkouts
   useEffect(() => {
     setCurrentWorkouts(workouts.filter((workout) => workout.raceId === currentRace.id))
   }, [races, workouts])
 
+  // Sets SV for the starting date of training and the date of the race as well as the SV for the days between the two
   useEffect(() => {
     generateDays()
   }, [currentRace])
@@ -81,7 +85,7 @@ export const WorkoutList = (props) => {
       return (
         (currentRace.goalRaceTime / (goalSpeedInMPH * currentRace.startPacePercent) -
           goalSpeedInMinPerMile) /
-        (daysBetween - 1)
+        daysBetween
       )
     }
     setSpeedInc(speedInc())
@@ -92,6 +96,7 @@ export const WorkoutList = (props) => {
     setRaceDate(currentRace.date)
     setDaysBetween(Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000)))
   }
+  console.log(currentWorkouts)
   return (
     <>
       <div className="workouts">

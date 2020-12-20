@@ -18,7 +18,7 @@ export const WorkoutGenerator = (props) => {
     // determines the days between the the start of training and the race date
     daysBetween = Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000))
     // if the amount of filtered workouts is less than days between, which is the needed amount, the for loop gernerates a workout card for each day of training and pushed it into the workoutARray.
-    for (let i = 0; i < daysBetween - 1; i++) {
+    for (let i = 0; i < daysBetween; i++) {
       startingDate += day
       workoutArray.push({
         raceId: props.currentRace.id,
