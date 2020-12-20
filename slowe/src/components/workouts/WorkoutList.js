@@ -96,7 +96,7 @@ export const WorkoutList = (props) => {
     setRaceDate(currentRace.date)
     setDaysBetween(Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000)))
   }
-  console.log(currentWorkouts)
+  console.log(currentRace)
   return (
     <>
       <div className="workouts">
