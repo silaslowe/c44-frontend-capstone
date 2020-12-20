@@ -56,3 +56,11 @@ export const calcSpeed = () => {
     day++
   }
 }
+
+
+goalSpeedInMinPerMile - startPaceInMinPerMile = paceDiffOverTime 1.85
+
+paceDiffOverTime / numBays = MPM inc .13
+
+startPaceInMinPerMile + .13
+

@@ -16,7 +16,6 @@ export const RaceInfo = () => {
   useEffect(() => {
     setCurrentRace(currentRaceFinder(races, currentUser) || {})
   }, [races])
-  console.log(currentRace.date)
   return (
     <>
       <div className="race-info">

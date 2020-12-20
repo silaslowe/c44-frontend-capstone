@@ -15,19 +15,21 @@ export const WorkoutList = (props) => {
   const [daysBetween, setDaysBetween] = useState("")
   const [distInc, setDistInc] = useState("")
   const [speedInc, setSpeedInc] = useState("")
-  const [startSpeed, setStartSpeed] = useState("")
+  const [startSpeed, setStartPaceInMPM] = useState("")
   const [startDist, setStartDist] = useState("")
   const [startTime, setStartTime] = useState("")
+  const [mph, setMPH] = useState("")
 
   // gets current date for later use
   const today = new Date().getTime()
   // a day in ms
   const day = 86400000
   // starting distance - the incrementer that will get added in iteration
-  let startingDist = startDist - distInc
-  let startingSpeed = (parseFloat(startSpeed) - speedInc) * startingDist
-  let startingTime = startTime
+  let workoutDist = startDist
+  let startingSpeed = (parseFloat(startSpeed) - speedInc) * workoutDist
+  let workoutTime = startTime
   let dateForCard = ""
+  let mphPace = mph
 
   // Finds all races
   useEffect(() => {
@@ -75,20 +77,23 @@ export const WorkoutList = (props) => {
 
   // These are for determining the speed incrementer and the start run time
   const createSpeedInc = () => {
-    const goalSpeedInMinPerMile = currentRace.goalRaceTime / currentRace.distance
-    const goalSpeedInMPH = currentRace.goalRaceTime / goalSpeedInMinPerMile
-    const startPaceInMPH = goalSpeedInMPH * currentRace.startPacePercent
-    const startPaceInMPM = (currentRace.goalRaceTime / startPaceInMPH).toFixed(2)
-    setStartSpeed(startPaceInMPM)
-    setStartTime(startPaceInMPM * startDist)
-    const speedInc = () => {
-      return (
-        (currentRace.goalRaceTime / (goalSpeedInMPH * currentRace.startPacePercent) -
-          goalSpeedInMinPerMile) /
-        daysBetween
-      )
+    const goalPaceInMPM = parseFloat((currentRace.goalRaceTime / currentRace.distance).toFixed(3))
+    // console.log(goalPaceInMPM)
+    const goalPaceInMPH = 60 / goalPaceInMPM
+    // console.log(goalPaceInMPH)
+    const startPaceInMPH = goalPaceInMPH * currentRace.startPacePercent
+    console.log(startPaceInMPH)
+    const startPaceInMPM = 60 / startPaceInMPH
+    // console.log(startPaceInMPM)
+    setStartPaceInMPM(parseFloat(startPaceInMPM.toFixed(2)))
+    // Correct
+    setStartTime(startPaceInMPM * (startDist + distInc))
+    // console.log(startTime)
+    setMPH(startPaceInMPH)
+    const speedIncrenementer = () => {
+      return (startPaceInMPM - goalPaceInMPM) / daysBetween
     }
-    setSpeedInc(speedInc())
+    setSpeedInc(speedIncrenementer())
   }
 
   const generateDays = () => {
@@ -96,16 +101,19 @@ export const WorkoutList = (props) => {
     setRaceDate(currentRace.date)
     setDaysBetween(Math.ceil((raceDate - startDate) / (24 * 60 * 60 * 1000)))
   }
-  console.log(currentRace)
   return (
     <>
       <div className="workouts">
         <div className="workout-container">
           <h2>WORKOUTS</h2>
           {currentWorkouts.map((workout) => {
-            startingDist += distInc
-            startingSpeed += speedInc
-            startingTime = startingDist * startingSpeed
+            workoutDist += distInc
+            // startingTime = startingDist * startingSpeed
+            console.log(workoutTime)
+            // startingSpeed -= speedInc
+            // console.log(startingDist, startingSpeed)
+            mphPace += 0.11
+            let woTime = workoutDist * mphPace
             const woDate = workout.date - day
             const readableDate = new Date(woDate)
 
@@ -119,9 +127,9 @@ export const WorkoutList = (props) => {
                 key={workout.id}
                 {...props}
                 workout={workout}
-                distance={startingDist}
-                speed={startingSpeed}
-                time={startingTime}
+                distance={workoutDist}
+                speed={mphPace}
+                time={woTime}
                 date={dateForCard}
                 today={today}
               />
