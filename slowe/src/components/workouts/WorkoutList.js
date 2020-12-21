@@ -79,19 +79,19 @@ export const WorkoutList = (props) => {
   const createSpeedInc = () => {
     const goalPaceInMPM = parseFloat((currentRace.goalRaceTime / currentRace.distance).toFixed(3))
     // console.log(goalPaceInMPM)
-    const goalPaceInMPH = 60 / goalPaceInMPM
-    // console.log(goalPaceInMPH)
-    const startPaceInMPH = goalPaceInMPH * currentRace.startPacePercent
-    console.log(startPaceInMPH)
+    const goalPaceInMPH = parseFloat((60 / goalPaceInMPM).toFixed(2))
+    const startPaceInMPH = parseFloat((goalPaceInMPH * currentRace.startPacePercent).toFixed(2))
     const startPaceInMPM = 60 / startPaceInMPH
     // console.log(startPaceInMPM)
     setStartPaceInMPM(parseFloat(startPaceInMPM.toFixed(2)))
     // Correct
     setStartTime(startPaceInMPM * (startDist + distInc))
     // console.log(startTime)
+
+    // console.log(goalPaceInMPH)
     setMPH(startPaceInMPH)
     const speedIncrenementer = () => {
-      return (startPaceInMPM - goalPaceInMPM) / daysBetween
+      return (goalPaceInMPH - startPaceInMPH) / daysBetween
     }
     setSpeedInc(speedIncrenementer())
   }
@@ -109,11 +109,11 @@ export const WorkoutList = (props) => {
           {currentWorkouts.map((workout) => {
             workoutDist += distInc
             // startingTime = startingDist * startingSpeed
-            console.log(workoutTime)
             // startingSpeed -= speedInc
             // console.log(startingDist, startingSpeed)
-            mphPace += 0.11
-            let woTime = workoutDist * mphPace
+            // console.log(mphPace)
+            mphPace += speedInc
+            let woTime = workoutDist * (60 / mphPace)
             const woDate = workout.date - day
             const readableDate = new Date(woDate)
 
