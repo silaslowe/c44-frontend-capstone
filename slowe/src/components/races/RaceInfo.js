@@ -6,6 +6,7 @@ export const RaceInfo = () => {
   const { races, getRaces } = useContext(RacesContext)
   const currentUser = parseInt(localStorage.getItem("app_user_id"))
   const [currentRace, setCurrentRace] = useState({})
+  const day = 86400000
 
   useEffect(() => {
     getRaces()
@@ -15,13 +16,12 @@ export const RaceInfo = () => {
   useEffect(() => {
     setCurrentRace(currentRaceFinder(races, currentUser) || {})
   }, [races])
-
   return (
     <>
       <div className="race-info">
         <div className="race-info-box">
           <h3>Race Name: {currentRace.name}</h3>
-          <p className="race-date">{new Date(currentRace.date).toDateString()}</p>
+          <p className="race-date">{new Date(currentRace.date + day).toDateString()}</p>
           <div className="race-particulars">
             <div className="race-left">
               <p>Distance: {currentRace.distance} miles</p>

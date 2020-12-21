@@ -15,37 +15,43 @@ export const WorkoutList = (props) => {
   const [daysBetween, setDaysBetween] = useState("")
   const [distInc, setDistInc] = useState("")
   const [speedInc, setSpeedInc] = useState("")
-  const [startSpeed, setStartSpeed] = useState("")
+  const [startSpeed, setStartPaceInMPM] = useState("")
   const [startDist, setStartDist] = useState("")
   const [startTime, setStartTime] = useState("")
+  const [mph, setMPH] = useState("")
 
   // gets current date for later use
   const today = new Date().getTime()
   // a day in ms
   const day = 86400000
   // starting distance - the incrementer that will get added in iteration
-  let startingDist = startDist - distInc
-  let startingSpeed = (parseFloat(startSpeed) - speedInc) * startingDist
-  let startingTime = startTime
+  let workoutDist = startDist
+  let startingSpeed = (parseFloat(startSpeed) - speedInc) * workoutDist
+  let workoutTime = startTime
   let dateForCard = ""
+  let mphPace = mph
 
-  // Finds the most recent race for the user and sets the selectedRace state to be passed in state during the navigation
+  // Finds all races
   useEffect(() => {
     getRaces()
   }, [])
 
+  // Finds the most current race for the current user and sets the SV currentRace
   useEffect(() => {
     setCurrentRace(currentRaceFinder(races, currentUser))
   }, [races])
 
+  // Finds all the WOs
   useEffect(() => {
     getWorkouts()
   }, [races])
 
+  // Finds the workouts for the current race and sets the SV currentWorkouts
   useEffect(() => {
     setCurrentWorkouts(workouts.filter((workout) => workout.raceId === currentRace.id))
   }, [races, workouts])
 
+  // Sets SV for the starting date of training and the date of the race as well as the SV for the days between the two
   useEffect(() => {
     generateDays()
   }, [currentRace])
@@ -71,20 +77,23 @@ export const WorkoutList = (props) => {
 
   // These are for determining the speed incrementer and the start run time
   const createSpeedInc = () => {
-    const goalSpeedInMinPerMile = currentRace.goalRaceTime / currentRace.distance
-    const goalSpeedInMPH = currentRace.goalRaceTime / goalSpeedInMinPerMile
-    const startPaceInMPH = goalSpeedInMPH * currentRace.startPacePercent
-    const startPaceInMPM = (currentRace.goalRaceTime / startPaceInMPH).toFixed(2)
-    setStartSpeed(startPaceInMPM)
-    setStartTime(startPaceInMPM * startDist)
-    const speedInc = () => {
-      return (
-        (currentRace.goalRaceTime / (goalSpeedInMPH * currentRace.startPacePercent) -
-          goalSpeedInMinPerMile) /
-        (daysBetween - 1)
-      )
+    const goalPaceInMPM = parseFloat((currentRace.goalRaceTime / currentRace.distance).toFixed(3))
+    // console.log(goalPaceInMPM)
+    const goalPaceInMPH = parseFloat((60 / goalPaceInMPM).toFixed(2))
+    const startPaceInMPH = parseFloat((goalPaceInMPH * currentRace.startPacePercent).toFixed(2))
+    const startPaceInMPM = 60 / startPaceInMPH
+    // console.log(startPaceInMPM)
+    setStartPaceInMPM(parseFloat(startPaceInMPM.toFixed(2)))
+    // Correct
+    setStartTime(startPaceInMPM * (startDist + distInc))
+    // console.log(startTime)
+
+    // console.log(goalPaceInMPH)
+    setMPH(startPaceInMPH)
+    const speedIncrenementer = () => {
+      return (goalPaceInMPH - startPaceInMPH) / daysBetween
     }
-    setSpeedInc(speedInc())
+    setSpeedInc(speedIncrenementer())
   }
 
   const generateDays = () => {
@@ -98,9 +107,13 @@ export const WorkoutList = (props) => {
         <div className="workout-container">
           <h2>WORKOUTS</h2>
           {currentWorkouts.map((workout) => {
-            startingDist += distInc
-            startingSpeed += speedInc
-            startingTime = startingDist * startingSpeed
+            workoutDist += distInc
+            // startingTime = startingDist * startingSpeed
+            // startingSpeed -= speedInc
+            // console.log(startingDist, startingSpeed)
+            // console.log(mphPace)
+            mphPace += speedInc
+            let woTime = workoutDist * (60 / mphPace)
             const woDate = workout.date - day
             const readableDate = new Date(woDate)
 
@@ -114,9 +127,9 @@ export const WorkoutList = (props) => {
                 key={workout.id}
                 {...props}
                 workout={workout}
-                distance={startingDist}
-                speed={startingSpeed}
-                time={startingTime}
+                distance={workoutDist}
+                speed={mphPace}
+                time={woTime}
                 date={dateForCard}
                 today={today}
               />

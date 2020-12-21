@@ -1,7 +1,7 @@
 import React from "react"
 
 export const Workout = (props) => {
-  const { speed, distance, workout, date } = props
+  const { speed, distance, workout, date, time } = props
   const workoutSpeed = parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
 
   // Adds metGoal className if goals have been met
@@ -12,8 +12,8 @@ export const Workout = (props) => {
         <div className="workout-data">
           <div className="workout-card-goals">
             <h3>Goal</h3>
-            <p>Distance:{distance.toFixed(1)} miles</p>
-            <p>Time: {speed.toFixed(1)} minutes</p>
+            <p>Distance:{distance.toFixed(2)} miles</p>
+            <p>Time: {time.toFixed(1)} minutes</p>
             <p>
               Speed:
               {(distance.toFixed(1) / (speed.toFixed(1) / 60)).toFixed(1)} mph
@@ -47,11 +47,16 @@ export const Workout = (props) => {
         <div className="workout-data">
           <div className="workout-card-goals">
             <h3>Goal</h3>
-            <p>Distance:{distance.toFixed(1)} miles</p>
-            <p>Time: {speed.toFixed(1)} minutes</p>
+            <p>Distance:{distance.toFixed(2)} miles</p>
+            <p>
+              Time:
+              {parseFloat(time.toFixed(2))}
+              {/* {time.toFixed(1)} minutes */}
+            </p>
             <p>
               Speed:
-              {(distance.toFixed(1) / (speed.toFixed(1) / 60)).toFixed(1)} mph
+              {/* {(distance.toFixed(1) / (speed.toFixed(1) / 60)).toFixed(1)} mph */}
+              {parseFloat(speed.toFixed(2))}
             </p>
           </div>
           <div className="workout-card-achievement">
