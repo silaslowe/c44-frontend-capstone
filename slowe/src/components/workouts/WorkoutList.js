@@ -3,6 +3,7 @@ import { WorkoutContext } from "./WorkoutProvider"
 import { RacesContext } from "../races/RacesProvider"
 import { Workout } from "./Workout"
 import { currentRaceFinder } from "../helper"
+import { RaceResult } from "../raceResults/RaceResult"
 
 export const WorkoutList = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -137,6 +138,7 @@ export const WorkoutList = (props) => {
           })}
         </div>
       </div>
+      <RaceResult {...props} currentRace={currentRace} />
     </>
   )
 }

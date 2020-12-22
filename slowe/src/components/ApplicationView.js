@@ -10,6 +10,10 @@ import { SideBar } from "../components/sidebar/SideBar"
 import { PlaceholderPage } from "./homepage/PlaceHolder"
 import { StateProvider } from "./races/StateProvider"
 import { UserProvider } from "./user/UserProvider"
+import {
+  RaceResultContext,
+  RaceResultProvider,
+} from "../components/raceResults/RaceResultsProvider"
 import { User } from "./user/User"
 
 export const ApplicationViews = (props) => {
@@ -19,7 +23,9 @@ export const ApplicationViews = (props) => {
       <RacesProvider>
         <WorkoutProvider>
           <StateProvider>
-            <Route exact path="/" render={(props) => <Home {...props} />} />
+            <RaceResultProvider>
+              <Route exact path="/" render={(props) => <Home {...props} />} />
+            </RaceResultProvider>
           </StateProvider>
         </WorkoutProvider>
       </RacesProvider>
