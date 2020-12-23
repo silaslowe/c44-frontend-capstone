@@ -20,7 +20,7 @@ export const SpeedGraph = (props) => {
           ]}
           axis={{
             x: { property: "date", granularity: "medium" },
-            y: { property: "speedMPH", granularity: "fine" },
+            y: { property: "speedMPH", granularity: "medium" },
           }}
           guide={{ x: { granularity: "fine" } }}
         />

@@ -20,7 +20,7 @@ export const DistanceGraph = (props) => {
           ]}
           axis={{
             x: { property: "date", granularity: "medium" },
-            y: { property: "distance", granularity: "fine" },
+            y: { property: "distance", granularity: "medium" },
           }}
           guide={{ x: { granularity: "fine" } }}
         />
