@@ -4,6 +4,7 @@ import { WorkoutContext } from "../workouts/WorkoutProvider"
 import { CompletedWorkoutsMeter } from "./completedRacesMeter"
 import { GoalsMetWorkoutsMeter } from "./goalsMetWorkoutMeter"
 import { SpeedGraph } from "./speedGraph"
+import { DistanceGraph } from "./distanceGraph"
 
 export const SideBar = (props) => {
   const { getWorkouts, workouts } = useContext(WorkoutContext)
@@ -14,6 +15,7 @@ export const SideBar = (props) => {
   const [completedWorkouts, setCompletedWorkouts] = useState([])
   const [metGoals, setMetGoals] = useState("")
   const [speedArray, setSpeedArray] = useState([])
+  const [distanceArray, setDistanceArray] = useState([])
   const completedWo = parseFloat(
     ((completedWorkouts.length / currentWorkouts.length) * 100).toFixed(0)
   )
@@ -62,6 +64,21 @@ export const SideBar = (props) => {
       })
     )
   }, [completedWorkouts])
+
+  useEffect(() => {
+    setDistanceArray(
+      completedWorkouts.map((workout) => {
+        const woDate = new Date(workout.date)
+        const woDateShort = woDate.toLocaleString("en-US", {
+          month: "numeric",
+          day: "numeric",
+          year: "numeric",
+        })
+        const woDist = parseFloat(workout.workoutDist.toFixed(2))
+        return { date: woDateShort, distance: woDist }
+      })
+    )
+  }, [completedWorkouts])
   useEffect(() => {
     const distanceTotal = completedWorkouts
       .map((workout) => workout.workoutDist)
@@ -75,21 +92,22 @@ export const SideBar = (props) => {
       .reduce((a, b) => a + b, 0)
     setAvDistance(distanceTotal / completedWorkouts.length)
   }, [completedWorkouts])
-  console.log(speedArray)
   return (
     <>
       <div className="sidebar-container">
         <div className="sidebar">
           <h1>Metrics</h1>
-
           <CompletedWorkoutsMeter {...props} completedWo={completedWo} />
           <GoalsMetWorkoutsMeter {...props} goalsMetWo={goalsMetWo} />
           <SpeedGraph {...props} speedArray={speedArray} />
-          {/* <p>Total Workout Goals Met: {metGoals.length}</p> */}
+          <DistanceGraph {...props} distanceArray={distanceArray} />
+          {/* <p>
+            Total Workout Goals Met: {metGoals.length}/ {currentWorkouts.length}
+          </p>
           <p> Average Speed: {speed || 0} MPH</p>
           <p>Total Distance:{distance} Miles</p>
           <p>Average Distance: {avDistance || 0} Miles</p>
-          {/* Total Compeleted Workouts: {completedWorkouts.length}/{currentWorkouts.length} */}
+          Total Compeleted Workouts: {completedWorkouts.length}/{currentWorkouts.length} */}
         </div>
       </div>
     </>
