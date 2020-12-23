@@ -103,29 +103,24 @@ export const SideBar = (props) => {
           </Heading>
           <Grid
             rows={["auto", "flex"]}
-            columns={["auto", "flex"]}
-            // areas={[
-            //   { name: "complete", start: [0, 1], end: [0, 1] },
-            //   { name: "goalMet", start: [1, 1], end: [1, 1] },
-            //   { name: "speed", start: [0, 2], end: [0, 2] },
-            //   { name: "dist", start: [1, 2], end: [1, 2] },
-            // ]}
+            columns={["1/2", "1/2"]}
             areas={[
-              ["complete", "goalMet"],
+              ["completed", "goalMet"],
               ["speed", "dist"],
             ]}
             gap="small"
+            alignSelf="center"
           >
-            <Box gridArea="complete">
+            <Box gridArea="completed" margin="medium" elevation="large">
               <CompletedWorkoutsMeter {...props} completedWo={completedWo} />
             </Box>
-            <Box gridArea="goalMet">
+            <Box gridArea="goalMet" margin="medium" elevation="large">
               <GoalsMetWorkoutsMeter {...props} goalsMetWo={goalsMetWo} />
             </Box>
-            <Box gridArea="speed">
+            <Box gridArea="speed" margin="medium" elevation="large">
               <SpeedGraph {...props} speedArray={speedArray} />
             </Box>
-            <Box gridArea="dist">
+            <Box gridArea="dist" margin="medium" elevation="large">
               <DistanceGraph {...props} distanceArray={distanceArray} />
             </Box>
           </Grid>
