@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
+import { currentRaceFinder } from "../helper"
 import { WorkoutContext } from "../workouts/WorkoutProvider"
+import { CompletedWorkoutsMeter } from "./completedRacesMeter"
+import { GoalsMetWorkoutsMeter } from "./goalsMetWorkoutMeter"
 
 export const SideBar = (props) => {
   const { getWorkouts, workouts } = useContext(WorkoutContext)
@@ -9,6 +12,10 @@ export const SideBar = (props) => {
   const [avDistance, setAvDistance] = useState("")
   const [completedWorkouts, setCompletedWorkouts] = useState([])
   const [metGoals, setMetGoals] = useState("")
+  const completedWo = (completedWorkouts.length / currentWorkouts.length) * 100
+  const goalsMetWo = (metGoals.length / currentWorkouts.length) * 100
+  console.log(metGoals)
+
   useEffect(() => {
     getWorkouts()
   }, [])
@@ -27,7 +34,8 @@ export const SideBar = (props) => {
 
   useEffect(() => {
     setMetGoals(currentWorkouts.filter((workout) => workout.metGoal === true))
-  }, [])
+  }, [currentWorkouts])
+
   useEffect(() => {
     const speedTotal = completedWorkouts
       .map((workout) => {
@@ -56,13 +64,15 @@ export const SideBar = (props) => {
       <div className="sidebar-container">
         <div className="sidebar">
           <h1>Metrics</h1>
-          <p>
-            Total Compeleted Workouts: {completedWorkouts.length}/{currentWorkouts.length}
-          </p>
+
+          <CompletedWorkoutsMeter {...props} completedWo={completedWo} />
+          <GoalsMetWorkoutsMeter {...props} goalsMetWo={goalsMetWo} />
+
           {/* <p>Total Workout Goals Met: {metGoals.length}</p> */}
           <p> Average Speed: {speed || 0} MPH</p>
           <p>Total Distance:{distance} Miles</p>
           <p>Average Distance: {avDistance || 0} Miles</p>
+          {/* Total Compeleted Workouts: {completedWorkouts.length}/{currentWorkouts.length} */}
         </div>
       </div>
     </>

@@ -28,7 +28,7 @@ export const RaceInfo = () => {
           elevation="large"
           border={{ size: "small", color: "black" }}
         >
-          <Heading level="3" alignSelf="center" fill="false" margin="xsmall" gap="small">
+          <Heading level="3" alignSelf="center" margin="xsmall" gap="small">
             Race Name: {currentRace.name}
           </Heading>
           <Text alignSelf="center">{new Date(currentRace.date + day).toDateString()}</Text>
