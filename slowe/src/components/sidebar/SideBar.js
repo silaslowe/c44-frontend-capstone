@@ -35,7 +35,6 @@ export const SideBar = (props) => {
       })
       .reduce((a, b) => a + b, 0)
     setSpeed(speedTotal / completedWorkouts.length || 0)
-    console.log(speedTotal, completedWorkouts.length)
   }, [completedWorkouts])
 
   useEffect(() => {
@@ -49,7 +48,6 @@ export const SideBar = (props) => {
     const distanceTotal = completedWorkouts
       .map((workout) => workout.workoutDist)
       .reduce((a, b) => a + b, 0)
-    console.log(distanceTotal)
     setAvDistance(distanceTotal / completedWorkouts.length)
   }, [completedWorkouts])
 
