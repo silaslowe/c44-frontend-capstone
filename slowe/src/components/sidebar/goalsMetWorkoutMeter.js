@@ -4,14 +4,13 @@ import { Grommet, Box, Meter, Stack, Text } from "grommet"
 import { theme } from "../../theme"
 
 export const GoalsMetWorkoutsMeter = (props) => {
-  console.log(props)
   const meterValue = props.goalsMetWo
 
   return (
     <Grommet theme={theme}>
       <Box align="center" pad="large">
         <Box align="center">
-          <Text>Workouts Completed</Text>
+          <Text>Workouts Goals Met</Text>
         </Box>
         <Stack anchor="center">
           <Meter

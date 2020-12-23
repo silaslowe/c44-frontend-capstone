@@ -16,7 +16,7 @@ export const Workout = (props) => {
             <p>Time: {time.toFixed(1)} minutes</p>
             <p>
               Speed:
-              {(distance.toFixed(1) / (speed.toFixed(1) / 60)).toFixed(1)} mph
+              {parseFloat(speed.toFixed(2))} mph
             </p>
           </div>
           <div className="workout-card-achievement">
