@@ -6,7 +6,6 @@ export const RaceResult = (props) => {
   const currentRaceResult = props.currentRace
   const day = 86400000
 
-  console.log(currentRaceResult)
   const raceTime = useRef(null)
   const position = useRef(null)
   const completed = useRef(null)

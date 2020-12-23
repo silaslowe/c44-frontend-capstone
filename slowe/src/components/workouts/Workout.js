@@ -5,7 +5,7 @@ export const Workout = (props) => {
   const workoutSpeed = parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
 
   // Adds metGoal className if goals have been met
-  if (workout.isComplete && workout.workoutDist > distance && workout.workoutTime < speed) {
+  if (workout.isComplete && workout.workoutDist > distance && workout.workoutTime < time) {
     return (
       <div className="workout-card metGoal">
         <p className="workout-date">{date}</p>
@@ -72,7 +72,7 @@ export const Workout = (props) => {
           onClick={() => {
             props.history.push({
               pathname: `/edit-workout/${workout.id}`,
-              state: { workoutId: workout.id, speed: speed, distance: distance },
+              state: { workoutId: workout.id, time: time, distance: distance },
             })
           }}
         >
