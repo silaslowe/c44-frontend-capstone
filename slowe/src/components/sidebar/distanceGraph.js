@@ -2,25 +2,25 @@ import React from "react"
 import { Box, DataChart, Grommet, Text } from "grommet"
 import { theme } from "../../theme"
 
-export const SpeedGraph = (props) => {
-  const data = props.speedArray
-
+export const DistanceGraph = (props) => {
+  const data = props.distanceArray
+  console.log(data)
   return (
     <Grommet theme={theme}>
       <Box align="center" pad="large">
         <Box align="center">
-          <Text>MPH Over Time</Text>
+          <Text>Miles Over Time</Text>
         </Box>
         <DataChart
           data={data}
-          series={["date", "speedMPH"]}
+          series={["date", "distance"]}
           chart={[
-            { property: "speedMPH", type: "line", opacity: "medium", thickness: "xsmall" },
-            { property: "speedMPH", type: "point", point: "circle", thickness: "medium" },
+            { property: "distance", type: "line", opacity: "medium", thickness: "xsmall" },
+            { property: "distance", type: "point", point: "circle", thickness: "medium" },
           ]}
           axis={{
             x: { property: "date", granularity: "medium" },
-            y: { property: "speedMPH", granularity: "fine" },
+            y: { property: "distance", granularity: "fine" },
           }}
           guide={{ x: { granularity: "fine" } }}
         />
