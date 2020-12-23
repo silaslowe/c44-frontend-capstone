@@ -3,6 +3,7 @@ import { currentRaceFinder } from "../helper"
 import { WorkoutContext } from "../workouts/WorkoutProvider"
 import { CompletedWorkoutsMeter } from "./completedRacesMeter"
 import { GoalsMetWorkoutsMeter } from "./goalsMetWorkoutMeter"
+import { SpeedGraph } from "./speedGraph"
 
 export const SideBar = (props) => {
   const { getWorkouts, workouts } = useContext(WorkoutContext)
@@ -12,11 +13,11 @@ export const SideBar = (props) => {
   const [avDistance, setAvDistance] = useState("")
   const [completedWorkouts, setCompletedWorkouts] = useState([])
   const [metGoals, setMetGoals] = useState("")
-  const completedWo = parseFloat((completedWorkouts.length / currentWorkouts.length) * 100).toFixed(
-    0
+  const [speedArray, setSpeedArray] = useState([])
+  const completedWo = parseFloat(
+    ((completedWorkouts.length / currentWorkouts.length) * 100).toFixed(0)
   )
-  const goalsMetWo = parseFloat((metGoals.length / currentWorkouts.length) * 100).toFixed(0)
-  console.log(metGoals)
+  const goalsMetWo = parseFloat(((metGoals.length / currentWorkouts.length) * 100).toFixed(0))
 
   useEffect(() => {
     getWorkouts()
@@ -48,6 +49,20 @@ export const SideBar = (props) => {
   }, [completedWorkouts])
 
   useEffect(() => {
+    setSpeedArray(
+      completedWorkouts.map((workout) => {
+        const woDate = new Date(workout.date)
+        const woDateShort = woDate.toLocaleString("en-US", {
+          month: "numeric",
+          day: "numeric",
+          year: "numeric",
+        })
+        const speedMPH = parseFloat((workout.workoutDist * (workout.workoutTime / 60)).toFixed(2))
+        return { date: woDateShort, speedMPH: speedMPH }
+      })
+    )
+  }, [completedWorkouts])
+  useEffect(() => {
     const distanceTotal = completedWorkouts
       .map((workout) => workout.workoutDist)
       .reduce((a, b) => a + b, 0)
@@ -60,7 +75,7 @@ export const SideBar = (props) => {
       .reduce((a, b) => a + b, 0)
     setAvDistance(distanceTotal / completedWorkouts.length)
   }, [completedWorkouts])
-
+  console.log(speedArray)
   return (
     <>
       <div className="sidebar-container">
@@ -69,7 +84,7 @@ export const SideBar = (props) => {
 
           <CompletedWorkoutsMeter {...props} completedWo={completedWo} />
           <GoalsMetWorkoutsMeter {...props} goalsMetWo={goalsMetWo} />
-
+          <SpeedGraph {...props} speedArray={speedArray} />
           {/* <p>Total Workout Goals Met: {metGoals.length}</p> */}
           <p> Average Speed: {speed || 0} MPH</p>
           <p>Total Distance:{distance} Miles</p>

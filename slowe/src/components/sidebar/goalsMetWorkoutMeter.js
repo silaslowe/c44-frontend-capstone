@@ -4,7 +4,6 @@ import { Grommet, Box, Meter, Stack, Text } from "grommet"
 import { theme } from "../../theme"
 
 export const GoalsMetWorkoutsMeter = (props) => {
-  console.log(props)
   const meterValue = props.goalsMetWo
 
   return (
