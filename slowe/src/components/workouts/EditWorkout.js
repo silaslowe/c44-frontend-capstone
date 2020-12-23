@@ -29,8 +29,7 @@ export const EditWorkout = (props) => {
     console.log(woDist, props.location.state.distance)
     console.log(woTime, props.location.state.speed)
     if (
-      // parseFloat(workout.workoutDist) >= props.location.state.distance
-      //  &&
+      parseFloat(workout.workoutDist) >= props.location.state.distance &&
       parseFloat(workout.workoutTime) <= props.location.state.time
     ) {
       updateWorkout({

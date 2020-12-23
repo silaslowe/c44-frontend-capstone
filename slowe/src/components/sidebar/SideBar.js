@@ -12,8 +12,10 @@ export const SideBar = (props) => {
   const [avDistance, setAvDistance] = useState("")
   const [completedWorkouts, setCompletedWorkouts] = useState([])
   const [metGoals, setMetGoals] = useState("")
-  const completedWo = (completedWorkouts.length / currentWorkouts.length) * 100
-  const goalsMetWo = (metGoals.length / currentWorkouts.length) * 100
+  const completedWo = parseFloat((completedWorkouts.length / currentWorkouts.length) * 100).toFixed(
+    0
+  )
+  const goalsMetWo = parseFloat((metGoals.length / currentWorkouts.length) * 100).toFixed(0)
   console.log(metGoals)
 
   useEffect(() => {

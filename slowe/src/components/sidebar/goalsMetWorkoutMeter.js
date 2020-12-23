@@ -11,7 +11,7 @@ export const GoalsMetWorkoutsMeter = (props) => {
     <Grommet theme={theme}>
       <Box align="center" pad="large">
         <Box align="center">
-          <Text>Workouts Completed</Text>
+          <Text>Workouts Goals Met</Text>
         </Box>
         <Stack anchor="center">
           <Meter
