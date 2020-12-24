@@ -27,6 +27,14 @@ export const SideBar = (props) => {
     getWorkouts()
   }, [])
 
+  // console.log("speed", speed)
+  // console.log("dist", distance)
+  // console.log("avDist", avDistance)
+  // console.log("completedWO", completedWorkouts)
+  // console.log("metGoals", metGoals)
+  // console.log("speedArray", speedArray)
+  // console.log("distanceArray", distanceArray)
+
   useEffect(() => {
     setCurrentWorkouts(
       workouts.filter((workout) => {
@@ -98,11 +106,11 @@ export const SideBar = (props) => {
     <>
       <Grommet theme={theme}>
         <Box alignSelf="center">
-          <Heading level="3" alignSelf="center">
+          <Heading level="3" alignSelf="center" margin="small">
             Metrics
           </Heading>
           <Grid
-            rows={["auto", "flex"]}
+            rows={["auto", "auto"]}
             columns={["1/2", "1/2"]}
             areas={[
               ["completed", "goalMet"],

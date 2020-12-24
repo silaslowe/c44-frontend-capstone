@@ -1,5 +1,7 @@
 import React, { useContext, useRef } from "react"
 import { RaceResultContext } from "./RaceResultsProvider"
+import { Grommet, Box, Button, Text, Heading } from "grommet"
+import { theme } from "../../theme"
 
 export const RaceResult = (props) => {
   const { addRaceResult } = useContext(RaceResultContext)
@@ -42,10 +44,14 @@ export const RaceResult = (props) => {
     }
   }
   return (
-    <>
-      <div className="raceResultContainer">
-        <h1>Race Result</h1>
-        <h3>{new Date(currentRaceResult.date + day).toDateString()}</h3>
+    <Grommet theme={theme}>
+      <Box fill align="center" justify="center">
+        <Heading level="3" margin={{ "top": "large", "bottom": "none" }}>
+          Race Result
+        </Heading>
+        <Heading level="5" margin={{ "top": "small", "bottom": "small" }}>
+          {new Date(currentRaceResult.date + day).toDateString()}
+        </Heading>
         {/* Time */}
         <fieldset>
           <div className="form-group">
@@ -106,16 +112,16 @@ export const RaceResult = (props) => {
             />
           </div>
         </fieldset>
-        <button
+        <Button
+          primary
+          label="Race Result"
           onClick={(e) => {
             e.preventDefault()
             constructNewRaceResult()
             props.history.push("/user")
           }}
-        >
-          Submit Race Results
-        </button>
-      </div>
-    </>
+        />
+      </Box>
+    </Grommet>
   )
 }

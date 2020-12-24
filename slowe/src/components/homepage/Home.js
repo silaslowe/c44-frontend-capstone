@@ -39,12 +39,6 @@ export const Home = (props) => {
     localStorage.setItem("current_race", currentRace.id)
   }, [currentRace])
 
-  // console.log("currentRace", currentRace)
-  // console.log("races", races)
-  // console.log("workouts", workouts)
-  // console.log("currentWorkouts", currentWorkouts)
-  // console.log("currentUser", currentUser)
-
   return (
     <>
       {currentRace.id && currentWorkouts.length !== 0 ? (
