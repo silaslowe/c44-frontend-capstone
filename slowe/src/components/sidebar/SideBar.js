@@ -106,7 +106,7 @@ export const SideBar = (props) => {
     <>
       <Grommet theme={theme}>
         <Box alignSelf="center">
-          <Heading level="3" alignSelf="center">
+          <Heading level="3" alignSelf="center" margin="small">
             Metrics
           </Heading>
           <Grid

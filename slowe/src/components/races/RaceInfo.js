@@ -38,7 +38,7 @@ export const RaceInfo = () => {
             <Box direction="column" pad="small">
               {/* Distance */}
               <Box
-                border={{ size: "small", color: "black" }}
+                border={{ size: "medium", color: "black" }}
                 round={{ "rounding": 12 }}
                 margin="small"
               >
@@ -46,7 +46,7 @@ export const RaceInfo = () => {
               </Box>
               {/* City */}
               <Box
-                border={{ size: "small", color: "black" }}
+                border={{ size: "medium", color: "black" }}
                 round={{ "rounding": 12 }}
                 margin="small"
               >
@@ -57,7 +57,7 @@ export const RaceInfo = () => {
             <Box direction="column" pad="small">
               {/* Time Goal */}
               <Box
-                border={{ size: "small", color: "black" }}
+                border={{ size: "medium", color: "black" }}
                 round={{ "rounding": 12 }}
                 margin="small"
               >
@@ -65,7 +65,7 @@ export const RaceInfo = () => {
               </Box>
               {/* State */}
               <Box
-                border={{ size: "small", color: "black" }}
+                border={{ size: "medium", color: "black" }}
                 round={{ "rounding": 12 }}
                 margin="small"
               >

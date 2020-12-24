@@ -27,7 +27,7 @@ export const NavBar = (props) => {
           <Link className="link" to="/">
             Race
           </Link>
-          <Button primary label="Logout" onClick={logout} />
+          <Button primary label="Logout" margin={{ "right": "large" }} onClick={logout} />
         </Box>
       </Header>
     </Grommet>
