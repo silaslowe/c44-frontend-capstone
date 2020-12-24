@@ -18,22 +18,25 @@ export const RaceInfo = () => {
   useEffect(() => {
     setCurrentRace(currentRaceFinder(races, currentUser) || {})
   }, [races])
+
   return (
     <Grommet theme={theme}>
-      <Box pad="medium" align="center">
+      <Box pad="medium" align="center" margin="medium">
         <Card
           pad="small"
           gap="medium"
           background="light-5"
           elevation="large"
-          border={{ size: "small", color: "black" }}
+          // border={{ size: "small", color: "black" }}
         >
           <Heading level="3" alignSelf="center" margin="xsmall" gap="small">
             Race Name: {currentRace.name}
           </Heading>
           <Text alignSelf="center">{new Date(currentRace.date + day).toDateString()}</Text>
           <Box direction="row">
+            {/* Left */}
             <Box direction="column" pad="small">
+              {/* Distance */}
               <Box
                 border={{ size: "small", color: "black" }}
                 round={{ "rounding": 12 }}
@@ -41,13 +44,33 @@ export const RaceInfo = () => {
               >
                 <Text margin="small">Distance: {currentRace.distance} miles</Text>
               </Box>
-              <Box border={{ size: "small", color: "black" }} round={{ "rounding": 12 }}>
+              {/* City */}
+              <Box
+                border={{ size: "small", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
                 <Text margin="small">City :{currentRace.city}</Text>
               </Box>
             </Box>
+            {/* Right */}
             <Box direction="column" pad="small">
-              <Text margin="small">Time Goal: {currentRace.goalRaceTime} min</Text>
-              <Text margin="small">State: {currentRace.state}</Text>
+              {/* Time Goal */}
+              <Box
+                border={{ size: "small", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">Time Goal: {currentRace.goalRaceTime} min</Text>
+              </Box>
+              {/* State */}
+              <Box
+                border={{ size: "small", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">State: {currentRace.state}</Text>
+              </Box>
             </Box>
           </Box>
         </Card>

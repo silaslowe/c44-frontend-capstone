@@ -4,6 +4,7 @@ import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import { ApplicationViews } from "./ApplicationView"
 import { NavBar } from "./nav/Nav"
+import { SloweFooter } from "../components/footer/Footer"
 
 export const Slowe = (props) => (
   <>
@@ -15,6 +16,7 @@ export const Slowe = (props) => (
             <>
               <NavBar {...props} />
               <Route path="/" render={(props) => <ApplicationViews {...props} />} />
+              <SloweFooter {...props} />
             </>
           )
         } else {

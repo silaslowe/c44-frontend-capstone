@@ -102,7 +102,7 @@ export const SideBar = (props) => {
             Metrics
           </Heading>
           <Grid
-            rows={["auto", "flex"]}
+            rows={["auto", "auto"]}
             columns={["1/2", "1/2"]}
             areas={[
               ["completed", "goalMet"],
