@@ -1,33 +1,31 @@
-import React, { useContext, useRef } from "react"
+import React, { useContext, useRef, useState } from "react"
 import { RaceResultContext } from "./RaceResultsProvider"
-import { Grommet, Box, Button, Text, Heading } from "grommet"
+import { Grommet, Box, Button, TextInput, Heading, RadioButtonGroup, TextArea, Grid } from "grommet"
 import { theme } from "../../theme"
 
 export const RaceResult = (props) => {
+  const [raceResults, setRaceResults] = useState({})
   const { addRaceResult } = useContext(RaceResultContext)
   const currentRaceResult = props.currentRace
   const day = 86400000
+  let isCompleted = ""
+  if (raceResults.completed === "true") {
+    isCompleted = true
+  } else {
+    isCompleted = false
+  }
 
-  const raceTime = useRef(null)
-  const position = useRef(null)
-  const completed = useRef(null)
-  const note = useRef(null)
+  const handleChange = (event) => {
+    const newRaceResults = Object.assign({}, raceResults)
+    newRaceResults[event.target.name] = event.target.value
+    setRaceResults(newRaceResults)
+  }
 
   const constructNewRaceResult = () => {
-    const raceTimeInt = parseInt(raceTime.current.value)
-    const positionInt = parseInt(position.current.value)
+    const raceTimeInt = parseInt(raceResults.raceTime)
+    const positionInt = parseInt(raceResults.position)
 
-    console.log(raceTimeInt)
-    console.log(raceTime)
-    console.log(currentRaceResult.distance)
-    let isCompleted = ""
-    if (completed.current.value === "true") {
-      isCompleted = true
-    } else {
-      isCompleted = false
-    }
-
-    if (raceTime === "" || position === "" || completed === "0") {
+    if (raceResults.raceTime === "" || raceResults.position === "") {
       window.alert("Please fill out form")
     } else {
       addRaceResult({
@@ -43,84 +41,96 @@ export const RaceResult = (props) => {
       })
     }
   }
+
+  console.log(raceResults)
   return (
     <Grommet theme={theme}>
-      <Box fill align="center" justify="center">
-        <Heading level="3" margin={{ "top": "large", "bottom": "none" }}>
-          Race Result
-        </Heading>
-        <Heading level="5" margin={{ "top": "small", "bottom": "small" }}>
-          {new Date(currentRaceResult.date + day).toDateString()}
-        </Heading>
-        {/* Time */}
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="raceTime">Race Time: </label>
-            <input
-              type="number"
-              id="raceName"
-              ref={raceTime}
-              required
-              autoFocus
-              className="form-control"
-              placeholder="Race Time In Minutes"
-            />
-          </div>
-        </fieldset>
-        {/* Posiiton */}
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="Position">Position: </label>
-            <input
-              type="number"
-              id="position"
-              ref={position}
-              required
-              className="form-control"
-              placeholder="Finishing Position"
-            />
-          </div>
-        </fieldset>
-        {/* Completed */}
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="raceDistPercent">Completed?</label>
-            <select
-              defaultValue=""
-              name="startDistPercent"
-              ref={completed}
-              id="startDistPercent"
-              className="form-control"
+      <Box alignContent="center" margin="large">
+        <Box pad="medium" alignSelf="center" margin="medium" elevation="large" width="large">
+          <Heading level="3" alignSelf="center" margin="small">
+            Race Results
+          </Heading>
+          <Heading level="5" alignSelf="center" margin="xxsmall">
+            {new Date(currentRaceResult.date + day).toDateString()}
+          </Heading>
+          <Box align="center" alignContent="center">
+            <Grid
+              rows={["auto", "auto"]}
+              columns={["1/3", "1/3", "1/3"]}
+              areas={[
+                ["completed", "raceTime", "position"],
+                ["notes", "notes", "notes"],
+              ]}
             >
-              <option value="0">Did you finish?</option>
-              <option value="true">Yes</option>
-              <option value="falsen">No</option>
-            </select>
-          </div>
-        </fieldset>
-        {/* Notes */}
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="Position">Notes: </label>
-            <textarea
-              type="text"
-              id="notes"
-              ref={note}
-              className="form-control"
-              proptype="varchar"
-              placeholder="Please enter notes or gentle musings here"
+              {/* Race Time */}
+              <Box gridArea="raceTime">
+                <Heading level="4" margin="small">
+                  Race Time:
+                </Heading>
+                <Box margin="small">
+                  <TextInput
+                    type="text"
+                    name="raceTime"
+                    value={raceResults.raceTime || ""}
+                    onChange={handleChange}
+                  />
+                </Box>
+              </Box>
+              {/* Race Position */}
+              <Box gridArea="position">
+                <Heading level="4" margin="small">
+                  Position:
+                </Heading>
+                <Box margin="small">
+                  <TextInput
+                    type="text"
+                    name="position"
+                    value={raceResults.position || ""}
+                    onChange={handleChange}
+                  />
+                </Box>
+              </Box>
+              {/* Completed */}
+              <Box gridArea="completed">
+                <Heading level="4" margin="small" alignSelf="start">
+                  Competed:
+                </Heading>
+                <Box margin="small" alignContent="center">
+                  <RadioButtonGroup
+                    name="competed"
+                    options={["True", "False"]}
+                    value={raceResults.completed}
+                    onChange={handleChange}
+                  />
+                </Box>
+              </Box>
+              {/* Notes */}
+              <Box gridArea="notes">
+                <Heading level="4" margin="small">
+                  Notes:
+                </Heading>
+                <Box width="mdeium" height="small">
+                  <TextArea
+                    name="notes"
+                    placeholder="Enter notes here..."
+                    value={raceResults.notes}
+                    onChange={handleChange}
+                    fill
+                  />
+                </Box>
+              </Box>
+            </Grid>
+            <Button
+              primary
+              label="Submit"
+              onClick={(e) => {
+                e.preventDefault()
+                constructNewRaceResult()
+                props.history.push("/user")
+              }}
             />
-          </div>
-        </fieldset>
-        <Button
-          primary
-          label="Race Result"
-          onClick={(e) => {
-            e.preventDefault()
-            constructNewRaceResult()
-            props.history.push("/user")
-          }}
-        />
+          </Box>
+        </Box>
       </Box>
     </Grommet>
   )
