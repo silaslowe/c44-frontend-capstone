@@ -6,7 +6,6 @@ import { RaceForm } from "../races/RaceForm"
 import { WorkoutContext } from "../workouts/WorkoutProvider"
 import { WorkoutList } from "../workouts/WorkoutList"
 import { currentRaceFinder } from "../helper"
-import { AltRaceForm } from "../races/AltRaceForm"
 
 export const Home = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -58,8 +57,7 @@ export const Home = (props) => {
         </>
       ) : (
         <>
-          <AltRaceForm {...props} />
-          {/* <RaceForm {...props} /> */}
+          <RaceForm {...props} />
         </>
       )}
     </>

@@ -6,8 +6,6 @@ import { theme } from "../../theme"
 export const CompletedWorkoutsMeter = (props) => {
   const meterValue = parseInt(props.completedWo) || 0
 
-  console.log(meterValue)
-
   return (
     <Grommet theme={theme}>
       <Box align="center" pad="large">

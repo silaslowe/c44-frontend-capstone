@@ -4,7 +4,7 @@ import { theme } from "../../theme"
 
 export const SpeedGraph = (props) => {
   const data = props.speedArray
-
+  console.log(data)
   return (
     <Grommet theme={theme}>
       <Box align="center" pad="large">
