@@ -42,7 +42,6 @@ export const RaceResult = (props) => {
     }
   }
 
-  console.log(raceResults)
   return (
     <Grommet theme={theme}>
       <Box alignContent="center" margin="large">

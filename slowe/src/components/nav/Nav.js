@@ -3,6 +3,7 @@ import React from "react"
 import { Anchor, Grommet, Header, Heading, Box, Button } from "grommet"
 import { theme } from "../../theme"
 import { Link } from "react-router-dom"
+import { Analytics, Run, User } from "grommet-icons"
 
 export const NavBar = (props) => {
   const logout = () => {
@@ -19,15 +20,21 @@ export const NavBar = (props) => {
         </Heading>
         <Box direction="row" alignContent="center">
           <Link className="link" to="/sidebar">
-            Metrics
+            <Box margin={{ left: "small", right: "small" }}>
+              <Analytics color="black" size="large" />
+            </Box>
           </Link>
           <Link className="link" to="/user">
-            Users
+            <Box margin={{ left: "small", right: "small" }}>
+              <User color="black" size="large" />
+            </Box>
           </Link>
           <Link className="link" to="/">
-            Race
+            <Box margin={{ left: "small", right: "small" }}>
+              <Run color="black" size="large" />
+            </Box>
           </Link>
-          <Button primary label="Logout" margin={{ "right": "large" }} onClick={logout} />
+          <Button primary label="Logout" margin={{ "right": "small" }} onClick={logout} />
         </Box>
       </Header>
     </Grommet>
