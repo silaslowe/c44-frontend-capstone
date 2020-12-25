@@ -69,6 +69,7 @@ export const SideBar = (props) => {
           day: "numeric",
           year: "numeric",
         })
+        console.log(3 * (workout.workoutTime / 60).toFixed(2))
         const speedMPH = parseFloat((workout.workoutDist * (workout.workoutTime / 60)).toFixed(2))
         return { date: woDateShort, speedMPH: speedMPH }
       })

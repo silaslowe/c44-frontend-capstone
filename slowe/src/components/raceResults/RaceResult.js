@@ -122,6 +122,7 @@ export const RaceResult = (props) => {
             </Grid>
             <Button
               primary
+              margin="small"
               label="Submit"
               onClick={(e) => {
                 e.preventDefault()
