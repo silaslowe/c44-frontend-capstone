@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react"
 import { RaceResultContext } from "./RaceResultsProvider"
-import { Grommet, Box, Button, TextInput, Heading, RadioButtonGroup, TextArea } from "grommet"
+import { Grommet, Box, Button, TextInput, Heading, RadioButtonGroup, TextArea, Grid } from "grommet"
 import { theme } from "../../theme"
 
 export const RaceResult = (props) => {
@@ -45,71 +45,92 @@ export const RaceResult = (props) => {
   console.log(raceResults)
   return (
     <Grommet theme={theme}>
-      <Heading level="3" alignSelf="center">
-        Race Results
-      </Heading>
-      <Heading level="4" alignSelf="center">
-        {new Date(currentRaceResult.date + day).toDateString()}
-      </Heading>
-      <Box align="center" alignContent="center">
-        {/* Race Time */}
-        <Heading level="4" margin={{ "top": "large", "bottom": "none" }}>
-          Race Time:
-        </Heading>
-        <Box margin="small">
-          <TextInput
-            type="text"
-            name="raceTime"
-            value={raceResults.raceTime || ""}
-            onChange={handleChange}
-          />
+      <Box alignContent="center" margin="large">
+        <Box pad="medium" alignSelf="center" margin="medium" elevation="large" width="large">
+          <Heading level="3" alignSelf="center" margin="small">
+            Race Results
+          </Heading>
+          <Heading level="5" alignSelf="center" margin="xxsmall">
+            {new Date(currentRaceResult.date + day).toDateString()}
+          </Heading>
+          <Box align="center" alignContent="center">
+            <Grid
+              rows={["auto", "auto"]}
+              columns={["1/3", "1/3", "1/3"]}
+              areas={[
+                ["completed", "raceTime", "position"],
+                ["notes", "notes", "notes"],
+              ]}
+            >
+              {/* Race Time */}
+              <Box gridArea="raceTime">
+                <Heading level="4" margin="small">
+                  Race Time:
+                </Heading>
+                <Box margin="small">
+                  <TextInput
+                    type="text"
+                    name="raceTime"
+                    value={raceResults.raceTime || ""}
+                    onChange={handleChange}
+                  />
+                </Box>
+              </Box>
+              {/* Race Position */}
+              <Box gridArea="position">
+                <Heading level="4" margin="small">
+                  Position:
+                </Heading>
+                <Box margin="small">
+                  <TextInput
+                    type="text"
+                    name="position"
+                    value={raceResults.position || ""}
+                    onChange={handleChange}
+                  />
+                </Box>
+              </Box>
+              {/* Completed */}
+              <Box gridArea="completed">
+                <Heading level="4" margin="small" alignSelf="start">
+                  Competed:
+                </Heading>
+                <Box margin="small" alignContent="center">
+                  <RadioButtonGroup
+                    name="competed"
+                    options={["True", "False"]}
+                    value={raceResults.completed}
+                    onChange={handleChange}
+                  />
+                </Box>
+              </Box>
+              {/* Notes */}
+              <Box gridArea="notes">
+                <Heading level="4" margin="small">
+                  Notes:
+                </Heading>
+                <Box width="mdeium" height="small">
+                  <TextArea
+                    name="notes"
+                    placeholder="Enter notes here..."
+                    value={raceResults.notes}
+                    onChange={handleChange}
+                    fill
+                  />
+                </Box>
+              </Box>
+            </Grid>
+            <Button
+              primary
+              label="Submit"
+              onClick={(e) => {
+                e.preventDefault()
+                constructNewRaceResult()
+                props.history.push("/user")
+              }}
+            />
+          </Box>
         </Box>
-        {/* Race Position */}
-        <Heading level="4" margin="small">
-          Race Position
-        </Heading>
-        <Box margin="small">
-          <TextInput
-            type="text"
-            name="position"
-            value={raceResults.position || ""}
-            onChange={handleChange}
-          />
-        </Box>
-        {/* Completed */}
-        <Heading level="4" margin="small">
-          Race Competed:
-        </Heading>
-        <Box margin="small">
-          <RadioButtonGroup
-            name="competed"
-            options={["True", "False"]}
-            value={raceResults.completed}
-            onChange={handleChange}
-          />
-        </Box>
-        {/* Notes */}
-        <Heading level="4" margin="small">
-          Notes:
-        </Heading>
-        <Box width="mdeium" height="small">
-          <TextArea
-            name="notes"
-            placeholder="Enter notes here..."
-            value={raceResults.notes}
-            onChange={handleChange}
-            fill
-          />
-        </Box>
-        <Button
-          primary
-          label="Submit"
-          onClick={(e) => {
-            e.preventDefault()
-            constructNewRaceResult()
-            props.history.push("/user")
-          }}
-        />
       </Box>
     </Grommet>
   )

@@ -138,7 +138,6 @@ export const WorkoutList = (props) => {
           })}
         </div>
       </div>
-      {/* <RaceResult {...props} currentRace={currentRace} /> */}
       <RaceResult {...props} currentRace={currentRace} />
     </>
   )
