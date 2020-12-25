@@ -30,10 +30,10 @@ export const RaceInfo = () => {
           // border={{ size: "small", color: "black" }}
         >
           <Heading level="3" alignSelf="center" margin="xsmall" gap="small">
-            Race Name: {currentRace.name}
+            {currentRace.name}
           </Heading>
           <Text alignSelf="center">{new Date(currentRace.date + day).toDateString()}</Text>
-          <Box direction="row">
+          <Box direction="row" alignSelf="center">
             {/* Left */}
             <Box direction="column" pad="small">
               {/* Distance */}
