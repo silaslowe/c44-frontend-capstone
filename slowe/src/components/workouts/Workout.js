@@ -5,7 +5,8 @@ import { Edit } from "grommet-icons"
 
 export const Workout = (props) => {
   const { speed, distance, workout, date, time } = props
-  const workoutSpeed = parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
+  const workoutSpeed = parseFloat(((60 / workout.workoutTime) * workout.workoutDist).toFixed(2))
+  console.log(speed)
 
   // Adds metGoal className if goals have been met
   if (workout.isComplete && workout.workoutDist > distance && workout.workoutTime < time) {
@@ -25,7 +26,7 @@ export const Workout = (props) => {
             elevation="large"
           >
             <Box direction="row" justify="between" alignContent="center">
-              <Box pad="small" border={{ "side": "bottom right" }}>
+              <Box pad="small" border={{ "side": "all" }}>
                 <Text className="workout-date">{date}</Text>
               </Box>
               <Box align="center">

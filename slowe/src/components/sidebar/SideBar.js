@@ -5,7 +5,7 @@ import { CompletedWorkoutsMeter } from "./completedRacesMeter"
 import { GoalsMetWorkoutsMeter } from "./goalsMetWorkoutMeter"
 import { SpeedGraph } from "./speedGraph"
 import { DistanceGraph } from "./distanceGraph"
-import { Grommet, Grid, Box, Heading } from "grommet"
+import { Grommet, Grid, Box, Heading, Text } from "grommet"
 import { theme } from "../../theme"
 
 export const SideBar = (props) => {
@@ -18,6 +18,8 @@ export const SideBar = (props) => {
   const [metGoals, setMetGoals] = useState("")
   const [speedArray, setSpeedArray] = useState([])
   const [distanceArray, setDistanceArray] = useState([])
+  const day = 86400000
+
   const completedWo = parseFloat(
     ((completedWorkouts.length / currentWorkouts.length) * 100).toFixed(0)
   )
@@ -57,20 +59,19 @@ export const SideBar = (props) => {
         return parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
       })
       .reduce((a, b) => a + b, 0)
-    setSpeed(speedTotal / completedWorkouts.length || 0)
+    setSpeed((speedTotal / completedWorkouts.length).toFixed(2) || 0)
   }, [completedWorkouts])
 
   useEffect(() => {
     setSpeedArray(
       completedWorkouts.map((workout) => {
-        const woDate = new Date(workout.date)
+        const woDate = new Date(workout.date - day)
         const woDateShort = woDate.toLocaleString("en-US", {
           month: "numeric",
           day: "numeric",
           year: "numeric",
         })
-        console.log(3 * (workout.workoutTime / 60).toFixed(2))
-        const speedMPH = parseFloat((workout.workoutDist * (workout.workoutTime / 60)).toFixed(2))
+        const speedMPH = parseFloat((workout.workoutDist * (60 / workout.workoutTime)).toFixed(2))
         return { date: woDateShort, speedMPH: speedMPH }
       })
     )
@@ -79,7 +80,7 @@ export const SideBar = (props) => {
   useEffect(() => {
     setDistanceArray(
       completedWorkouts.map((workout) => {
-        const woDate = new Date(workout.date)
+        const woDate = new Date(workout.date - day)
         const woDateShort = woDate.toLocaleString("en-US", {
           month: "numeric",
           day: "numeric",
@@ -94,14 +95,14 @@ export const SideBar = (props) => {
     const distanceTotal = completedWorkouts
       .map((workout) => workout.workoutDist)
       .reduce((a, b) => a + b, 0)
-    setDistance(distanceTotal)
+    setDistance(distanceTotal.toFixed(2))
   }, [completedWorkouts])
 
   useEffect(() => {
     const distanceTotal = completedWorkouts
       .map((workout) => workout.workoutDist)
       .reduce((a, b) => a + b, 0)
-    setAvDistance(distanceTotal / completedWorkouts.length)
+    setAvDistance((distanceTotal / completedWorkouts.length).toFixed(2))
   }, [completedWorkouts])
   return (
     <>
@@ -110,6 +111,16 @@ export const SideBar = (props) => {
           <Heading level="3" alignSelf="center" margin="small">
             Metrics
           </Heading>
+          <Box>
+            {/* <Heading level="4" alignSelf="center" margin={{ "top": "medium", "bottom": "xsmall" }}>
+              Overall Workout Stats
+            </Heading> */}
+            <Box direction="row" alignSelf="center" elevation="large" margin="medium">
+              <Text margin="medium"> Avg. MPH: {speed || 0}</Text>
+              <Text margin="medium"> Avg. Distance: {avDistance || 0} miles</Text>
+              <Text margin="medium"> Total Dist.: {distance || 0} miles</Text>
+            </Box>
+          </Box>
           <Grid
             rows={["auto", "auto"]}
             columns={["1/2", "1/2"]}
@@ -119,6 +130,7 @@ export const SideBar = (props) => {
             ]}
             gap="small"
             alignSelf="center"
+            margin={{ "bottom": "medium" }}
           >
             <Box gridArea="completed" margin="medium" elevation="large">
               <CompletedWorkoutsMeter {...props} completedWo={completedWo} />
@@ -138,25 +150,3 @@ export const SideBar = (props) => {
     </>
   )
 }
-// ;<Grid
-//   rows={["auto", "flex"]}
-//   columns={["auto", "flex"]}
-//   gap="small"
-//   areas={[
-//     { name: "header", start: [0, 0], end: [1, 0] },
-//     { name: "nav", start: [0, 1], end: [0, 1] },
-//     { name: "main", start: [1, 1], end: [1, 1] },
-//   ]}
-// >
-//   <Box gridArea="header" background="brand" />
-//   <Box gridArea="nav" background="light-5" />
-//   <Box gridArea="main" background="light-2" />
-// </Grid>
-
-// <p>
-//           Total Workout Goals Met: {metGoals.length}/ {currentWorkouts.length}
-//         </p>
-//         <p> Average Speed: {speed || 0} MPH</p>
-//         <p>Total Distance:{distance} Miles</p>
-//         <p>Average Distance: {avDistance || 0} Miles</p>
-//         Total Compeleted Workouts: {completedWorkouts.length}/{currentWorkouts.length}

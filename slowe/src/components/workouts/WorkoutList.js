@@ -108,6 +108,9 @@ export const WorkoutList = (props) => {
     <>
       <Grommet theme={theme}>
         <Box alignContent="center">
+          <Heading level="3" alignSelf="center" margin={{ "top": "xxsmall", "bottom": "large" }}>
+            WORKOUTS
+          </Heading>
           <Box
             alignSelf="center"
             width="large"
@@ -115,9 +118,6 @@ export const WorkoutList = (props) => {
             elevation="large"
             className="workout-container"
           >
-            <Heading level="3" alignSelf="center" margin={{ "top": "medium", "bottom": "small" }}>
-              WORKOUTS
-            </Heading>
             {currentWorkouts.map((workout) => {
               workoutDist += distInc
               // startingTime = startingDist * startingSpeed
