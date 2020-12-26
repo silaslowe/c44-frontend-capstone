@@ -9,7 +9,7 @@ export const SpeedGraph = (props) => {
     <Grommet theme={theme}>
       <Box align="center" pad="large">
         <Box align="center">
-          <Text>MPH Over Time</Text>
+          <Text margin={{ "top": "small", "bottom": "large" }}>MPH Over Time</Text>
         </Box>
         <DataChart
           data={data}

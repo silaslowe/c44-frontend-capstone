@@ -9,7 +9,7 @@ export const DistanceGraph = (props) => {
     <Grommet theme={theme}>
       <Box align="center" pad="large">
         <Box align="center">
-          <Text>Miles Over Time</Text>
+          <Text margin={{ "top": "small", "bottom": "large" }}>Miles Over Time</Text>
         </Box>
         <DataChart
           data={data}
