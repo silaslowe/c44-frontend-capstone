@@ -4,6 +4,8 @@ import { RacesContext } from "../races/RacesProvider"
 import { Workout } from "./Workout"
 import { currentRaceFinder } from "../helper"
 import { RaceResult } from "../raceResults/RaceResult"
+import { Box, Grommet, Heading } from "grommet"
+import { theme } from "../../theme"
 
 export const WorkoutList = (props) => {
   const { getRaces, races } = useContext(RacesContext)
@@ -104,41 +106,52 @@ export const WorkoutList = (props) => {
   }
   return (
     <>
-      <div className="workouts">
-        <div className="workout-container">
-          <h2>WORKOUTS</h2>
-          {currentWorkouts.map((workout) => {
-            workoutDist += distInc
-            // startingTime = startingDist * startingSpeed
-            // startingSpeed -= speedInc
-            // console.log(startingDist, startingSpeed)
-            // console.log(mphPace)
-            mphPace += speedInc
-            let woTime = workoutDist * (60 / mphPace)
-            const woDate = workout.date - day
-            const readableDate = new Date(woDate)
+      <Grommet theme={theme}>
+        <Box alignContent="center">
+          <Box
+            alignSelf="center"
+            width="large"
+            alignContent="center"
+            elevation="large"
+            className="workout-container"
+          >
+            <Heading level="3" alignSelf="center">
+              WORKOUTS
+            </Heading>
+            {currentWorkouts.map((workout) => {
+              workoutDist += distInc
+              // startingTime = startingDist * startingSpeed
+              // startingSpeed -= speedInc
+              // console.log(startingDist, startingSpeed)
+              // console.log(mphPace)
+              mphPace += speedInc
+              let woTime = workoutDist * (60 / mphPace)
+              const woDate = workout.date - day
+              const readableDate = new Date(woDate)
 
-            dateForCard = readableDate.toLocaleString("en-US", {
-              month: "numeric",
-              day: "numeric",
-              year: "numeric",
-            })
-            return (
-              <Workout
-                key={workout.id}
-                {...props}
-                workout={workout}
-                distance={workoutDist}
-                speed={mphPace}
-                time={woTime}
-                date={dateForCard}
-                today={today}
-              />
-            )
-          })}
-        </div>
-      </div>
-      <RaceResult {...props} currentRace={currentRace} />
+              dateForCard = readableDate.toLocaleString("en-US", {
+                month: "numeric",
+                day: "numeric",
+                year: "numeric",
+              })
+              return (
+                <Workout
+                  key={workout.id}
+                  {...props}
+                  workout={workout}
+                  distance={workoutDist}
+                  speed={mphPace}
+                  time={woTime}
+                  date={dateForCard}
+                  today={today}
+                />
+              )
+            })}
+          </Box>
+        </Box>
+
+        <RaceResult {...props} currentRace={currentRace} />
+      </Grommet>
     </>
   )
 }
