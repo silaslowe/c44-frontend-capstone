@@ -26,8 +26,13 @@ export const EditWorkout = (props) => {
   const constructNewWorkout = () => {
     const woDist = parseFloat(workout.workoutDist)
     const woTime = parseInt(workout.workoutTime)
-
-    if (
+    if (isNaN(woDist)) {
+      window.alert("Please input a valid distance")
+    } else if (isNaN(woTime)) {
+      window.alert("Please input a valid time in  minutes")
+    } else if (!woTime || !woDist) {
+      window.alert("Please complete form before submitting")
+    } else if (
       parseFloat(workout.workoutDist) >= props.location.state.distance &&
       parseFloat(workout.workoutTime) <= props.location.state.time
     ) {
@@ -43,6 +48,7 @@ export const EditWorkout = (props) => {
         isComplete: true,
         metGoal: true,
       })
+      props.history.push("/")
     } else {
       updateWorkout({
         id: props.location.state.workoutId,
@@ -56,6 +62,7 @@ export const EditWorkout = (props) => {
         isComplete: true,
         metGoal: false,
       })
+      props.history.push("/")
     }
   }
   return (
@@ -145,7 +152,6 @@ export const EditWorkout = (props) => {
             onClick={(e) => {
               e.preventDefault()
               constructNewWorkout()
-              props.history.push("/")
             }}
           />
         </Box>
