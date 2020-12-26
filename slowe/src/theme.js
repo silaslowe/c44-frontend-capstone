@@ -59,7 +59,7 @@ export const theme = {
       "graph-1": "status-warning",
     },
     "font": {
-      "family": "Helvetica",
+      "family": "Merriweather Sans",
       "size": "18px",
       "height": "24px",
       "maxWidth": "432px",

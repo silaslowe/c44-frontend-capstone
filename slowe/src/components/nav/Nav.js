@@ -19,6 +19,11 @@ export const NavBar = (props) => {
           SLOWE
         </Heading>
         <Box direction="row" alignContent="center">
+          <Link className="link" to="/">
+            <Box margin={{ left: "small", right: "small" }}>
+              <Run color="black" size="large" />
+            </Box>
+          </Link>
           <Link className="link" to="/sidebar">
             <Box margin={{ left: "small", right: "small" }}>
               <Analytics color="black" size="large" />
@@ -27,11 +32,6 @@ export const NavBar = (props) => {
           <Link className="link" to="/user">
             <Box margin={{ left: "small", right: "small" }}>
               <User color="black" size="large" />
-            </Box>
-          </Link>
-          <Link className="link" to="/">
-            <Box margin={{ left: "small", right: "small" }}>
-              <Run color="black" size="large" />
             </Box>
           </Link>
           <Button primary label="Logout" margin={{ "right": "small" }} onClick={logout} />

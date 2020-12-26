@@ -115,7 +115,7 @@ export const WorkoutList = (props) => {
             elevation="large"
             className="workout-container"
           >
-            <Heading level="3" alignSelf="center">
+            <Heading level="3" alignSelf="center" margin={{ "top": "medium", "bottom": "small" }}>
               WORKOUTS
             </Heading>
             {currentWorkouts.map((workout) => {
@@ -149,7 +149,14 @@ export const WorkoutList = (props) => {
             })}
           </Box>
         </Box>
-
+        <Box>
+          <Box
+            alignSelf="center"
+            width="xlarge"
+            border={{ "side": "bottom" }}
+            margin={{ "top": "large" }}
+          ></Box>
+        </Box>
         <RaceResult {...props} currentRace={currentRace} />
       </Grommet>
     </>
