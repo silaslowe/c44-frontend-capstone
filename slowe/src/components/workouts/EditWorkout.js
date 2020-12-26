@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { WorkoutContext } from "./WorkoutProvider"
+import { Box, Button, Grommet, TextInput, Text, TextArea, Heading } from "grommet"
+import { theme } from "../../theme"
 
 export const EditWorkout = (props) => {
   console.log(props)
@@ -16,18 +18,15 @@ export const EditWorkout = (props) => {
     getWorkouts()
   }, [])
 
-  console.log(workout)
-
   useEffect(() => {
     setWorkout(workouts.find((wo) => wo.id === props.location.state.workoutId) || {})
   }, [workouts])
 
+  console.log(workout)
   const constructNewWorkout = () => {
     const woDist = parseFloat(workout.workoutDist)
     const woTime = parseInt(workout.workoutTime)
 
-    console.log(woDist, props.location.state.distance)
-    console.log(woTime, props.location.state.speed)
     if (
       parseFloat(workout.workoutDist) >= props.location.state.distance &&
       parseFloat(workout.workoutTime) <= props.location.state.time
@@ -60,64 +59,95 @@ export const EditWorkout = (props) => {
     }
   }
   return (
-    <form className="workoutForm">
-      <h1>Enter Workout Data</h1>
+    <Grommet theme={theme}>
+      <Box alignContent="center">
+        <Box alignSelf="center">
+          <Box elevation="large" margin="medium" background="light-5" round>
+            <Heading level="4" alignSelf="center" margin="medium">
+              Current Workout Goals
+            </Heading>
+            <Box direction="row" alignSelf="center">
+              {/*Goal Distance */}
+              <Box
+                border={{ size: "medium", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">Distance: {workout.distanceGoal} miles</Text>
+              </Box>
+              {/*Goal Time */}
+              <Box
+                border={{ size: "medium", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">Time: {workout.timeGoal} minutes</Text>
+              </Box>
+            </Box>
+          </Box>
+          <Heading alignSelf="center" level="4">
+            Enter Workout Data
+          </Heading>
+          <Box direction="row" justify="around" alignContent="around">
+            <Box width="medium">
+              {/* Workout Distance */}
+              <Box width="small" margin={{ "left": "large" }}>
+                <Heading level="5" margin="small">
+                  Workout Distance:
+                </Heading>
+                <Box margin="xxsmall">
+                  <TextInput
+                    type="text"
+                    name="workoutDist"
+                    value={workout.workoutDist || ""}
+                    onChange={handleControlledInputChange}
+                  />
+                </Box>
+              </Box>
+            </Box>
+            {/* Workout Time */}
+            <Box width="small" margin={{ "right": "large" }}>
+              <Heading level="5" margin="small">
+                Workout Time:
+              </Heading>
+              <Box margin="xxsmall">
+                <TextInput
+                  type="text"
+                  name="workoutTime"
+                  value={workout.workoutTime || ""}
+                  onChange={handleControlledInputChange}
+                />
+              </Box>
+            </Box>
+          </Box>
+          {/* Notes */}
+          <Box gridArea="notes">
+            <Heading level="4" margin="small">
+              Notes:
+            </Heading>
+            <Box width="mdeium" height="small">
+              <TextArea
+                name="notes"
+                placeholder="Enter notes here..."
+                value={workout.notes || ""}
+                onChange={handleControlledInputChange}
+                fill
+              />
+            </Box>
+          </Box>
 
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="workoutDist">Distance:</label>
-          <input
-            type="text"
-            name="workoutDist"
-            required
-            autoFocus
-            className="form-control"
-            prototype="float"
-            placeholder="Miles"
-            defaultValue={workout.workoutDist}
-            onChange={handleControlledInputChange}
+          <Button
+            primary
+            margin="small"
+            label="Submit"
+            onClick={(e) => {
+              e.preventDefault()
+              constructNewWorkout()
+              props.history.push("/")
+            }}
           />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="workoutTime">Minutes:</label>
-          <input
-            type="text"
-            name="workoutTime"
-            required
-            autoFocus
-            className="form-control"
-            prototype="float"
-            placeholder="Minutes"
-            defaultValue={workout.workoutTime}
-            onChange={handleControlledInputChange}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="notes">Notes</label>
-          <textarea
-            type="text"
-            name="notes"
-            className="form-control"
-            proptype="varchar"
-            placeholder="Please enter notes or gentle musings here"
-            value={workout.notes}
-            onChange={handleControlledInputChange}
-          ></textarea>
-        </div>
-      </fieldset>
-      <button
-        onClick={(e) => {
-          e.preventDefault()
-          constructNewWorkout()
-          props.history.push("/")
-        }}
-      >
-        Submit
-      </button>
-    </form>
+        </Box>
+      </Box>
+    </Grommet>
   )
 }
