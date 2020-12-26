@@ -48,27 +48,46 @@ export const RaceForm = (props) => {
 
   const createNewRace = () => {
     const user = parseInt(localStorage.getItem("app_user_id"))
-    const raceDateToMilli = Date.parse(newDate)
 
     if (units === "Kilometers") {
       distUnit = (parseFloat(newRace.distance) * 0.62).toFixed(2)
     } else {
-      distUnit = newRace.distance
+      distUnit = parseFloat(newRace.distance)
     }
 
-    addRace({
-      name: newRace.name,
-      state: raceState,
-      city: newRace.city,
-      date: newDate,
-      distance: parseFloat(distUnit),
-      startDate: startDate,
-      userId: user,
-      startDistPercent,
-      startPacePercent,
-      goalRaceTime: parseInt(newRace.goalRaceTime),
-      isCompete: false,
-    })
+    console.log(distUnit)
+    if (isNaN(distUnit)) {
+      window.alert("Please select an distance that is a number")
+    } else if (isNaN(newRace.goalRaceTime)) {
+      window.alert("Please select an distance goal that is a number")
+    } else if (
+      !newRace.name ||
+      !raceState ||
+      !distUnit ||
+      !newRace.city ||
+      !newDate ||
+      !units ||
+      !startDistPercent ||
+      !startPacePercent ||
+      !newRace.goalRaceTime
+    ) {
+      window.alert("Please Complete Form")
+    } else {
+      addRace({
+        name: newRace.name,
+        state: raceState,
+        city: newRace.city,
+        date: newDate,
+        distance: parseFloat(distUnit),
+        startDate: startDate,
+        userId: user,
+        startDistPercent,
+        startPacePercent,
+        goalRaceTime: parseInt(newRace.goalRaceTime),
+        isCompete: false,
+      })
+      props.history.push("/")
+    }
   }
 
   return (
@@ -246,7 +265,6 @@ export const RaceForm = (props) => {
               onClick={(e) => {
                 e.preventDefault()
                 createNewRace()
-                props.history.push("/")
               }}
             />
           </Box>

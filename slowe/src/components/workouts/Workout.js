@@ -6,7 +6,6 @@ import { Edit } from "grommet-icons"
 export const Workout = (props) => {
   const { speed, distance, workout, date, time } = props
   const workoutSpeed = parseFloat(((60 / workout.workoutTime) * workout.workoutDist).toFixed(2))
-  console.log(speed)
 
   // Adds metGoal className if goals have been met
   if (workout.isComplete && workout.workoutDist > distance && workout.workoutTime < time) {
@@ -37,7 +36,7 @@ export const Workout = (props) => {
                     onClick={() => {
                       props.history.push({
                         pathname: `/edit-workout/${workout.id}`,
-                        state: { workoutId: workout.id, speed, distance },
+                        state: { workoutId: workout.id, speed, distance, time },
                       })
                     }}
                   />
@@ -117,7 +116,7 @@ export const Workout = (props) => {
                     onClick={() => {
                       props.history.push({
                         pathname: `/edit-workout/${workout.id}`,
-                        state: { workoutId: workout.id, speed, distance },
+                        state: { workoutId: workout.id, speed, distance, time },
                       })
                     }}
                   />

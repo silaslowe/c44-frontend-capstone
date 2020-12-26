@@ -29,14 +29,6 @@ export const SideBar = (props) => {
     getWorkouts()
   }, [])
 
-  // console.log("speed", speed)
-  // console.log("dist", distance)
-  // console.log("avDist", avDistance)
-  // console.log("completedWO", completedWorkouts)
-  // console.log("metGoals", metGoals)
-  // console.log("speedArray", speedArray)
-  // console.log("distanceArray", distanceArray)
-
   useEffect(() => {
     setCurrentWorkouts(
       workouts.filter((workout) => {
