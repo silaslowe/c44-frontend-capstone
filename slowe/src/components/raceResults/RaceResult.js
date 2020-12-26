@@ -5,15 +5,11 @@ import { theme } from "../../theme"
 
 export const RaceResult = (props) => {
   const [raceResults, setRaceResults] = useState({})
+  const [completed, setCompleted] = useState("")
   const { addRaceResult } = useContext(RaceResultContext)
   const currentRaceResult = props.currentRace
   const day = 86400000
   let isCompleted = ""
-  if (raceResults.completed === "true") {
-    isCompleted = true
-  } else {
-    isCompleted = false
-  }
 
   const handleChange = (event) => {
     const newRaceResults = Object.assign({}, raceResults)
@@ -22,10 +18,22 @@ export const RaceResult = (props) => {
   }
 
   const constructNewRaceResult = () => {
+    if (completed === "True") {
+      isCompleted = true
+    } else {
+      isCompleted = false
+    }
+
+    console.log(completed)
+    console.log(isCompleted)
+
     const raceTimeInt = parseInt(raceResults.raceTime)
     const positionInt = parseInt(raceResults.position)
-
-    if (raceResults.raceTime === "" || raceResults.position === "") {
+    if (isNaN(raceTimeInt)) {
+      window.alert("Please input a valid race time in minutes")
+    } else if (isNaN(positionInt)) {
+      window.alert("Please enter a valid finishing place")
+    } else if (completed !== "True" && completed !== "False") {
       window.alert("Please fill out form")
     } else {
       addRaceResult({
@@ -39,9 +47,10 @@ export const RaceResult = (props) => {
         raceId: currentRaceResult.id,
         completed: isCompleted,
       })
+      props.history.push("/user")
     }
   }
-
+  console.log(completed)
   return (
     <Grommet theme={theme}>
       <Box alignContent="center" margin="medium">
@@ -78,7 +87,7 @@ export const RaceResult = (props) => {
               {/* Race Position */}
               <Box gridArea="position">
                 <Heading level="4" margin="small">
-                  Position:
+                  Finish Place:
                 </Heading>
                 <Box margin="small">
                   <TextInput
@@ -98,8 +107,10 @@ export const RaceResult = (props) => {
                   <RadioButtonGroup
                     name="competed"
                     options={["True", "False"]}
-                    value={raceResults.completed}
-                    onChange={handleChange}
+                    value={completed}
+                    onChange={(option) => {
+                      setCompleted(option.target.value)
+                    }}
                   />
                 </Box>
               </Box>
@@ -113,7 +124,9 @@ export const RaceResult = (props) => {
                     name="notes"
                     placeholder="Enter notes here..."
                     value={raceResults.notes}
-                    onChange={handleChange}
+                    onChange={(value) => {
+                      setCompleted(value)
+                    }}
                     fill
                   />
                 </Box>
@@ -126,7 +139,6 @@ export const RaceResult = (props) => {
               onClick={(e) => {
                 e.preventDefault()
                 constructNewRaceResult()
-                props.history.push("/user")
               }}
             />
           </Box>
