@@ -24,7 +24,7 @@ export const RaceInfo = () => {
       <Box pad="medium" align="center" margin="medium">
         <Card
           pad="small"
-          gap="medium"
+          gap="xsmall"
           background="light-5"
           elevation="large"
           // border={{ size: "small", color: "black" }}
