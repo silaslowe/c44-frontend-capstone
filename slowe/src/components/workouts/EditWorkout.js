@@ -73,7 +73,9 @@ export const EditWorkout = (props) => {
                 round={{ "rounding": 12 }}
                 margin="small"
               >
-                <Text margin="small">Distance: {workout.distanceGoal} miles</Text>
+                <Text margin="small">
+                  Distance: {props.location.state.distance.toFixed(2)} miles
+                </Text>
               </Box>
               {/*Goal Time */}
               <Box
@@ -81,7 +83,7 @@ export const EditWorkout = (props) => {
                 round={{ "rounding": 12 }}
                 margin="small"
               >
-                <Text margin="small">Time: {workout.timeGoal} minutes</Text>
+                <Text margin="small">Time: {props.location.state.time.toFixed(2)} minutes</Text>
               </Box>
             </Box>
           </Box>
