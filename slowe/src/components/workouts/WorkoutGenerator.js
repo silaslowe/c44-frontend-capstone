@@ -1,8 +1,9 @@
 import React, { useContext } from "react"
 import { WorkoutContext } from "./WorkoutProvider"
+import { Box, Button, Grommet } from "grommet"
 
 export const WorkoutGenerator = (props) => {
-  const { addWorkout } = useContext(WorkoutContext)
+  const { addWorkout, getWorkouts, workouts } = useContext(WorkoutContext)
 
   // # of days between start of workouts and race
   let daysBetween = ""
@@ -35,29 +36,40 @@ export const WorkoutGenerator = (props) => {
     }
     // Total timeout time set by map
     const delay = workoutArray.length * 250 + 50
-    console.log("workoutArray", workoutArray)
-    console.log("delay", delay)
 
     // posts each workout to the db with a timeout to avoid logjam in json server
-    return Promise.all(
-      workoutArray.map((workout, i) => setTimeout(() => addWorkout(workout), i * 250))
-    ).then(() => {
-      setTimeout(
-        () => props.history.push({ pathname: "/placehold", state: { stateChange: 1 } }),
-        delay
-      )
-    })
+    return Promise.all(workoutArray.map((workout) => addWorkout(workout)))
+      .then(() => getWorkouts())
+      .then(() => console.log(workouts))
+    // .then(() => {
+    //   setTimeout(() => getWorkouts(), delay)
+    // })
+    // .then(() => {
+    //   console.log("WO", workouts)
+    //   console.log("CR", props.currentRace.id)
+    //   setTimeout(() => {
+    //     props.setCurrentWorkouts(
+    //       workouts.filter((workout) => workout.raceId === props.currentRace.id)
+    //     )
+    //   }, delay + 25)
+    // })
   }
 
   return (
-    <>
-      <button
-        onClick={() => {
-          generator()
-        }}
-      >
-        GenerateWorkouts
-      </button>
-    </>
+    <Grommet>
+      <Box>
+        <Box width="small" margin={{ "bottom": "large", "top": "none" }} alignSelf="center">
+          <Button
+            primary
+            width="small"
+            label="Generate Workouts"
+            onClick={(e) => {
+              generator()
+            }}
+          />
+        </Box>
+      </Box>
+      <Box margin="large"></Box>
+    </Grommet>
   )
 }

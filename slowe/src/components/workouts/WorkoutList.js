@@ -116,7 +116,9 @@ export const WorkoutList = (props) => {
             width="large"
             alignContent="center"
             elevation="large"
+            pad={{ "top": "medium", "bottom": "medium" }}
             className="workout-container"
+            background="light-5"
           >
             {currentWorkouts.map((workout) => {
               workoutDist += distInc

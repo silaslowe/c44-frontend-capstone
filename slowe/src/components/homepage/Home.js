@@ -51,6 +51,7 @@ export const Home = (props) => {
           <RaceInfo {...props} currentRace={currentRace} currentWorkouts={currentWorkouts} />
           <WorkoutGenerator
             {...props}
+            setCurrentWorkouts={setCurrentWorkouts}
             currentRace={currentRace}
             currentWorkouts={currentWorkouts}
           />

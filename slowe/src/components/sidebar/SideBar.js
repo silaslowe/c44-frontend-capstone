@@ -61,11 +61,8 @@ export const SideBar = (props) => {
   }, [completedWorkouts])
 
   useEffect(() => {
-    const aveSpeedArray = speedArray.map((as) => as.speedMPH)
-    console.log(aveSpeedArray)
-    const speedTotal = aveSpeedArray.reduce((a, b) => a + b, 0)
-    console.log(speedTotal)
-    setSpeed(parseFloat(speedTotal / completedWorkouts.length).toFixed(2))
+    const aveSpeedArray = speedArray.map((as) => as.speedMPH).reduce((a, b) => a + b, 0)
+    setSpeed(parseFloat(aveSpeedArray / completedWorkouts.length).toFixed(2))
   }, [speedArray])
 
   useEffect(() => {
