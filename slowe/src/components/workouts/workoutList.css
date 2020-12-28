@@ -11,7 +11,7 @@
   -webkit-box-shadow: 5px 8px 15px 5px #000000;
   box-shadow: 5px 8px 15px 5px #000000;
   background-color: lightgrey; */
-  max-height: 50vh;
+  max-height: 70vh;
   overflow: scroll;
   /* width: 65%; */
 }

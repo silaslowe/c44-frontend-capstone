@@ -46,15 +46,6 @@ export const SideBar = (props) => {
   }, [currentWorkouts])
 
   useEffect(() => {
-    const speedTotal = completedWorkouts
-      .map((workout) => {
-        return parseFloat((workout.workoutTime / workout.workoutDist).toFixed(2))
-      })
-      .reduce((a, b) => a + b, 0)
-    setSpeed((speedTotal / completedWorkouts.length).toFixed(2) || 0)
-  }, [completedWorkouts])
-
-  useEffect(() => {
     setSpeedArray(
       completedWorkouts.map((workout) => {
         const woDate = new Date(workout.date - day)
@@ -68,6 +59,14 @@ export const SideBar = (props) => {
       })
     )
   }, [completedWorkouts])
+
+  useEffect(() => {
+    const aveSpeedArray = speedArray.map((as) => as.speedMPH)
+    console.log(aveSpeedArray)
+    const speedTotal = aveSpeedArray.reduce((a, b) => a + b, 0)
+    console.log(speedTotal)
+    setSpeed(parseFloat(speedTotal / completedWorkouts.length).toFixed(2))
+  }, [speedArray])
 
   useEffect(() => {
     setDistanceArray(
