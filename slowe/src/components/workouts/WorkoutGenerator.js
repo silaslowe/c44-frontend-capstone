@@ -1,5 +1,7 @@
 import React, { useContext } from "react"
 import { WorkoutContext } from "./WorkoutProvider"
+import { Box, Button, Grommet } from "grommet"
+import { theme } from "../../theme"
 
 export const WorkoutGenerator = (props) => {
   const { addWorkout } = useContext(WorkoutContext)
@@ -50,14 +52,21 @@ export const WorkoutGenerator = (props) => {
   }
 
   return (
-    <>
-      <button
-        onClick={() => {
-          generator()
-        }}
-      >
-        GenerateWorkouts
-      </button>
-    </>
+    <Grommet theme={theme}>
+      <Box>
+        <Box width="small" alignSelf="center">
+          <Button
+            primary
+            label="Generate Workouts"
+            onClick={() => {
+              generator()
+            }}
+          />
+        </Box>
+      </Box>
+      <Box margin="large"></Box>
+      <Box margin="large"></Box>
+      <Box margin="medium"></Box>
+    </Grommet>
   )
 }
