@@ -4,7 +4,6 @@ import { theme } from "../../theme"
 
 export const DistanceGraph = (props) => {
   const data = props.distanceArray
-  console.log(data)
   return (
     <Grommet theme={theme}>
       <Box align="center" pad="large">
