@@ -11,7 +11,11 @@ export const Workout = (props) => {
   if (workout.isComplete && workout.workoutDist > distance && workout.workoutTime < time) {
     return (
       <Grommet theme={theme}>
-        <Box pad={{ left: "large", right: "large" }} className="workout-card metGoal">
+        <Box
+          pad={{ left: "large", right: "large" }}
+          background="light-5"
+          className="workout-card metGoal"
+        >
           <Box
             margin="small"
             pad="small"
@@ -92,7 +96,11 @@ export const Workout = (props) => {
   } else {
     return (
       <Grommet theme={theme}>
-        <Box pad={{ left: "large", right: "large" }} className="workout-card metGoal">
+        <Box
+          pad={{ left: "large", right: "large" }}
+          background="light-5"
+          className="workout-card metGoal"
+        >
           <Box
             margin="small"
             pad="small"
@@ -103,6 +111,7 @@ export const Workout = (props) => {
               "side": "all",
             }}
             elevation="large"
+            background="white"
           >
             <Box direction="row" justify="between" alignContent="center">
               <Box pad="small" border={{ "side": "bottom right" }}>

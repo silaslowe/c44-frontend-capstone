@@ -116,14 +116,13 @@ export const WorkoutList = (props) => {
             width="large"
             alignContent="center"
             elevation="large"
+            pad={{ "top": "large", "bottom": "large" }}
             className="workout-container"
+            background="light-5"
           >
             {currentWorkouts.map((workout) => {
               workoutDist += distInc
-              // startingTime = startingDist * startingSpeed
-              // startingSpeed -= speedInc
-              // console.log(startingDist, startingSpeed)
-              // console.log(mphPace)
+
               mphPace += speedInc
               let woTime = workoutDist * (60 / mphPace)
               const woDate = workout.date - day
