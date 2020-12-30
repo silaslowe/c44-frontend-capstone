@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react"
 import { UserContext } from "./UserProvider"
 import { Box, Button, Grommet, Heading, Text } from "grommet"
 import { theme } from "../../theme"
+import { RaceResultList } from "../raceResults/RaceResultsList"
 
 export const User = (props) => {
   const { user, getUserById, removeUser } = useContext(UserContext)
@@ -44,6 +45,7 @@ export const User = (props) => {
           </Box>
         </Box>
       </Box>
+      <RaceResultList />
     </Grommet>
   )
 }

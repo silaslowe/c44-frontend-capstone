@@ -3,7 +3,7 @@ import { WorkoutContext } from "./WorkoutProvider"
 import { RacesContext } from "../races/RacesProvider"
 import { Workout } from "./Workout"
 import { currentRaceFinder } from "../helper"
-import { RaceResult } from "../raceResults/RaceResult"
+import { RaceResultForm } from "../raceResults/RaceResultForm"
 import { Box, Grommet, Heading } from "grommet"
 import { theme } from "../../theme"
 
@@ -156,7 +156,7 @@ export const WorkoutList = (props) => {
             margin={{ "top": "large" }}
           ></Box>
         </Box>
-        <RaceResult {...props} currentRace={currentRace} />
+        <RaceResultForm {...props} currentRace={currentRace} />
       </Grommet>
     </>
   )
