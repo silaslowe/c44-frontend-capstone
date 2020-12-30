@@ -54,7 +54,11 @@ export const ApplicationViews = (props) => {
       </WorkoutProvider>
       {/* To user info */}
       <UserProvider>
-        <Route exact path="/user" render={(props) => <User {...props} />} />
+        <RaceResultProvider>
+          <RacesProvider>
+            <Route exact path="/user" render={(props) => <User {...props} />} />
+          </RacesProvider>
+        </RaceResultProvider>
       </UserProvider>
     </>
   )

@@ -1,148 +1,83 @@
-import React, { useContext, useRef, useState } from "react"
-import { RaceResultContext } from "./RaceResultsProvider"
-import { Grommet, Box, Button, TextInput, Heading, RadioButtonGroup, TextArea, Grid } from "grommet"
+import React from "react"
+import { Box, Card, Text, Grommet, Heading } from "grommet"
 import { theme } from "../../theme"
 
-export const RaceResult = (props) => {
-  const [raceResults, setRaceResults] = useState({})
-  const [completed, setCompleted] = useState("")
-  const { addRaceResult } = useContext(RaceResultContext)
-  const currentRaceResult = props.currentRace
+export const RaceResult = ({ race, raceResult }) => {
+  console.log(raceResult)
   const day = 86400000
-  let isCompleted = ""
 
-  const handleChange = (event) => {
-    const newRaceResults = Object.assign({}, raceResults)
-    newRaceResults[event.target.name] = event.target.value
-    setRaceResults(newRaceResults)
-  }
-
-  const constructNewRaceResult = () => {
-    if (completed === "True") {
-      isCompleted = true
-    } else {
-      isCompleted = false
-    }
-
-    console.log(completed)
-    console.log(isCompleted)
-
-    const raceTimeInt = parseInt(raceResults.raceTime)
-    const positionInt = parseInt(raceResults.position)
-    if (isNaN(raceTimeInt)) {
-      window.alert("Please input a valid race time in minutes")
-    } else if (isNaN(positionInt)) {
-      window.alert("Please enter a valid finishing place")
-    } else if (completed !== "True" && completed !== "False") {
-      window.alert("Please fill out form")
-    } else {
-      addRaceResult({
-        name: currentRaceResult.name,
-        distance: currentRaceResult.distacnce,
-        goalRaceTime: currentRaceResult.goalRaceTime,
-        state: currentRaceResult.state,
-        city: currentRaceResult.city,
-        raceTime: raceTimeInt,
-        position: positionInt,
-        raceId: currentRaceResult.id,
-        completed: isCompleted,
-      })
-      props.history.push("/user")
-    }
-  }
-  console.log(completed)
   return (
     <Grommet theme={theme}>
-      <Box alignContent="center" margin="medium">
-        <Box pad="medium" alignSelf="center" margin="medium" elevation="large" width="large">
-          <Heading level="3" alignSelf="center" margin="small">
-            Race Results
+      <Box pad="medium" align="center" margin="none">
+        <Card
+          pad="none"
+          gap="xxsmall"
+          background="light-5"
+          elevation="large"
+          // border={{ size: "small", color: "black" }}
+        >
+          <Heading level="3" alignSelf="center" margin="xsmall" gap="small">
+            {raceResult.name}
           </Heading>
-          <Heading level="5" alignSelf="center" margin="xxsmall">
-            {new Date(currentRaceResult.date + day).toDateString()}
-          </Heading>
-          <Box align="center" alignContent="center">
-            <Grid
-              rows={["auto", "auto"]}
-              columns={["1/3", "1/3", "1/3"]}
-              areas={[
-                ["completed", "raceTime", "position"],
-                ["notes", "notes", "notes"],
-              ]}
-            >
+          <Text alignSelf="center">{new Date(raceResult.date).toDateString()}</Text>{" "}
+          <Box direction="row" alignSelf="center">
+            {/* Left */}
+            <Box direction="column" pad="small">
               {/* Race Time */}
-              <Box gridArea="raceTime">
-                <Heading level="4" margin="small">
-                  Race Time:
-                </Heading>
-                <Box margin="small">
-                  <TextInput
-                    type="text"
-                    name="raceTime"
-                    value={raceResults.raceTime || ""}
-                    onChange={handleChange}
-                  />
-                </Box>
+              <Box
+                border={{ size: "medium", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+                width="auto"
+              >
+                <Text margin="small">Race Time: {raceResult.raceTime} min</Text>
               </Box>
-              {/* Race Position */}
-              <Box gridArea="position">
-                <Heading level="4" margin="small">
-                  Finish Place:
-                </Heading>
-                <Box margin="small">
-                  <TextInput
-                    type="text"
-                    name="position"
-                    value={raceResults.position || ""}
-                    onChange={handleChange}
-                  />
-                </Box>
+              {/* Distance */}
+              <Box
+                border={{ size: "medium", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">Distance: {raceResult.distance} miles</Text>
               </Box>
-              {/* Completed */}
-              <Box gridArea="completed">
-                <Heading level="4" margin="small" alignSelf="start">
-                  Competed:
-                </Heading>
-                <Box margin="small" alignContent="center">
-                  <RadioButtonGroup
-                    name="competed"
-                    options={["True", "False"]}
-                    value={completed}
-                    onChange={(option) => {
-                      setCompleted(option.target.value)
-                    }}
-                  />
-                </Box>
+              {/* City */}
+              <Box
+                border={{ size: "medium", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">City: {raceResult.city}</Text>
               </Box>
-              {/* Notes */}
-              <Box gridArea="notes">
-                <Heading level="4" margin="small">
-                  Notes:
-                </Heading>
-                <Box width="mdeium" height="small">
-                  <TextArea
-                    name="notes"
-                    placeholder="Enter notes here..."
-                    value={raceResults.notes}
-                    onChange={(value) => {
-                      setCompleted(value)
-                    }}
-                    fill
-                  />
-                </Box>
+            </Box>
+            {/* Right */}
+            <Box direction="column" pad="small">
+              {/* Time Goal */}
+              <Box
+                border={{ size: "medium", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">Time Goal: {raceResult.goalRaceTime} min</Text>
               </Box>
-            </Grid>
-            <Button
-              primary
-              margin="small"
-              label="Submit"
-              onClick={(e) => {
-                e.preventDefault()
-                constructNewRaceResult()
-              }}
-            />
+              {/* Position */}
+              <Box
+                border={{ size: "medium", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">Finishing Place: {raceResult.position}</Text>
+              </Box>
+              {/* State */}
+              <Box
+                border={{ size: "medium", color: "black" }}
+                round={{ "rounding": 12 }}
+                margin="small"
+              >
+                <Text margin="small">State: {raceResult.state}</Text>
+              </Box>
+            </Box>
           </Box>
-        </Box>
+        </Card>
       </Box>
     </Grommet>
   )
