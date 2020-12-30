@@ -7,15 +7,20 @@ import { theme } from "../../theme"
 export const RaceResultList = (props) => {
   const { getRaceResults, raceResults } = useContext(RaceResultContext)
   const [currentUserResults, setCurrentUserResults] = useState([])
+
   useEffect(() => {
     getRaceResults()
   }, [])
 
   useEffect(() => {
     setCurrentUserResults(
-      raceResults.filter((race) => race.userId === localStorage.getItem("app_user_id"))
+      raceResults.filter((race) => {
+        console.log(race)
+        return race.userId === parseInt(localStorage.getItem("app_user_id"))
+      })
     )
   }, [])
+  console.log(currentUserResults)
   return (
     <Grommet theme={theme}>
       <Box align="center">
@@ -27,7 +32,7 @@ export const RaceResultList = (props) => {
           }}
           gap="small"
         >
-          {raceResults.map((result) => {
+          {currentUserResults.map((result) => {
             return <RaceResult key={result.id} {...props} raceResult={result} />
           })}
         </Grid>
