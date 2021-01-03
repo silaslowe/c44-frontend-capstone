@@ -1,6 +1,16 @@
 import React from "react"
 
-import { Anchor, Grommet, Header, Heading, Box, Button } from "grommet"
+import {
+  Anchor,
+  Grommet,
+  Header,
+  Heading,
+  Box,
+  Button,
+  Nav,
+  Menu,
+  ResponsiveContext,
+} from "grommet"
 import { theme } from "../../theme"
 import { Link } from "react-router-dom"
 import { Analytics, Run, User } from "grommet-icons"
@@ -18,24 +28,62 @@ export const NavBar = (props) => {
         <Heading className="app-name" level="3">
           SLOWE
         </Heading>
-        <Box direction="row" alignContent="center">
-          <Link className="link" to="/">
-            <Box margin={{ left: "small", right: "small" }}>
-              <Run color="black" size="large" />
-            </Box>
-          </Link>
-          <Link className="link" to="/sidebar">
-            <Box margin={{ left: "small", right: "small" }}>
-              <Analytics color="black" size="large" />
-            </Box>
-          </Link>
-          <Link className="link" to="/user">
-            <Box margin={{ left: "small", right: "small" }}>
-              <User color="black" size="large" />
-            </Box>
-          </Link>
-          <Button primary label="Logout" margin={{ "right": "small" }} onClick={logout} />
-        </Box>
+        <ResponsiveContext.Consumer>
+          {(responsive) =>
+            responsive === "small" ? (
+              <Menu
+                label="Menu"
+                items={[
+                  {
+                    label: "Run",
+                    onClick: () => {
+                      props.history.push("/")
+                    },
+                  },
+                  {
+                    label: "Metrics",
+                    onClick: () => {
+                      props.history.push("/sidebar")
+                    },
+                  },
+                  {
+                    label: "User",
+                    onClick: () => {
+                      props.history.push("/user")
+                    },
+                  },
+                  {
+                    label: "Logout",
+                    onClick: () => {
+                      logout()
+                    },
+                  },
+                ]}
+              />
+            ) : (
+              <Nav direction="row">
+                <Box direction="row" alignContent="center">
+                  <Link label="Race" className="link" to="/">
+                    <Box margin={{ left: "small", right: "small" }}>
+                      <Run color="black" size="large" />
+                    </Box>
+                  </Link>
+                  <Link label="Metrics" className="link" to="/sidebar">
+                    <Box margin={{ left: "small", right: "small" }}>
+                      <Analytics color="black" size="large" />
+                    </Box>
+                  </Link>
+                  <Link label="User" className="link" to="/user">
+                    <Box margin={{ left: "small", right: "small" }}>
+                      <User color="black" size="large" />
+                    </Box>
+                  </Link>
+                  <Button primary label="Logout" margin={{ "right": "small" }} onClick={logout} />
+                </Box>
+              </Nav>
+            )
+          }
+        </ResponsiveContext.Consumer>
       </Header>
     </Grommet>
   )
