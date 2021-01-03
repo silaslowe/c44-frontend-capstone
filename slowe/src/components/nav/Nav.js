@@ -1,16 +1,6 @@
 import React from "react"
 
-import {
-  Anchor,
-  Grommet,
-  Header,
-  Heading,
-  Box,
-  Button,
-  Nav,
-  Menu,
-  ResponsiveContext,
-} from "grommet"
+import { Box, Button, Grommet, Header, Heading, Menu, Nav, ResponsiveContext } from "grommet"
 import { theme } from "../../theme"
 import { Link } from "react-router-dom"
 import { Analytics, Run, User } from "grommet-icons"
@@ -88,13 +78,3 @@ export const NavBar = (props) => {
     </Grommet>
   )
 }
-
-// export const Simple = () => (
-//   <Grommet theme={grommet}>
-//     <Header background="light-4" pad="small">
-//       <Nav direction="row">
-//         <Anchor label="Home" href="#" />
-//         <Anchor label="Profile" href="#" />
-//       </Nav>
-//     </Header>
-//   </Grommet>
