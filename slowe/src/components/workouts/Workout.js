@@ -25,7 +25,7 @@ export const Workout = (props) => {
               "style": "solid",
               "side": "all",
             }}
-            background="#66cc00"
+            background="#81FCED"
             elevation="large"
           >
             <Box direction="row" justify="between" alignContent="center">
