@@ -19,7 +19,7 @@ export const RaceResultList = (props) => {
         return race.userId === parseInt(localStorage.getItem("app_user_id"))
       })
     )
-  }, [])
+  }, [raceResults])
   console.log(currentUserResults)
   return (
     <Grommet theme={theme}>
