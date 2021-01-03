@@ -62,9 +62,7 @@ export const SideBar = (props) => {
 
   useEffect(() => {
     const aveSpeedArray = speedArray.map((as) => as.speedMPH)
-    console.log(aveSpeedArray)
     const speedTotal = aveSpeedArray.reduce((a, b) => a + b, 0)
-    console.log(speedTotal)
     setSpeed(parseFloat(speedTotal / completedWorkouts.length).toFixed(2))
   }, [speedArray])
 
@@ -112,32 +110,53 @@ export const SideBar = (props) => {
               <Text margin="medium"> Total Dist.: {distance || 0} miles</Text>
             </Box>
           </Box>
-          <Grid
-            rows={["auto", "auto"]}
-            columns={["1/2", "1/2"]}
-            areas={[
-              ["completed", "goalMet"],
-              ["speed", "dist"],
-            ]}
-            gap="small"
-            alignSelf="center"
-            margin={{ "bottom": "medium" }}
-          >
-            <Box gridArea="completed" margin="medium" elevation="large">
-              <CompletedWorkoutsMeter {...props} completedWo={completedWo} />
-            </Box>
-            <Box gridArea="goalMet" margin="medium" elevation="large">
-              <GoalsMetWorkoutsMeter {...props} goalsMetWo={goalsMetWo} />
-            </Box>
+          {/* Graphics */}
+
+          <Box direction="row-responsive" alignSelf="center">
             <Box gridArea="speed" margin="medium" elevation="large">
               <SpeedGraph {...props} speedArray={speedArray} />
             </Box>
             <Box gridArea="dist" margin="medium" elevation="large">
               <DistanceGraph {...props} distanceArray={distanceArray} />
             </Box>
-          </Grid>
+          </Box>
+          <Box direction="row-responsive" alignSelf="center">
+            <Box gridArea="completed" margin="medium" elevation="large">
+              <CompletedWorkoutsMeter {...props} completedWo={completedWo} />
+            </Box>
+            <Box gridArea="goalMet" margin="medium" elevation="large">
+              <GoalsMetWorkoutsMeter {...props} goalsMetWo={goalsMetWo} />
+            </Box>
+          </Box>
         </Box>
       </Grommet>
     </>
   )
+}
+
+{
+  /* <Grid
+rows={["auto", "auto"]}
+columns={["1/2", "1/2"]}
+areas={[
+  ["completed", "goalMet"],
+  ["speed", "dist"],
+]}
+gap="small"
+alignSelf="center"
+margin={{ "bottom": "medium" }}
+>
+<Box gridArea="completed" margin="medium" elevation="large">
+  <CompletedWorkoutsMeter {...props} completedWo={completedWo} />
+</Box>
+<Box gridArea="goalMet" margin="medium" elevation="large">
+  <GoalsMetWorkoutsMeter {...props} goalsMetWo={goalsMetWo} />
+</Box>
+<Box gridArea="speed" margin="medium" elevation="large">
+  <SpeedGraph {...props} speedArray={speedArray} />
+</Box>
+<Box gridArea="dist" margin="medium" elevation="large">
+  <DistanceGraph {...props} distanceArray={distanceArray} />
+</Box>
+</Grid> */
 }

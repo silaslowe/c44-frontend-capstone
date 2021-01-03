@@ -17,8 +17,8 @@ export const GoalsMetWorkoutsMeter = (props) => {
             type="circle"
             background="light-2"
             values={[{ value: meterValue }]}
-            size="small"
-            thickness="medium"
+            size="medium"
+            thickness="large"
           />
           <Box direction="row" align="center" pad={{ bottom: "xsmall" }}>
             <Text size="xlarge" weight="bold">

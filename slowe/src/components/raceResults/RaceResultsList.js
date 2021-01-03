@@ -15,27 +15,19 @@ export const RaceResultList = (props) => {
   useEffect(() => {
     setCurrentUserResults(
       raceResults.filter((race) => {
-        console.log(race)
         return race.userId === parseInt(localStorage.getItem("app_user_id"))
       })
     )
   }, [raceResults])
-  console.log(currentUserResults)
   return (
     <Grommet theme={theme}>
       <Box align="center">
         <Heading margin="small">RaceResults</Heading>
-        <Grid
-          columns={{
-            count: 2,
-            size: "auto",
-          }}
-          gap="small"
-        >
+        <Box direction="column">
           {currentUserResults.map((result) => {
             return <RaceResult key={result.id} {...props} raceResult={result} />
           })}
-        </Grid>
+        </Box>
       </Box>
     </Grommet>
   )

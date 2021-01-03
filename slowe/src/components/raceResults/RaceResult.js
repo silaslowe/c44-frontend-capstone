@@ -3,7 +3,6 @@ import { Box, Card, Text, Grommet, Heading } from "grommet"
 import { theme } from "../../theme"
 
 export const RaceResult = ({ race, raceResult }) => {
-  console.log(raceResult)
   const day = 86400000
 
   return (
