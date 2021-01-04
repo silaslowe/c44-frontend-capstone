@@ -42,4 +42,5 @@
 .app-name {
   margin-left: 1rem;
   border: 10px solid black;
+  padding: 0.25rem;
 }

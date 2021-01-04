@@ -107,7 +107,7 @@ export const WorkoutList = (props) => {
   return (
     <>
       <Grommet theme={theme}>
-        <Box alignContent="center">
+        <Box alignContent="center" pad={{ "left": "medium", "right": "medium" }}>
           <Heading level="3" alignSelf="center" margin={{ "top": "xxsmall", "bottom": "large" }}>
             WORKOUTS
           </Heading>
@@ -119,6 +119,7 @@ export const WorkoutList = (props) => {
             pad={{ "top": "large", "bottom": "large" }}
             className="workout-container"
             background="light-5"
+            round
           >
             {currentWorkouts.map((workout) => {
               workoutDist += distInc

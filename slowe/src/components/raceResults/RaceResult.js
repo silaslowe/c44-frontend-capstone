@@ -15,7 +15,7 @@ export const RaceResult = ({ race, raceResult }) => {
           elevation="large"
           // border={{ size: "small", color: "black" }}
         >
-          <Heading level="3" alignSelf="center" margin="xsmall" gap="small">
+          <Heading level="3" alignSelf="center" margin="medium" gap="small">
             {raceResult.name}
           </Heading>
           <Text alignSelf="center">{new Date(raceResult.date).toDateString()}</Text>{" "}

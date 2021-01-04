@@ -4,6 +4,7 @@ import { Grommet, Box, Meter, Stack, Text } from "grommet"
 import { theme } from "../../theme"
 
 export const CompletedWorkoutsMeter = (props) => {
+  console.log(props.completedWo)
   const meterValue = parseInt(props.completedWo) || 0
 
   return (
