@@ -27,9 +27,10 @@ export const RaceInfo = () => {
           gap="xsmall"
           background="light-5"
           elevation="large"
+          round
           // border={{ size: "small", color: "black" }}
         >
-          <Heading level="3" alignSelf="center" margin="xsmall" gap="small">
+          <Heading level="3" alignSelf="center" margin="medium" gap="small">
             {currentRace.name}
           </Heading>
           <Text alignSelf="center">{new Date(currentRace.date + day).toDateString()}</Text>
@@ -50,7 +51,7 @@ export const RaceInfo = () => {
                 round={{ "rounding": 12 }}
                 margin="small"
               >
-                <Text margin="small">City :{currentRace.city}</Text>
+                <Text margin="small">City: {currentRace.city}</Text>
               </Box>
             </Box>
             {/* Right */}

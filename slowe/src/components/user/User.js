@@ -13,8 +13,15 @@ export const User = (props) => {
   return (
     <Grommet theme={theme}>
       <Box alignSelf="center" margin={{ "top": "large", "bottom": "xlarge" }} pad="medium">
-        <Box alignSelf="center" width="medium" elevation="large" pad="medium" background="light-5">
-          <Heading level="3" alignSelf="center">
+        <Box
+          alignSelf="center"
+          width="medium"
+          elevation="large"
+          pad="medium"
+          background="light-5"
+          round
+        >
+          <Heading level="3" alignSelf="center" margin="medium">
             User Info
           </Heading>
           <p>Users name: {user.name}</p>
