@@ -12,7 +12,7 @@ export const User = (props) => {
   }, [])
   return (
     <Grommet theme={theme}>
-      <Box alignSelf="center" margin={{ "top": "large", "bottom": "xlarge" }} pad="medium">
+      <Box alignSelf="center" margin={{ "top": "medium", "bottom": "medium" }} pad="medium">
         <Box
           alignSelf="center"
           width="medium"
